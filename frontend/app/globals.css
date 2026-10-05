@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+:root {
+  --background: #040711;
+  --foreground: #f1f5f9;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(6, 182, 212, 0.15), transparent),
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  background-size: 100% 100%, 32px 32px;
+  min-height: 100vh;
+}
+
+/* Subtle glow utilities */
+.glow-cyan {
+  box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+}
+
+.glow-emerald {
+  box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.3);
+}
+
+.glow-rose {
+  box-shadow: 0 0 20px -5px rgba(244, 63, 94, 0.3);
+}
+
+/* Technical scanline backdrop effect */
+.technical-border {
+  border: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.technical-panel {
+  background: rgba(10, 16, 31, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+}
