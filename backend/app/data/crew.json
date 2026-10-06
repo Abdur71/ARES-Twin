@@ -1,0 +1,62 @@
+{
+  "_note": "All four astronauts are fictional. Rates sit inside published ranges; baselines sit inside NHANES-reported ranges for healthy adults aged 35-50 (hip BMD g/cm2, DXA leg lean mass kg, VO2peak mL/kg/min).",
+  "crew": [
+    {
+      "id": "rahman",
+      "name": "CDR Rahman",
+      "role": "Commander",
+      "age": 46,
+      "r_bone_hip": 0.012,
+      "muscle_sensitivity": "normal",
+      "prior_dose_msv": 90,
+      "compliance": 0.95,
+      "sleep_mean_h": 6.8,
+      "baseline": {"hip_bmd": 1.02, "leg_lean_kg": 19.4, "vo2peak": 44.0},
+      "seed": 11
+    },
+    {
+      "id": "okafor",
+      "name": "Dr. Okafor",
+      "role": "Medical Officer",
+      "age": 41,
+      "r_bone_hip": 0.010,
+      "muscle_sensitivity": "low",
+      "prior_dose_msv": 0,
+      "compliance": 0.90,
+      "sleep_mean_h": 7.0,
+      "baseline": {"hip_bmd": 0.96, "leg_lean_kg": 16.1, "vo2peak": 41.5},
+      "seed": 22
+    },
+    {
+      "id": "silva",
+      "name": "Eng. Silva",
+      "role": "Flight Engineer",
+      "age": 38,
+      "r_bone_hip": 0.015,
+      "muscle_sensitivity": "high",
+      "prior_dose_msv": 150,
+      "compliance": 0.75,
+      "sleep_mean_h": 6.3,
+      "baseline": {"hip_bmd": 1.07, "leg_lean_kg": 20.6, "vo2peak": 47.2},
+      "seed": 33,
+      "injury": {"start_day": 60, "days": 21, "label": "Wrist sprain - no resistance exercise"}
+    },
+    {
+      "id": "tanaka",
+      "name": "Sci. Tanaka",
+      "role": "Science Specialist",
+      "age": 44,
+      "r_bone_hip": 0.013,
+      "muscle_sensitivity": "normal",
+      "prior_dose_msv": 40,
+      "compliance": 0.85,
+      "sleep_mean_h": 6.6,
+      "baseline": {"hip_bmd": 0.99, "leg_lean_kg": 17.3, "vo2peak": 42.8},
+      "seed": 44
+    }
+  ],
+  "crew_events": [
+    {"type": "equipment_failure", "start_day": 150, "days": 5, "label": "Resistance device (ARED) failure - whole crew"},
+    {"type": "sleep_loss", "start_day": 200, "days": 7, "label": "Busy operations week - 5 h nights"}
+  ]
+}

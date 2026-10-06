@@ -1,0 +1,2550 @@
+{
+ "fetched_at": "2026-10-06T17:35:59.317020+00:00",
+ "source": "https://www.ngdc.noaa.gov/stp/space-weather/interplanetary-data/solar-proton-events/SEP%20page%20code.html",
+ "data": [
+  {
+   "start": "1976-04-30T21:20:00",
+   "maximum": "1976-05-01T17:00:00",
+   "peak_pfu": 12,
+   "region": "700",
+   "location": "S09W47",
+   "flare": "X2/2B 4/30 2114"
+  },
+  {
+   "start": "1977-09-19T14:30:00",
+   "maximum": "1977-09-19T21:30:00",
+   "peak_pfu": 200,
+   "region": "889",
+   "location": "N08W58",
+   "flare": "X2/3B 09/19 1054"
+  },
+  {
+   "start": "1977-11-22T14:00:00",
+   "maximum": "1977-11-22T18:00:00",
+   "peak_pfu": 160,
+   "region": "939",
+   "location": "N24W38",
+   "flare": "X1/2N 11/22 1006"
+  },
+  {
+   "start": "1978-02-13T09:30:00",
+   "maximum": "1978-02-14T10:00:00",
+   "peak_pfu": 850,
+   "region": "1001",
+   "location": "N22W13",
+   "flare": "M7/0B 02/13 0255"
+  },
+  {
+   "start": "1978-04-11T15:30:00",
+   "maximum": "1978-04-11T16:30:00",
+   "peak_pfu": 65,
+   "region": "1057",
+   "location": "N18W54",
+   "flare": "X2/2B 0411 1353"
+  },
+  {
+   "start": "1978-04-29T04:45:00",
+   "maximum": "1978-04-30T20:00:00",
+   "peak_pfu": 1000,
+   "region": "1092",
+   "location": "N22E41",
+   "flare": "X5/4B 04/28 1306"
+  },
+  {
+   "start": "1978-05-07T04:20:00",
+   "maximum": "1978-05-07T04:20:00",
+   "peak_pfu": 100,
+   "region": "1095",
+   "location": "N22W64",
+   "flare": "X2/2B 05/07 0330"
+  },
+  {
+   "start": "1978-06-02T07:30:00",
+   "maximum": "1978-06-02T09:35:00",
+   "peak_pfu": 19,
+   "region": "1129",
+   "location": "N23W50",
+   "flare": "M5/2B 05/31 1009"
+  },
+  {
+   "start": "1978-06-24T09:00:00",
+   "maximum": "1978-06-25T02:30:00",
+   "peak_pfu": 25,
+   "region": "1164",
+   "location": "N19E18",
+   "flare": "M2/3B 06/22 1709"
+  },
+  {
+   "start": "1978-07-13T03:00:00",
+   "maximum": "1978-07-13T10:00:00",
+   "peak_pfu": 20,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1978-09-23T10:35:00",
+   "maximum": "1978-09-24T04:00:00",
+   "peak_pfu": 2200,
+   "region": "1294",
+   "location": "N35W50",
+   "flare": "X1/3B 09/23 1023"
+  },
+  {
+   "start": "1978-11-10T21:30:00",
+   "maximum": "1978-11-10T22:05:00",
+   "peak_pfu": 38,
+   "region": "1385",
+   "location": "N17E02",
+   "flare": "M1/2N 11/10 0042"
+  },
+  {
+   "start": "1979-02-17T20:20:00",
+   "maximum": "1979-02-17T22:05:00",
+   "peak_pfu": 31,
+   "region": "1574",
+   "location": "N15E48",
+   "flare": "X2/2B 02/16 0200"
+  },
+  {
+   "start": "1979-04-03T16:00:00",
+   "maximum": "1979-04-03T23:10:00",
+   "peak_pfu": 45,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1979-06-06T18:50:00",
+   "maximum": "1979-06-07T00:05:00",
+   "peak_pfu": 950,
+   "region": "1781",
+   "location": "N20E16",
+   "flare": "X2/1N 06/05 0529"
+  },
+  {
+   "start": "1979-08-19T08:50:00",
+   "maximum": "1979-08-21T07:40:00",
+   "peak_pfu": 500,
+   "region": "1943",
+   "location": "N10E90",
+   "flare": "X6/1B 08/18 1416"
+  },
+  {
+   "start": "1979-09-15T15:00:00",
+   "maximum": "1979-09-16T12:00:00",
+   "peak_pfu": 60,
+   "region": "1994",
+   "location": "N10E90",
+   "flare": "X2/N/A 09/14 0802"
+  },
+  {
+   "start": "1979-11-16T04:30:00",
+   "maximum": "1979-11-16T13:00:00",
+   "peak_pfu": 75,
+   "region": "2110",
+   "location": "N34W25",
+   "flare": "M1/0B 11/15 1639"
+  },
+  {
+   "start": "1980-02-06T13:40:00",
+   "maximum": "1980-02-06T18:50:00",
+   "peak_pfu": 12,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1980-07-17T23:00:00",
+   "maximum": "1980-07-19T19:30:00",
+   "peak_pfu": 100,
+   "region": "2562",
+   "location": "S12E06",
+   "flare": "M3/1B 07/17 0603"
+  },
+  {
+   "start": "1981-03-30T09:00:00",
+   "maximum": "1981-03-30T21:15:00",
+   "peak_pfu": 30,
+   "region": "2993",
+   "location": "N13W74",
+   "flare": "M3/2N 03/30 0049"
+  },
+  {
+   "start": "1981-04-10T17:45:00",
+   "maximum": "1981-04-11T14:00:00",
+   "peak_pfu": 50,
+   "region": "3025",
+   "location": "N08W38",
+   "flare": "X2/3B 04/10 1655"
+  },
+  {
+   "start": "1981-04-24T15:15:00",
+   "maximum": "1981-04-24T23:30:00",
+   "peak_pfu": 160,
+   "region": "3049",
+   "location": "N18W50",
+   "flare": "X5/2B 04/24 1400"
+  },
+  {
+   "start": "1981-05-09T12:00:00",
+   "maximum": "1981-05-10T21:30:00",
+   "peak_pfu": 150,
+   "region": "3099",
+   "location": "N09E37",
+   "flare": "M7/2B 05/08 2252"
+  },
+  {
+   "start": "1981-05-15T03:00:00",
+   "maximum": "1981-05-16T19:50:00",
+   "peak_pfu": 130,
+   "region": "3106",
+   "location": "N11E58",
+   "flare": "X1/3B 05/13 0425"
+  },
+  {
+   "start": "1981-07-20T14:30:00",
+   "maximum": "1981-07-20T18:25:00",
+   "peak_pfu": 100,
+   "region": "3204",
+   "location": "S26W75",
+   "flare": "M5/1B 07/20 1329"
+  },
+  {
+   "start": "1981-07-25T06:00:00",
+   "maximum": "1981-07-25T13:20:00",
+   "peak_pfu": 18,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1981-08-10T01:15:00",
+   "maximum": "1981-08-10T04:35:00",
+   "peak_pfu": 57,
+   "region": "3257",
+   "location": "S10E24",
+   "flare": "M4/2B 08/07 1916"
+  },
+  {
+   "start": "1981-10-08T12:35:00",
+   "maximum": "1981-10-13T22:47:00",
+   "peak_pfu": 2000,
+   "region": "3390",
+   "location": "S19E88",
+   "flare": "X3/1B 10/07 2308"
+  },
+  {
+   "start": "1981-12-10T05:45:00",
+   "maximum": "1981-12-11T09:00:00",
+   "peak_pfu": 65,
+   "region": "3496",
+   "location": "N12W16",
+   "flare": "M5/3B 12/09 1854"
+  },
+  {
+   "start": "1982-01-31T00:55:00",
+   "maximum": "1982-01-31T16:30:00",
+   "peak_pfu": 830,
+   "region": "3576",
+   "location": "S15E12",
+   "flare": "X1/3B 01/30 2358"
+  },
+  {
+   "start": "1982-06-06T02:45:00",
+   "maximum": "1982-06-06T02:45:00",
+   "peak_pfu": 10,
+   "region": "3763",
+   "location": "S09E72",
+   "flare": "X8/2B 06/03 1146"
+  },
+  {
+   "start": "1982-06-09T00:40:00",
+   "maximum": "1982-06-09T05:10:00",
+   "peak_pfu": 30,
+   "region": "3763",
+   "location": "S09E25",
+   "flare": "X12/3B 06/06 1654"
+  },
+  {
+   "start": "1982-07-11T07:00:00",
+   "maximum": "1982-07-13T16:15:00",
+   "peak_pfu": 2900,
+   "region": "3804",
+   "location": "N17E73",
+   "flare": "X9/3B 07/09 0742"
+  },
+  {
+   "start": "1982-07-22T20:30:00",
+   "maximum": "1982-07-23T02:20:00",
+   "peak_pfu": 240,
+   "region": "3804",
+   "location": "N29W86",
+   "flare": "M4/0F 07/22 1734"
+  },
+  {
+   "start": "1982-09-05T22:05:00",
+   "maximum": "1982-09-06T01:00:00",
+   "peak_pfu": 66,
+   "region": "3886",
+   "location": "N11E30",
+   "flare": "M4/3N 09/04 0400"
+  },
+  {
+   "start": "1982-11-22T19:40:00",
+   "maximum": "1982-11-22T21:40:00",
+   "peak_pfu": 40,
+   "region": "3994",
+   "location": "S11W43",
+   "flare": "M7/1N 11/22 1828"
+  },
+  {
+   "start": "1982-11-26T06:05:00",
+   "maximum": "1982-11-26T15:00:00",
+   "peak_pfu": 25,
+   "region": "3994",
+   "location": "S11W86",
+   "flare": "X4/2B 11/26 0253"
+  },
+  {
+   "start": "1982-12-08T00:10:00",
+   "maximum": "1982-12-08T10:00:00",
+   "peak_pfu": 1000,
+   "region": "4007",
+   "location": "S19W86",
+   "flare": "X2/1B 12/07 2354"
+  },
+  {
+   "start": "1982-12-17T18:45:00",
+   "maximum": "1982-12-18T09:45:00",
+   "peak_pfu": 130,
+   "region": "4026",
+   "location": "S10E24",
+   "flare": "X12/2B 12/15 0202"
+  },
+  {
+   "start": "1982-12-19T19:20:00",
+   "maximum": "1982-12-20T05:15:00",
+   "peak_pfu": 85,
+   "region": "4022",
+   "location": "N10W75",
+   "flare": "M9/2B 12/19 1624"
+  },
+  {
+   "start": "1982-12-27T06:00:00",
+   "maximum": "1982-12-27T13:45:00",
+   "peak_pfu": 190,
+   "region": "4033",
+   "location": "S14E31",
+   "flare": "X2/1B 12/25 0752"
+  },
+  {
+   "start": "1983-02-03T12:00:00",
+   "maximum": "1983-02-04T16:20:00",
+   "peak_pfu": 340,
+   "region": "4077",
+   "location": "S19W00",
+   "flare": "X4/3B 02/03 0619"
+  },
+  {
+   "start": "1983-06-15T04:35:00",
+   "maximum": "1983-06-15T18:00:00",
+   "peak_pfu": 18,
+   "region": "4201",
+   "location": "Farside event",
+   "flare": "N/A 06/14"
+  },
+  {
+   "start": "1984-02-16T09:15:00",
+   "maximum": "1984-02-16T10:05:00",
+   "peak_pfu": 660,
+   "region": "4408",
+   "location": "Farside event",
+   "flare": "N/A"
+  },
+  {
+   "start": "1984-02-19T13:10:00",
+   "maximum": "1984-02-21T14:15:00",
+   "peak_pfu": 55,
+   "region": "4421",
+   "location": "N16E82",
+   "flare": "X2/2B 02/17 2301"
+  },
+  {
+   "start": "1984-03-13T14:40:00",
+   "maximum": "1984-03-13T14:50:00",
+   "peak_pfu": 10,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1984-03-14T04:05:00",
+   "maximum": "1984-03-14T05:05:00",
+   "peak_pfu": 100,
+   "region": "4433",
+   "location": "S12W42",
+   "flare": "M2/1B 03/14 0334"
+  },
+  {
+   "start": "1984-04-25T13:30:00",
+   "maximum": "1984-04-26T14:20:00",
+   "peak_pfu": 2500,
+   "region": "4474",
+   "location": "S12E43",
+   "flare": "X13/3B 04/25 0025"
+  },
+  {
+   "start": "1984-05-24T10:45:00",
+   "maximum": "1984-05-24T11:40:00",
+   "peak_pfu": 31,
+   "region": "4492",
+   "location": "S09E24",
+   "flare": "M6/2B 05/22 1503"
+  },
+  {
+   "start": "1984-05-31T13:15:00",
+   "maximum": "1984-05-31T14:15:00",
+   "peak_pfu": 14,
+   "region": "4492",
+   "location": "S09W90",
+   "flare": "M1/?? 05/31 1142"
+  },
+  {
+   "start": "1985-01-22T04:15:00",
+   "maximum": "1985-01-22T05:50:00",
+   "peak_pfu": 14,
+   "region": "4617",
+   "location": "S08W38",
+   "flare": "X4/2B 01/21 2350"
+  },
+  {
+   "start": "1985-04-25T14:30:00",
+   "maximum": "1985-04-26T06:00:00",
+   "peak_pfu": 160,
+   "region": "4647",
+   "location": "N06E27",
+   "flare": "X1/3B 04/24 0935"
+  },
+  {
+   "start": "1985-07-09T02:35:00",
+   "maximum": "1985-07-09T03:25:00",
+   "peak_pfu": 140,
+   "region": "4671",
+   "location": "S16W36",
+   "flare": "M2/1B 07/09 0204"
+  },
+  {
+   "start": "1986-02-06T08:25:00",
+   "maximum": "1986-02-07T17:30:00",
+   "peak_pfu": 50,
+   "region": "4711",
+   "location": "S04W06",
+   "flare": "X1/3B 02/06 0625"
+  },
+  {
+   "start": "1986-02-07T13:10:00",
+   "maximum": "1986-02-07T17:50:00",
+   "peak_pfu": 77,
+   "region": "4711",
+   "location": "S10W20",
+   "flare": "M5/2B 02/07 0913"
+  },
+  {
+   "start": "1986-02-14T14:55:00",
+   "maximum": "1986-02-14T21:10:00",
+   "peak_pfu": 111,
+   "region": "4713",
+   "location": "N01W76",
+   "flare": "M6/1N 02/14 0929"
+  },
+  {
+   "start": "1986-03-06T18:35:00",
+   "maximum": "1986-03-06T19:30:00",
+   "peak_pfu": 13,
+   "region": "4717",
+   "location": "N02E01",
+   "flare": "C4/1F 03/06 1703"
+  },
+  {
+   "start": "1986-05-04T18:35:00",
+   "maximum": "1986-05-04T19:30:00",
+   "peak_pfu": 16,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1987-11-08T01:45:00",
+   "maximum": "1987-11-08T09:45:00",
+   "peak_pfu": 41,
+   "region": "4875",
+   "location": "N31W90",
+   "flare": "M1/N/A 11/07 2013"
+  },
+  {
+   "start": "1988-01-03T01:00:00",
+   "maximum": "1988-01-03T07:30:00",
+   "peak_pfu": 32,
+   "region": "4912",
+   "location": "S34W18",
+   "flare": "X1/3B 01/02 2144"
+  },
+  {
+   "start": "1988-03-25T22:50:00",
+   "maximum": "1988-03-25T23:10:00",
+   "peak_pfu": 33,
+   "region": "4965",
+   "location": "N22W90",
+   "flare": "C4/N/A 03/25 2153"
+  },
+  {
+   "start": "1988-06-30T11:25:00",
+   "maximum": "1988-06-30T11:35:00",
+   "peak_pfu": 12,
+   "region": "5060",
+   "location": "S16E22",
+   "flare": "M9/2B 06/30 0905"
+  },
+  {
+   "start": "1988-08-26T00:30:00",
+   "maximum": "1988-08-26T00:45:00",
+   "peak_pfu": 12,
+   "region": "5123",
+   "location": "N24E88",
+   "flare": "M2/SF 08/23 1735"
+  },
+  {
+   "start": "1988-10-12T09:20:00",
+   "maximum": "1988-10-12T09:30:00",
+   "peak_pfu": 12,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1988-11-08T22:25:00",
+   "maximum": "1988-11-09T08:10:00",
+   "peak_pfu": 13,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1988-11-14T01:30:00",
+   "maximum": "1988-11-14T03:10:00",
+   "peak_pfu": 13,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1988-12-17T22:20:00",
+   "maximum": "1988-12-18T01:50:00",
+   "peak_pfu": 12,
+   "region": "5278",
+   "location": "N26E37",
+   "flare": "X4/1B 12/16 0845"
+  },
+  {
+   "start": "1989-01-04T23:05:00",
+   "maximum": "1989-01-05T01:30:00",
+   "peak_pfu": 28,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1989-03-08T17:55:00",
+   "maximum": "1989-03-10T00:00:00",
+   "peak_pfu": 137,
+   "region": "5395",
+   "location": "N35E69",
+   "flare": "X15/3B 03/06 1406"
+  },
+  {
+   "start": "1989-03-10T22:05:00",
+   "maximum": "1989-03-13T06:45:00",
+   "peak_pfu": 1860,
+   "region": "5395",
+   "location": "N31E22",
+   "flare": "X4/3B 03/17 1744"
+  },
+  {
+   "start": "1989-03-17T19:00:00",
+   "maximum": "1989-03-18T09:20:00",
+   "peak_pfu": 1250,
+   "region": "5395",
+   "location": "N33W60",
+   "flare": "X6/2B 03/17 1743"
+  },
+  {
+   "start": "1989-03-23T20:55:00",
+   "maximum": "1989-03-23T22:20:00",
+   "peak_pfu": 29,
+   "region": "5409",
+   "location": "N18W28",
+   "flare": "X1/3B 03/23 1958"
+  },
+  {
+   "start": "1989-04-11T15:55:00",
+   "maximum": "1989-04-12T00:05:00",
+   "peak_pfu": 218,
+   "region": "N/A",
+   "location": "N37W12",
+   "flare": "M1/SF 04/10 2323"
+  },
+  {
+   "start": "1989-05-05T09:05:00",
+   "maximum": "1989-05-05T10:00:00",
+   "peak_pfu": 27,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1989-05-06T06:15:00",
+   "maximum": "1989-05-06T10:55:00",
+   "peak_pfu": 47,
+   "region": "5470",
+   "location": "N30E01",
+   "flare": "X2/3B 05/05 0736"
+  },
+  {
+   "start": "1989-05-23T11:35:00",
+   "maximum": "1989-05-23T13:58:00",
+   "peak_pfu": 68,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1989-05-24T07:30:00",
+   "maximum": "1989-05-24T09:05:00",
+   "peak_pfu": 15,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1989-06-18T16:50:00",
+   "maximum": "1989-06-18T19:10:00",
+   "peak_pfu": 18,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1989-06-30T06:55:00",
+   "maximum": "1989-06-30T07:10:00",
+   "peak_pfu": 17,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1989-07-01T06:55:00",
+   "maximum": "1989-07-01T07:20:00",
+   "peak_pfu": 17,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1989-07-25T09:35:00",
+   "maximum": "1989-07-25T12:20:00",
+   "peak_pfu": 32,
+   "region": "5603",
+   "location": "N25W84",
+   "flare": "X2/2N 07/25 0843"
+  },
+  {
+   "start": "1989-08-12T16:20:00",
+   "maximum": "1989-08-13T07:05:00",
+   "peak_pfu": 6550,
+   "region": "5629",
+   "location": "S16W37",
+   "flare": "X2/2B 08/12 1426"
+  },
+  {
+   "start": "1989-08-15T06:20:00",
+   "maximum": "1989-08-15T17:25:00",
+   "peak_pfu": 351,
+   "region": "5629",
+   "location": "S18W73",
+   "flare": "X1/SF 06/15 0313"
+  },
+  {
+   "start": "1989-08-16T01:25:00",
+   "maximum": "1989-08-16T14:25:00",
+   "peak_pfu": 1430,
+   "region": "5629",
+   "location": "S18W84",
+   "flare": "X20/2N 08/16 0123"
+  },
+  {
+   "start": "1989-08-17T06:15:00",
+   "maximum": "1989-08-17T09:45:00",
+   "peak_pfu": 986,
+   "region": "5629",
+   "location": "S19W88",
+   "flare": "X2/SF 08/17 0121"
+  },
+  {
+   "start": "1989-08-19T17:25:00",
+   "maximum": "1989-08-20T01:55:00",
+   "peak_pfu": 258,
+   "region": "5629",
+   "location": "S16W100",
+   "flare": "C8/N/A 08/19 2008"
+  },
+  {
+   "start": "1989-09-04T02:40:00",
+   "maximum": "1989-09-04T09:20:00",
+   "peak_pfu": 16,
+   "region": "5603",
+   "location": "S18E16",
+   "flare": "X1/1B 09/03 1431"
+  },
+  {
+   "start": "1989-09-12T22:10:00",
+   "maximum": "1989-09-13T08:25:00",
+   "peak_pfu": 32,
+   "region": "5669",
+   "location": "S19W90",
+   "flare": "M5/N/A 09/12 0814"
+  },
+  {
+   "start": "1989-09-29T12:00:00",
+   "maximum": "1989-09-30T02:10:00",
+   "peak_pfu": 2960,
+   "region": "5698",
+   "location": "S27W90",
+   "flare": "X9/N/A 09/29 1132"
+  },
+  {
+   "start": "1989-10-06T05:00:00",
+   "maximum": "1989-10-06T08:25:00",
+   "peak_pfu": 22,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1989-10-19T13:10:00",
+   "maximum": "1989-10-20T16:00:00",
+   "peak_pfu": 42200,
+   "region": "5747",
+   "location": "S27E10",
+   "flare": "X13/4B 10/19 1306"
+  },
+  {
+   "start": "1989-10-22T17:55:00",
+   "maximum": "1989-10-23T07:15:00",
+   "peak_pfu": 5330,
+   "region": "5747",
+   "location": "S27W31",
+   "flare": "X2/2B 10/22 1804"
+  },
+  {
+   "start": "1989-10-24T18:25:00",
+   "maximum": "1989-10-25T02:10:00",
+   "peak_pfu": 2530,
+   "region": "5747",
+   "location": "S33W61",
+   "flare": "X5/3B 10/24 1829"
+  },
+  {
+   "start": "1989-10-29T06:20:00",
+   "maximum": "1989-10-29T10:05:00",
+   "peak_pfu": 24,
+   "region": "5747",
+   "location": "S27W90",
+   "flare": "M4/N/A 10/29 0450"
+  },
+  {
+   "start": "1989-11-09T03:45:00",
+   "maximum": "1989-11-09T04:45:00",
+   "peak_pfu": 15,
+   "region": "5769",
+   "location": "S20W57",
+   "flare": "M9/2B 11/08 1912"
+  },
+  {
+   "start": "1989-11-15T07:55:00",
+   "maximum": "1989-11-15T09:05:00",
+   "peak_pfu": 38,
+   "region": "5786",
+   "location": "N11W26",
+   "flare": "X3/3B 11/15 0658"
+  },
+  {
+   "start": "1989-11-27T21:40:00",
+   "maximum": "1989-11-28T11:05:00",
+   "peak_pfu": 165,
+   "region": "5800",
+   "location": "N25W03",
+   "flare": "M4/2B 11/26 1941"
+  },
+  {
+   "start": "1989-11-30T14:10:00",
+   "maximum": "1989-12-01T13:30:00",
+   "peak_pfu": 3590,
+   "region": "5800",
+   "location": "N24W52",
+   "flare": "X2/3B 11/30 1230"
+  },
+  {
+   "start": "1990-03-19T07:05:00",
+   "maximum": "1990-09-19T23:15:00",
+   "peak_pfu": 946,
+   "region": "5969",
+   "location": "N31W43",
+   "flare": "X1/2B 03/19 0700"
+  },
+  {
+   "start": "1990-03-29T09:20:00",
+   "maximum": "1990-03-29T10:05:00",
+   "peak_pfu": 15,
+   "region": "5988",
+   "location": "S04W37",
+   "flare": "M4/2N 03/28 0750"
+  },
+  {
+   "start": "1990-04-07T22:20:00",
+   "maximum": "1990-04-08T13:55:00",
+   "peak_pfu": 19,
+   "region": "6007",
+   "location": "N23E82",
+   "flare": "X1/1N 04/03 1725"
+  },
+  {
+   "start": "1990-04-11T21:20:00",
+   "maximum": "1990-04-11T21:20:00",
+   "peak_pfu": 13,
+   "region": "6007",
+   "location": "N22W04",
+   "flare": "M1/1N 04/10 1214"
+  },
+  {
+   "start": "1990-04-17T04:00:00",
+   "maximum": "1990-04-17T07:00:00",
+   "peak_pfu": 12,
+   "region": "6022",
+   "location": "N32E57",
+   "flare": "X1/2B 04/15 0300"
+  },
+  {
+   "start": "1990-04-28T10:05:00",
+   "maximum": "1990-04-28T17:35:00",
+   "peak_pfu": 149,
+   "region": "6038",
+   "location": "N18W38",
+   "flare": "C2/SF 04/28 0026"
+  },
+  {
+   "start": "1990-05-21T23:55:00",
+   "maximum": "1990-05-22T07:50:00",
+   "peak_pfu": 409,
+   "region": "6063",
+   "location": "N35W36",
+   "flare": "X5/2B 05/21 2218"
+  },
+  {
+   "start": "1990-05-24T21:25:00",
+   "maximum": "1990-05-25T01:15:00",
+   "peak_pfu": 177,
+   "region": "6063",
+   "location": "N33W78",
+   "flare": "X9/1B 05/24 2050"
+  },
+  {
+   "start": "1990-05-26T21:10:00",
+   "maximum": "1990-05-27T01:20:00",
+   "peak_pfu": 88,
+   "region": "6063",
+   "location": "N33W90",
+   "flare": "X1/N/A 05/26 2057"
+  },
+  {
+   "start": "1990-05-28T06:45:00",
+   "maximum": "1990-05-29T01:00:00",
+   "peak_pfu": 45,
+   "region": "6063",
+   "location": "N33W90",
+   "flare": "C1/N/A 05/28 0433"
+  },
+  {
+   "start": "1990-06-12T11:40:00",
+   "maximum": "1990-06-12T17:00:00",
+   "peak_pfu": 79,
+   "region": "6089",
+   "location": "N10W33",
+   "flare": "M6/2B 06/12 0540"
+  },
+  {
+   "start": "1990-07-26T11:00:00",
+   "maximum": "1990-07-26T23:15:00",
+   "peak_pfu": 20,
+   "region": "6174",
+   "location": "S15E55",
+   "flare": "M2/2N 07/25 2333"
+  },
+  {
+   "start": "1990-08-01T00:20:00",
+   "maximum": "1990-08-01T20:45:00",
+   "peak_pfu": 227,
+   "region": "6180",
+   "location": "N20E45",
+   "flare": "M4/2B 07/30 0736"
+  },
+  {
+   "start": "1991-01-31T11:30:00",
+   "maximum": "1991-01-31T16:20:00",
+   "peak_pfu": 242,
+   "region": "6469",
+   "location": "S17W35",
+   "flare": "X1/2B 01/31 0229"
+  },
+  {
+   "start": "1991-02-25T12:00:00",
+   "maximum": "1991-02-25T13:05:00",
+   "peak_pfu": 12,
+   "region": "6497",
+   "location": "S16W80",
+   "flare": "X1/2N 02/25 0818"
+  },
+  {
+   "start": "1991-03-23T08:20:00",
+   "maximum": "1991-03-24T03:50:00",
+   "peak_pfu": 43500,
+   "region": "6555",
+   "location": "S26E28",
+   "flare": "X9/3B 03/22 2246"
+  },
+  {
+   "start": "1991-03-29T21:20:00",
+   "maximum": "1991-03-30T03:30:00",
+   "peak_pfu": 20,
+   "region": "N/A",
+   "location": "N/A",
+   "flare": "N/A"
+  },
+  {
+   "start": "1991-04-03T08:15:00",
+   "maximum": "1991-04-04T10:00:00",
+   "peak_pfu": 52,
+   "region": "6562",
+   "location": "N14W00",
+   "flare": "M6/3B 04/02 2326"
+  },
+  {
+   "start": "1991-05-13T03:00:00",
+   "maximum": "1991-05-13T09:05:00",
+   "peak_pfu": 358,
+   "region": "6615",
+   "location": "S10W90",
+   "flare": "M8/N/A 05/13 0142"
+  },
+  {
+   "start": "1991-05-31T11:50:00",
+   "maximum": "1991-06-01T05:00:00",
+   "peak_pfu": 22,
+   "region": "6654",
+   "location": "N05E38",
+   "flare": "X1/2B 05/29 2344"
+  },
+  {
+   "start": "1991-06-04T08:20:00",
+   "maximum": "1991-06-07T04:00:00",
+   "peak_pfu": 224,
+   "region": "6659",
+   "location": "N30E70",
+   "flare": "X12/3B 06/04 0352"
+  },
+  {
+   "start": "1991-06-11T02:50:00",
+   "maximum": "1991-06-11T14:20:00",
+   "peak_pfu": 3000,
+   "region": "6659",
+   "location": "N31W17",
+   "flare": "X12/3B 06/11 0209"
+  },
+  {
+   "start": "1991-06-15T08:35:00",
+   "maximum": "1991-06-15T19:55:00",
+   "peak_pfu": 1400,
+   "region": "6659",
+   "location": "N33W69",
+   "flare": "X12/3B 06/15 0821"
+  },
+  {
+   "start": "1991-06-30T05:55:00",
+   "maximum": "1991-07-02T10:10:00",
+   "peak_pfu": 106,
+   "region": "6703",
+   "location": "N30E90",
+   "flare": "M6/N/A 06/28 0625"
+  },
+  {
+   "start": "1991-07-07T04:55:00",
+   "maximum": "1991-07-08T16:50:00",
+   "peak_pfu": 2310,
+   "region": "6703",
+   "location": "N26E03",
+   "flare": "X1/2B 07/07 0222"
+  },
+  {
+   "start": "1991-07-11T00:35:00",
+   "maximum": "1991-07-11T04:50:00",
+   "peak_pfu": 30,
+   "region": "6718",
+   "location": "S22E34",
+   "flare": "M3/2N 07/10 1227"
+  },
+  {
+   "start": "1991-07-11T22:55:00",
+   "maximum": "1991-07-12T03:05:00",
+   "peak_pfu": 17,
+   "region": "6703",
+   "location": "N22W51",
+   "flare": "M7/3B 07/11 1037"
+  },
+  {
+   "start": "1991-08-26T17:30:00",
+   "maximum": "1991-08-27T18:30:00",
+   "peak_pfu": 236,
+   "region": "6805",
+   "location": "N24E77",
+   "flare": "X2/2B 08/25 0113"
+  },
+  {
+   "start": "1991-10-01T17:00:00",
+   "maximum": "1991-10-01T18:10:00",
+   "peak_pfu": 12,
+   "region": "6853",
+   "location": "S21E32",
+   "flare": "M7/4B 09/29 1533"
+  },
+  {
+   "start": "1991-10-28T13:00:00",
+   "maximum": "1991-10-28T14:40:00",
+   "peak_pfu": 39,
+   "region": "6891",
+   "location": "S13E15",
+   "flare": "X6/3B 10/27 0547"
+  },
+  {
+   "start": "1991-10-30T07:45:00",
+   "maximum": "1991-10-30T08:10:00",
+   "peak_pfu": 94,
+   "region": "6891",
+   "location": "S08W25",
+   "flare": "X2/3B 10/30 0632"
+  },
+  {
+   "start": "1992-02-07T06:45:00",
+   "maximum": "1992-02-07T11:15:00",
+   "peak_pfu": 77,
+   "region": "7042",
+   "location": "S13W10",
+   "flare": "M4/2B 02/06 1047"
+  },
+  {
+   "start": "1992-03-16T08:30:00",
+   "maximum": "1992-03-16T09:00:00",
+   "peak_pfu": 10,
+   "region": "7100",
+   "location": "S14E29",
+   "flare": "M7/3B 03/15 0153"
+  },
+  {
+   "start": "1992-05-09T09:40:00",
+   "maximum": "1992-05-09T21:00:00",
+   "peak_pfu": 4650,
+   "region": "7154",
+   "location": "S26E08",
+   "flare": "M7/4B 05/08 1545"
+  },
+  {
+   "start": "1992-06-25T20:45:00",
+   "maximum": "1992-06-26T06:15:00",
+   "peak_pfu": 389,
+   "region": "7205",
+   "location": "N09W67",
+   "flare": "X3/2B 06/25 2013"
+  },
+  {
+   "start": "1992-06-28T09:50:00",
+   "maximum": "1992-06-29T02:35:00",
+   "peak_pfu": 24,
+   "region": "7205",
+   "location": "N11W90",
+   "flare": "X1/SF 06/28 1400"
+  },
+  {
+   "start": "1992-08-06T11:45:00",
+   "maximum": "1992-08-06T12:10:00",
+   "peak_pfu": 14,
+   "region": "7248",
+   "location": "S09E68",
+   "flare": "M4/1N 08/03 0706"
+  },
+  {
+   "start": "1992-10-30T19:20:00",
+   "maximum": "1992-10-31T07:10:00",
+   "peak_pfu": 2680,
+   "region": "7321",
+   "location": "S22W61",
+   "flare": "X1/2B 10/30 1815"
+  },
+  {
+   "start": "1992-11-02T03:05:00",
+   "maximum": "1992-11-02T09:10:00",
+   "peak_pfu": 1060,
+   "region": "7321",
+   "location": "S23W90",
+   "flare": "X9/2B 11/02 0307"
+  },
+  {
+   "start": "1993-03-04T14:55:00",
+   "maximum": "1993-03-04T16:15:00",
+   "peak_pfu": 17,
+   "region": "7434",
+   "location": "S14W56",
+   "flare": "C8/2N 03/04 1239"
+  },
+  {
+   "start": "1993-03-12T20:10:00",
+   "maximum": "1993-03-13T01:55:00",
+   "peak_pfu": 43,
+   "region": "7440",
+   "location": "S00W51",
+   "flare": "M7/3B 03/12 1815"
+  },
+  {
+   "start": "1994-02-20T03:05:00",
+   "maximum": "1994-02-21T09:00:00",
+   "peak_pfu": 10200,
+   "region": "7671",
+   "location": "N09W02",
+   "flare": "M4/3B 02/20 0141"
+  },
+  {
+   "start": "1994-10-20T00:30:00",
+   "maximum": "1994-10-20T03:40:00",
+   "peak_pfu": 35,
+   "region": "7790",
+   "location": "N12W24",
+   "flare": "M3/1F 10/19 2127"
+  },
+  {
+   "start": "1995-10-20T08:25:00",
+   "maximum": "1995-10-20T12:10:00",
+   "peak_pfu": 62,
+   "region": "7912",
+   "location": "S09W55",
+   "flare": "M1/0F 10/20 0607"
+  },
+  {
+   "start": "1997-11-04T08:30:00",
+   "maximum": "1997-11-04T13:00:00",
+   "peak_pfu": 67,
+   "region": "8100",
+   "location": "S14W33",
+   "flare": "X2/2B 11/04 0558"
+  },
+  {
+   "start": "1997-11-06T13:05:00",
+   "maximum": "1997-11-07T02:55:00",
+   "peak_pfu": 490,
+   "region": "8100",
+   "location": "S18W63",
+   "flare": "X9/2B 11/06 1155"
+  },
+  {
+   "start": "1998-04-20T14:05:00",
+   "maximum": "1998-04-21T11:45:00",
+   "peak_pfu": 161,
+   "region": "8210",
+   "location": "S20W100",
+   "flare": "M1/N/A 04/20 1021"
+  },
+  {
+   "start": "1998-05-02T14:15:00",
+   "maximum": "1998-05-02T16:55:00",
+   "peak_pfu": 149,
+   "region": "8210",
+   "location": "S15W15",
+   "flare": "X1/3B 05/02 1342"
+  },
+  {
+   "start": "1998-05-06T08:40:00",
+   "maximum": "1998-05-06T09:45:00",
+   "peak_pfu": 239,
+   "region": "8210",
+   "location": "S11W65",
+   "flare": "X2/1N 05/06 0809"
+  },
+  {
+   "start": "1998-05-09T20:55:00",
+   "maximum": "1998-05-10T00:20:00",
+   "peak_pfu": 12,
+   "region": "8210",
+   "location": "S17W100",
+   "flare": "M7/N/A 05/09 0340"
+  },
+  {
+   "start": "1998-08-24T23:55:00",
+   "maximum": "1998-08-26T10:55:00",
+   "peak_pfu": 665,
+   "region": "8307",
+   "location": "N35E09",
+   "flare": "X1/3B 08/24 2213"
+  },
+  {
+   "start": "1998-09-24T23:55:00",
+   "maximum": "1998-09-25T01:30:00",
+   "peak_pfu": 44,
+   "region": "8340",
+   "location": "N18E09",
+   "flare": "M6/3B 09/23 0713"
+  },
+  {
+   "start": "1998-09-30T15:20:00",
+   "maximum": "1998-10-01T00:25:00",
+   "peak_pfu": 1160,
+   "region": "8340",
+   "location": "N23W80",
+   "flare": "M2/2N 09/30 1350"
+  },
+  {
+   "start": "1998-11-14T08:10:00",
+   "maximum": "1998-11-14T12:45:00",
+   "peak_pfu": 314,
+   "region": "8385",
+   "location": "N28W100",
+   "flare": "C1/N/A 11/14 0508"
+  },
+  {
+   "start": "1999-01-23T10:00:00",
+   "maximum": "1999-01-23T11:35:00",
+   "peak_pfu": 14,
+   "region": "8421",
+   "location": "N27W100",
+   "flare": "M5/N/A 01/20 2024"
+  },
+  {
+   "start": "1999-04-24T18:20:00",
+   "maximum": "1999-04-25T00:55:00",
+   "peak_pfu": 31,
+   "region": "8517",
+   "location": "N22W130",
+   "flare": "N/A"
+  },
+  {
+   "start": "1999-05-05T18:20:00",
+   "maximum": "1999-05-05T19:55:00",
+   "peak_pfu": 14,
+   "region": "8525",
+   "location": "N15E32",
+   "flare": "M4/2N 05/03 0602"
+  },
+  {
+   "start": "1999-06-02T02:20:00",
+   "maximum": "1999-06-02T10:10:00",
+   "peak_pfu": 48,
+   "region": "N/A",
+   "location": "N00W100",
+   "flare": "N/A"
+  },
+  {
+   "start": "1999-06-04T09:25:00",
+   "maximum": "1999-06-04T10:55:00",
+   "peak_pfu": 64,
+   "region": "8552",
+   "location": "N17W69",
+   "flare": "M3/2B 06/04 0703"
+  },
+  {
+   "start": "2000-02-18T11:15:00",
+   "maximum": "2000-02-18T12:15:00",
+   "peak_pfu": 13,
+   "region": "8858",
+   "location": "N00W120",
+   "flare": "N/A"
+  },
+  {
+   "start": "2000-04-04T20:55:00",
+   "maximum": "2000-04-05T09:30:00",
+   "peak_pfu": 55,
+   "region": "8933",
+   "location": "N16W66",
+   "flare": "C9/2F 04/04 1541"
+  },
+  {
+   "start": "2000-06-07T13:10:00",
+   "maximum": "2000-06-08T09:40:00",
+   "peak_pfu": 84,
+   "region": "9026",
+   "location": "N21E12",
+   "flare": "X2/3B 06/06 1525"
+  },
+  {
+   "start": "2000-06-10T18:05:00",
+   "maximum": "2000-06-10T20:45:00",
+   "peak_pfu": 46,
+   "region": "9026",
+   "location": "N22W38",
+   "flare": "M5/3B 06/10 1702"
+  },
+  {
+   "start": "2000-07-14T10:45:00",
+   "maximum": "2000-07-15T12:30:00",
+   "peak_pfu": 24000,
+   "region": "9077",
+   "location": "N22W07",
+   "flare": "X5/3B 07/14 1024"
+  },
+  {
+   "start": "2000-07-22T13:20:00",
+   "maximum": "2000-07-22T14:05:00",
+   "peak_pfu": 17,
+   "region": "9085",
+   "location": "N15W56",
+   "flare": "M3/2N 07/22 1114"
+  },
+  {
+   "start": "2000-07-28T05:20:00",
+   "maximum": "2000-07-28T06:55:00",
+   "peak_pfu": 21,
+   "region": "N/A",
+   "location": "N00W120",
+   "flare": "N/A"
+  },
+  {
+   "start": "2000-08-11T16:50:00",
+   "maximum": "2000-08-11T16:55:00",
+   "peak_pfu": 17,
+   "region": "9114",
+   "location": "N11W10",
+   "flare": "C2/SF 08/09 1647"
+  },
+  {
+   "start": "2000-09-12T16:05:00",
+   "maximum": "2000-09-13T03:40:00",
+   "peak_pfu": 321,
+   "region": "9163",
+   "location": "S19W08",
+   "flare": "M1/2F 09/12 1213"
+  },
+  {
+   "start": "2000-10-16T11:10:00",
+   "maximum": "2000-10-16T18:40:00",
+   "peak_pfu": 15,
+   "region": "9182",
+   "location": "N02W90",
+   "flare": "M2/N/A 10/16 1139"
+  },
+  {
+   "start": "2000-10-26T00:40:00",
+   "maximum": "2000-10-26T03:40:00",
+   "peak_pfu": 15,
+   "region": "9182",
+   "location": "N02W90",
+   "flare": "C4/N/A 10/25 1125"
+  },
+  {
+   "start": "2000-11-08T23:50:00",
+   "maximum": "2000-11-09T15:55:00",
+   "peak_pfu": 14800,
+   "region": "9213",
+   "location": "N10W77",
+   "flare": "M7/3F 11/08 2328"
+  },
+  {
+   "start": "2000-11-24T16:00:00",
+   "maximum": "2000-11-24T21:20:00",
+   "peak_pfu": 93,
+   "region": "9236",
+   "location": "N22W07",
+   "flare": "X2/2B 11/24 1513"
+  },
+  {
+   "start": "2000-11-25T23:40:00",
+   "maximum": "2000-11-26T17:15:00",
+   "peak_pfu": 591,
+   "region": "9240",
+   "location": "N07E50",
+   "flare": "M8/2N 11/25 0131"
+  },
+  {
+   "start": "2000-11-26T18:45:00",
+   "maximum": "2000-11-26T20:30:00",
+   "peak_pfu": 942,
+   "region": "9236",
+   "location": "N21W33",
+   "flare": "X4/2B 11/26 1648"
+  },
+  {
+   "start": "2001-04-18T03:15:00",
+   "maximum": "2001-04-18T10:45:00",
+   "peak_pfu": 32,
+   "region": "9415",
+   "location": "S20W90",
+   "flare": "C2/N/A 04/18 0314"
+  },
+  {
+   "start": "2001-04-28T04:30:00",
+   "maximum": "2001-04-28T05:00:00",
+   "peak_pfu": 57,
+   "region": "9433",
+   "location": "N17W23",
+   "flare": "M7/2N 04/26 1312"
+  },
+  {
+   "start": "2001-06-15T17:50:00",
+   "maximum": "2001-06-16T00:05:00",
+   "peak_pfu": 26,
+   "region": "N/A",
+   "location": "N00W115",
+   "flare": "N/A"
+  },
+  {
+   "start": "2001-08-16T01:35:00",
+   "maximum": "2001-08-16T03:55:00",
+   "peak_pfu": 493,
+   "region": "N/A",
+   "location": "S20W180",
+   "flare": "N/A"
+  },
+  {
+   "start": "2001-09-24T09:25:00",
+   "maximum": "2001-09-25T22:35:00",
+   "peak_pfu": 12900,
+   "region": "9632",
+   "location": "S16E23",
+   "flare": "X2/2B 09/24 1038"
+  },
+  {
+   "start": "2001-10-01T12:45:00",
+   "maximum": "2001-10-02T08:10:00",
+   "peak_pfu": 2360,
+   "region": "9628",
+   "location": "S18W90",
+   "flare": "M9/N/A 10/01 0515"
+  },
+  {
+   "start": "2001-10-19T22:25:00",
+   "maximum": "2001-10-19T22:30:00",
+   "peak_pfu": 11,
+   "region": "9661",
+   "location": "N16W18",
+   "flare": "X1/2B 10/19 0105"
+  },
+  {
+   "start": "2001-10-22T19:10:00",
+   "maximum": "2001-10-22T21:30:00",
+   "peak_pfu": 24,
+   "region": "9672",
+   "location": "S21E18",
+   "flare": "M6/2N 10/22 1508"
+  },
+  {
+   "start": "2001-11-04T17:05:00",
+   "maximum": "2001-11-06T02:15:00",
+   "peak_pfu": 31700,
+   "region": "9684",
+   "location": "N06W18",
+   "flare": "X1/3B 11/04 1620"
+  },
+  {
+   "start": "2001-11-19T10:50:00",
+   "maximum": "2001-11-20T00:10:00",
+   "peak_pfu": 34,
+   "region": "9704",
+   "location": "S13E42",
+   "flare": "M2/1N 11/17 0525"
+  },
+  {
+   "start": "2001-11-22T23:20:00",
+   "maximum": "2001-11-24T05:55:00",
+   "peak_pfu": 18900,
+   "region": "9704",
+   "location": "S15W34",
+   "flare": "M9/2N 11/22 2330"
+  },
+  {
+   "start": "2001-12-26T06:05:00",
+   "maximum": "2001-12-26T11:15:00",
+   "peak_pfu": 779,
+   "region": "9742",
+   "location": "N08W54",
+   "flare": "M7/1B 12/26 0540"
+  },
+  {
+   "start": "2001-12-29T05:10:00",
+   "maximum": "2001-12-29T08:15:00",
+   "peak_pfu": 76,
+   "region": "9742",
+   "location": "N08W54",
+   "flare": "M7/1B 12/26 0540"
+  },
+  {
+   "start": "2001-12-30T21:35:00",
+   "maximum": "2001-12-31T16:20:00",
+   "peak_pfu": 108,
+   "region": "9767",
+   "location": "S23E90",
+   "flare": "X3/N/A 12/28 2045"
+  },
+  {
+   "start": "2002-01-10T20:15:00",
+   "maximum": "2002-01-11T05:30:00",
+   "peak_pfu": 91,
+   "region": "N/A",
+   "location": "S00E90",
+   "flare": "C9/N/A 01/08 2025"
+  },
+  {
+   "start": "2002-01-15T11:10:00",
+   "maximum": "2002-01-15T20:00:00",
+   "peak_pfu": 15,
+   "region": "9767",
+   "location": "S18W90",
+   "flare": "M4/N/A 01/14 0627"
+  },
+  {
+   "start": "2002-02-20T07:30:00",
+   "maximum": "2002-02-20T07:55:00",
+   "peak_pfu": 13,
+   "region": "9825",
+   "location": "N12W72",
+   "flare": "M5/1N 02/20 0612"
+  },
+  {
+   "start": "2002-03-17T08:20:00",
+   "maximum": "2002-03-17T08:50:00",
+   "peak_pfu": 13,
+   "region": "9866",
+   "location": "S08W03",
+   "flare": "M2/1F 03/15 2312"
+  },
+  {
+   "start": "2002-03-18T13:00:00",
+   "maximum": "2002-03-19T06:50:00",
+   "peak_pfu": 53,
+   "region": "9870",
+   "location": "S15W22",
+   "flare": "M1/SF 03/18 0231"
+  },
+  {
+   "start": "2002-03-20T15:15:00",
+   "maximum": "2002-03-20T15:25:00",
+   "peak_pfu": 19,
+   "region": "9870",
+   "location": "S15W22",
+   "flare": "M1/SF 03/18 0231"
+  },
+  {
+   "start": "2002-03-22T20:20:00",
+   "maximum": "2002-03-23T13:20:00",
+   "peak_pfu": 16,
+   "region": "9866",
+   "location": "S09W90",
+   "flare": "M1/N/A 03/22 1113"
+  },
+  {
+   "start": "2002-04-17T15:30:00",
+   "maximum": "2002-04-17T15:40:00",
+   "peak_pfu": 24,
+   "region": "9906",
+   "location": "S13W37",
+   "flare": "M2/2N 04/17 0824"
+  },
+  {
+   "start": "2002-04-21T02:25:00",
+   "maximum": "2002-04-21T23:20:00",
+   "peak_pfu": 2520,
+   "region": "9906",
+   "location": "S13W37",
+   "flare": "X1/1F 04/21 0151"
+  },
+  {
+   "start": "2002-05-22T17:55:00",
+   "maximum": "2002-05-23T10:55:00",
+   "peak_pfu": 820,
+   "region": "N/A",
+   "location": "S22W53",
+   "flare": "C5/SF 05/22 0349"
+  },
+  {
+   "start": "2002-07-07T18:30:00",
+   "maximum": "2002-07-07T19:55:00",
+   "peak_pfu": 22,
+   "region": "10017",
+   "location": "S19W100",
+   "flare": "M1/N/A 07/07 1143"
+  },
+  {
+   "start": "2002-07-16T17:50:00",
+   "maximum": "2002-07-17T16:00:00",
+   "peak_pfu": 234,
+   "region": "10030",
+   "location": "N19W01",
+   "flare": "X3/3B 07/15 2008"
+  },
+  {
+   "start": "2002-07-22T06:25:00",
+   "maximum": "2002-07-23T10:25:00",
+   "peak_pfu": 28,
+   "region": "10039",
+   "location": "S12E90",
+   "flare": "X3/N/A 07/20 2130"
+  },
+  {
+   "start": "2002-08-14T09:00:00",
+   "maximum": "2002-08-14T16:20:00",
+   "peak_pfu": 26,
+   "region": "10061",
+   "location": "N09W54",
+   "flare": "M2/1N 08/14 0212"
+  },
+  {
+   "start": "2002-08-22T04:40:00",
+   "maximum": "2002-08-22T09:40:00",
+   "peak_pfu": 36,
+   "region": "10069",
+   "location": "S07W62",
+   "flare": "M5/2B 08/22 0157"
+  },
+  {
+   "start": "2002-08-24T01:40:00",
+   "maximum": "2002-08-24T08:35:00",
+   "peak_pfu": 317,
+   "region": "10069",
+   "location": "S02W81",
+   "flare": "X3/1F 08/24 0112"
+  },
+  {
+   "start": "2002-09-07T04:40:00",
+   "maximum": "2002-09-07T16:50:00",
+   "peak_pfu": 20,
+   "region": "10102",
+   "location": "N10E28",
+   "flare": "C5/SF 09/05 1706"
+  },
+  {
+   "start": "2002-11-09T19:20:00",
+   "maximum": "2002-11-10T05:40:00",
+   "peak_pfu": 404,
+   "region": "10180",
+   "location": "S12W29",
+   "flare": "M4/2B 11/09 1323"
+  },
+  {
+   "start": "2003-05-28T23:40:00",
+   "maximum": "2003-05-29T15:30:00",
+   "peak_pfu": 121,
+   "region": "10365",
+   "location": "S06W24",
+   "flare": "X3/2B 05/28 0027"
+  },
+  {
+   "start": "2003-05-31T04:40:00",
+   "maximum": "2003-05-31T06:45:00",
+   "peak_pfu": 27,
+   "region": "10365",
+   "location": "S07W65",
+   "flare": "M9/2B 05/31 0224"
+  },
+  {
+   "start": "2003-06-18T21:25:00",
+   "maximum": "2003-06-19T04:15:00",
+   "peak_pfu": 19,
+   "region": "10386",
+   "location": "S09E60",
+   "flare": "M6/SF 06/17 2255"
+  },
+  {
+   "start": "2003-10-26T18:25:00",
+   "maximum": "2003-10-26T22:35:00",
+   "peak_pfu": 466,
+   "region": "10484",
+   "location": "N02W38",
+   "flare": "X1/1N 10/26 1815"
+  },
+  {
+   "start": "2003-10-28T12:15:00",
+   "maximum": "2003-10-29T06:15:00",
+   "peak_pfu": 29500,
+   "region": "10486",
+   "location": "S16E08",
+   "flare": "X17/4B 10/28 1110"
+  },
+  {
+   "start": "2003-10-29T21:00:00",
+   "maximum": "2003-10-30T19:35:00",
+   "peak_pfu": 3300,
+   "region": "10486",
+   "location": "S15W02",
+   "flare": "X10/2B 10/29 2049"
+  },
+  {
+   "start": "2003-11-02T17:35:00",
+   "maximum": "2003-11-03T08:15:00",
+   "peak_pfu": 1570,
+   "region": "10486",
+   "location": "S14W56",
+   "flare": "X8/2B 11/02 1725"
+  },
+  {
+   "start": "2003-11-04T22:25:00",
+   "maximum": "2003-11-05T06:00:00",
+   "peak_pfu": 353,
+   "region": "10486",
+   "location": "S19W83",
+   "flare": "X28/3B 11/04 1952"
+  },
+  {
+   "start": "2003-11-21T23:55:00",
+   "maximum": "2003-11-22T02:30:00",
+   "peak_pfu": 13,
+   "region": "10501",
+   "location": "N02W17",
+   "flare": "M5/2B 11/20 2353"
+  },
+  {
+   "start": "2003-12-02T15:55:00",
+   "maximum": "2003-12-02T18:20:00",
+   "peak_pfu": 88,
+   "region": "10508",
+   "location": "S17W95",
+   "flare": "C8/N/A 12/02 1150"
+  },
+  {
+   "start": "2004-04-11T11:35:00",
+   "maximum": "2004-04-11T18:45:00",
+   "peak_pfu": 35,
+   "region": "10588",
+   "location": "S14W47",
+   "flare": "C9/1F 04/11 0419"
+  },
+  {
+   "start": "2004-07-25T18:25:00",
+   "maximum": "2004-07-25T22:50:00",
+   "peak_pfu": 2090,
+   "region": "10652",
+   "location": "N08W33",
+   "flare": "M9/1F 07/25 1520"
+  },
+  {
+   "start": "2004-09-13T20:05:00",
+   "maximum": "2004-09-14T00:05:00",
+   "peak_pfu": 273,
+   "region": "10672",
+   "location": "N04E42",
+   "flare": "M4/2N 09/12 0056"
+  },
+  {
+   "start": "2004-09-19T19:25:00",
+   "maximum": "2004-09-20T01:00:00",
+   "peak_pfu": 57,
+   "region": "10672",
+   "location": "N03W58",
+   "flare": "M1/N/A 09/19 1712"
+  },
+  {
+   "start": "2004-11-01T06:55:00",
+   "maximum": "2004-11-01T08:05:00",
+   "peak_pfu": 63,
+   "region": "N/A",
+   "location": "S00W120",
+   "flare": "N/A"
+  },
+  {
+   "start": "2004-11-07T19:10:00",
+   "maximum": "2004-11-08T01:15:00",
+   "peak_pfu": 495,
+   "region": "10696",
+   "location": "N09W17",
+   "flare": "X2/N/A 11/07 1606"
+  },
+  {
+   "start": "2004-11-09T20:30:00",
+   "maximum": "2004-11-09T21:30:00",
+   "peak_pfu": 82,
+   "region": "10696",
+   "location": "N07W51",
+   "flare": "M8/2N 11/09 1719"
+  },
+  {
+   "start": "2004-11-10T02:55:00",
+   "maximum": "2004-11-10T16:55:00",
+   "peak_pfu": 424,
+   "region": "10696",
+   "location": "N09W49",
+   "flare": "X2/3B 11/10 0213"
+  },
+  {
+   "start": "2005-01-16T02:10:00",
+   "maximum": "2005-01-17T17:50:00",
+   "peak_pfu": 5040,
+   "region": "10720",
+   "location": "N15W05",
+   "flare": "X2/N/A 01/15 2302"
+  },
+  {
+   "start": "2005-05-14T05:25:00",
+   "maximum": "2005-05-15T02:40:00",
+   "peak_pfu": 3140,
+   "region": "10759",
+   "location": "N12E11",
+   "flare": "M8/2B 05/13 1657"
+  },
+  {
+   "start": "2005-06-16T22:00:00",
+   "maximum": "2005-06-17T05:00:00",
+   "peak_pfu": 44,
+   "region": "10775",
+   "location": "N09W87",
+   "flare": "M4/N/A 06/16 2022"
+  },
+  {
+   "start": "2005-07-14T02:45:00",
+   "maximum": "2005-07-15T03:45:00",
+   "peak_pfu": 134,
+   "region": "10786",
+   "location": "N10W80",
+   "flare": "M5/N/A 07/13 1449"
+  },
+  {
+   "start": "2005-07-27T23:00:00",
+   "maximum": "2005-07-29T17:15:00",
+   "peak_pfu": 41,
+   "region": "10792",
+   "location": "N11E90",
+   "flare": "M3/N/A 07/27 0502"
+  },
+  {
+   "start": "2005-08-22T20:40:00",
+   "maximum": "2005-08-23T10:45:00",
+   "peak_pfu": 330,
+   "region": "10798",
+   "location": "S12W60",
+   "flare": "M5/1N 08/22 1727"
+  },
+  {
+   "start": "2005-09-08T02:15:00",
+   "maximum": "2005-09-11T04:25:00",
+   "peak_pfu": 1880,
+   "region": "10808",
+   "location": "S06E89",
+   "flare": "X17/3B 09/07 1740"
+  },
+  {
+   "start": "2006-12-06T15:55:00",
+   "maximum": "2006-12-07T19:30:00",
+   "peak_pfu": 1980,
+   "region": "10930",
+   "location": "S07E79",
+   "flare": "X9/2N 12/05 1035"
+  },
+  {
+   "start": "2006-12-13T03:10:00",
+   "maximum": "2006-12-13T09:25:00",
+   "peak_pfu": 698,
+   "region": "10930",
+   "location": "S05W23",
+   "flare": "X3/4B 12/13 0240"
+  },
+  {
+   "start": "2010-08-14T12:30:00",
+   "maximum": "2010-08-14T12:45:00",
+   "peak_pfu": 14,
+   "region": "11099",
+   "location": "N17W52",
+   "flare": "C4/SF 08/14 1005"
+  },
+  {
+   "start": "2011-03-08T01:05:00",
+   "maximum": "2011-03-08T08:00:00",
+   "peak_pfu": 50,
+   "region": "11164",
+   "location": "N24W59",
+   "flare": "M3/N/A 03/07 2012"
+  },
+  {
+   "start": "2011-03-21T19:50:00",
+   "maximum": "2011-03-22T01:35:00",
+   "peak_pfu": 14,
+   "region": "11169",
+   "location": "Farside",
+   "flare": "N/A"
+  },
+  {
+   "start": "2011-06-07T08:20:00",
+   "maximum": "2011-06-07T18:20:00",
+   "peak_pfu": 73,
+   "region": "11226",
+   "location": "S21W64",
+   "flare": "M2/2N 06/07 0641"
+  },
+  {
+   "start": "2011-08-04T06:35:00",
+   "maximum": "2011-08-05T21:50:00",
+   "peak_pfu": 96,
+   "region": "11261",
+   "location": "N15W49",
+   "flare": "M9/2B 08/04 0357"
+  },
+  {
+   "start": "2011-08-09T08:45:00",
+   "maximum": "2011-08-09T12:10:00",
+   "peak_pfu": 26,
+   "region": "11263",
+   "location": "N17W83",
+   "flare": "X6/2B 08/09 0805"
+  },
+  {
+   "start": "2011-09-23T22:55:00",
+   "maximum": "2011-09-26T11:55:00",
+   "peak_pfu": 35,
+   "region": "11302",
+   "location": "N11E74",
+   "flare": "X1/2N 09/22 1101"
+  },
+  {
+   "start": "2011-11-26T11:25:00",
+   "maximum": "2011-11-27T01:25:00",
+   "peak_pfu": 80,
+   "region": "11353",
+   "location": "N08W49",
+   "flare": "C1/N/A 11/26 0710"
+  },
+  {
+   "start": "2012-01-23T05:30:00",
+   "maximum": "2012-01-24T15:30:00",
+   "peak_pfu": 6310,
+   "region": "11402",
+   "location": "N28W36",
+   "flare": "M8/2B 01/23 0359"
+  },
+  {
+   "start": "2012-01-27T19:05:00",
+   "maximum": "2012-01-28T02:05:00",
+   "peak_pfu": 796,
+   "region": "11402",
+   "location": "N27W71",
+   "flare": "X1/1F 01/27 1837"
+  },
+  {
+   "start": "2012-03-07T05:10:00",
+   "maximum": "2012-03-08T11:15:00",
+   "peak_pfu": 6530,
+   "region": "11429",
+   "location": "N17E15",
+   "flare": "X5/3B 03/07 0024"
+  },
+  {
+   "start": "2012-03-13T18:10:00",
+   "maximum": "2012-03-13T20:45:00",
+   "peak_pfu": 469,
+   "region": "11429",
+   "location": "N18W62",
+   "flare": "M7/1B 03/13 1741"
+  },
+  {
+   "start": "2012-05-17T02:10:00",
+   "maximum": "2012-05-17T04:30:00",
+   "peak_pfu": 255,
+   "region": "11476",
+   "location": "N12W89",
+   "flare": "M5/N/A 05/17 0147"
+  },
+  {
+   "start": "2012-05-27T05:35:00",
+   "maximum": "2012-05-27T10:45:00",
+   "peak_pfu": 14,
+   "region": "11428",
+   "location": "Farside",
+   "flare": "N/A"
+  },
+  {
+   "start": "2012-06-16T19:55:00",
+   "maximum": "2012-06-16T20:20:00",
+   "peak_pfu": 14,
+   "region": "11504",
+   "location": "S17E14",
+   "flare": "M1/N/A 06/14 1435"
+  },
+  {
+   "start": "2012-07-07T04:00:00",
+   "maximum": "2012-07-07T07:45:00",
+   "peak_pfu": 25,
+   "region": "11515",
+   "location": "S18W50",
+   "flare": "X1/N/A 07/06 2308"
+  },
+  {
+   "start": "2012-07-09T01:30:00",
+   "maximum": "2012-07-09T04:30:00",
+   "peak_pfu": 19,
+   "region": "11515",
+   "location": "S17W74",
+   "flare": "M6/1N 07/08 1632"
+  },
+  {
+   "start": "2012-07-12T18:35:00",
+   "maximum": "2012-07-12T22:25:00",
+   "peak_pfu": 96,
+   "region": "11520",
+   "location": "S16W09",
+   "flare": "X1/2B 07/12 1649"
+  },
+  {
+   "start": "2012-07-17T17:15:00",
+   "maximum": "2012-07-18T06:00:00",
+   "peak_pfu": 136,
+   "region": "11520",
+   "location": "S17W75",
+   "flare": "M1/N/A 07/17 1715"
+  },
+  {
+   "start": "2012-07-23T15:45:00",
+   "maximum": "2012-07-23T21:45:00",
+   "peak_pfu": 12,
+   "region": "11520",
+   "location": "Farside",
+   "flare": "N/A"
+  },
+  {
+   "start": "2012-09-01T13:35:00",
+   "maximum": "2012-09-02T08:50:00",
+   "peak_pfu": 60,
+   "region": "N/A",
+   "location": "S06E20",
+   "flare": "C8/N/A 08/31 2043"
+  },
+  {
+   "start": "2012-09-28T03:00:00",
+   "maximum": "2012-09-28T04:45:00",
+   "peak_pfu": 28,
+   "region": "11577",
+   "location": "N08W41",
+   "flare": "C3/N/A 09/27 2357"
+  },
+  {
+   "start": "2013-03-16T19:40:00",
+   "maximum": "2013-03-17T07:00:00",
+   "peak_pfu": 16,
+   "region": "11692",
+   "location": "N11E12",
+   "flare": "M1/N/A 03/15 0658"
+  },
+  {
+   "start": "2013-04-11T10:55:00",
+   "maximum": "2013-04-11T16:45:00",
+   "peak_pfu": 114,
+   "region": "11719",
+   "location": "N09E12",
+   "flare": "M6/N/A 04/11 0716"
+  },
+  {
+   "start": "2013-05-15T13:25:00",
+   "maximum": "2013-05-17T17:20:00",
+   "peak_pfu": 42,
+   "region": "11748",
+   "location": "N11E51",
+   "flare": "X1/N/A 05/15 0148"
+  },
+  {
+   "start": "2013-05-22T14:20:00",
+   "maximum": "2013-05-23T06:50:00",
+   "peak_pfu": 1660,
+   "region": "11745",
+   "location": "N15W70",
+   "flare": "M5/N/A 05/22 1332"
+  },
+  {
+   "start": "2013-06-23T20:14:00",
+   "maximum": "2013-06-24T05:20:00",
+   "peak_pfu": 14,
+   "region": "11777",
+   "location": "S16E66",
+   "flare": "M2/N/A 06/21 0314"
+  },
+  {
+   "start": "2013-09-30T05:05:00",
+   "maximum": "2013-09-30T20:05:00",
+   "peak_pfu": 182,
+   "region": "DSF",
+   "location": "N15W40",
+   "flare": "C1/N/A 09/29 2337"
+  },
+  {
+   "start": "2013-12-28T21:50:00",
+   "maximum": "2013-12-28T23:15:00",
+   "peak_pfu": 29,
+   "region": "11936",
+   "location": "S18E07",
+   "flare": "C9/N/A 12/28 1802"
+  },
+  {
+   "start": "2014-01-06T09:15:00",
+   "maximum": "2014-01-06T16:00:00",
+   "peak_pfu": 42,
+   "region": "11936",
+   "location": "Farside",
+   "flare": "N/A"
+  },
+  {
+   "start": "2014-01-06T09:15:00",
+   "maximum": "2014-01-09T03:40:00",
+   "peak_pfu": 1026,
+   "region": "11944",
+   "location": "S15W11",
+   "flare": "X1/N/A 01/07 1832"
+  },
+  {
+   "start": "2014-02-20T08:50:00",
+   "maximum": "2014-02-20T09:25:00",
+   "peak_pfu": 22,
+   "region": "11976",
+   "location": "S15W67",
+   "flare": "M3/N/A 02/20 0756"
+  },
+  {
+   "start": "2014-02-25T13:55:00",
+   "maximum": "2014-02-25T08:45:00",
+   "peak_pfu": 103,
+   "region": "11990",
+   "location": "S12E82",
+   "flare": "X4/N/A 02/25 0049"
+  },
+  {
+   "start": "2014-04-18T15:25:00",
+   "maximum": "2014-04-19T01:05:00",
+   "peak_pfu": 58,
+   "region": "12036",
+   "location": "S16W41",
+   "flare": "M7/N/A 04/18 1303"
+  },
+  {
+   "start": "2014-09-11T02:40:00",
+   "maximum": "2014-09-12T15:55:00",
+   "peak_pfu": 126,
+   "region": "12158",
+   "location": "N16W06",
+   "flare": "X1/N/A 09/10 1745"
+  },
+  {
+   "start": "2015-06-18T11:35:00",
+   "maximum": "2015-06-18T14:45:00",
+   "peak_pfu": 17,
+   "region": "12365",
+   "location": "SW limb",
+   "flare": "M1/N/A 06/18 0127"
+  },
+  {
+   "start": "2015-06-21T21:35:00",
+   "maximum": "2015-06-22T19:00:00",
+   "peak_pfu": 1066,
+   "region": "12371",
+   "location": "N13W00",
+   "flare": "M2/1N 06/21 0142"
+  },
+  {
+   "start": "2015-06-26T03:50:00",
+   "maximum": "2015-06-27T00:30:00",
+   "peak_pfu": 22,
+   "region": "12371",
+   "location": "N12W40",
+   "flare": "M7/N/A 06/25 0816"
+  },
+  {
+   "start": "2015-10-29T05:50:00",
+   "maximum": "2015-10-29T10:00:00",
+   "peak_pfu": 23,
+   "region": "12434",
+   "location": "Farside",
+   "flare": "N/A"
+  },
+  {
+   "start": "2016-01-02T04:30:00",
+   "maximum": "2016-01-02T04:50:00",
+   "peak_pfu": 21,
+   "region": "12473",
+   "location": "S21W73",
+   "flare": "M2/N/A 01/02 0011"
+  },
+  {
+   "start": "2017-07-14T09:00:00",
+   "maximum": "2017-07-14T23:20:00",
+   "peak_pfu": 22,
+   "region": "12665",
+   "location": "S06W29",
+   "flare": "M2/N/A 07/14 0209"
+  },
+  {
+   "start": "2017-09-05T00:40:00",
+   "maximum": "2017-09-08T00:35:00",
+   "peak_pfu": 844,
+   "region": "12673",
+   "location": "S11W16",
+   "flare": "M5/N/A 09/04 2033"
+  },
+  {
+   "start": "2017-09-10T16:45:00",
+   "maximum": "2017-09-11T11:45:00",
+   "peak_pfu": 1494,
+   "region": "12673",
+   "location": "S08W83",
+   "flare": "X8/N/A 09/10 1606"
+  },
+  {
+   "start": "2021-05-29T03:00:00",
+   "maximum": "2021-05-29T03:20:00",
+   "peak_pfu": 15,
+   "region": "12824",
+   "location": "N21W63",
+   "flare": "C9/1F 05/28 2313"
+  },
+  {
+   "start": "2021-10-28T17:40:00",
+   "maximum": "2021-10-29T02:50:00",
+   "peak_pfu": 29,
+   "region": "12887",
+   "location": "S26W04",
+   "flare": "X1/2N 10/28 1535"
+  },
+  {
+   "start": "2021-10-30T21:00:00",
+   "maximum": "2021-10-30T21:05:00",
+   "peak_pfu": 11,
+   "region": "12887",
+   "location": "S26W04",
+   "flare": "X1/2N 10/28 1535"
+  },
+  {
+   "start": "2022-01-20T08:00:00",
+   "maximum": "2022-01-20T10:15:00",
+   "peak_pfu": 22,
+   "region": "12929",
+   "location": "N08W84",
+   "flare": "M5/Sf 01/20 0601"
+  },
+  {
+   "start": "2022-03-28T13:25:00",
+   "maximum": "2022-03-28T14:50:00",
+   "peak_pfu": 19,
+   "region": "12975",
+   "location": "N13W06",
+   "flare": "M4/2N 03/28 1129"
+  },
+  {
+   "start": "2022-03-31T06:20:00",
+   "maximum": "2022-03-31T06:30:00",
+   "peak_pfu": 11,
+   "region": "12975",
+   "location": "N13W31",
+   "flare": "X1/N/A 03/30 1737"
+  },
+  {
+   "start": "2022-04-02T14:30:00",
+   "maximum": "2022-04-02T16:00:00",
+   "peak_pfu": 32,
+   "region": "12976",
+   "location": "N15W61",
+   "flare": "M3/SN 03/28 1129"
+  },
+  {
+   "start": "2022-08-27T11:55:00",
+   "maximum": "2022-08-27T12:20:00",
+   "peak_pfu": 27,
+   "region": "13088",
+   "location": "N13W34",
+   "flare": "M1/N/A 08/27 1138"
+  },
+  {
+   "start": "2023-02-25T21:10:00",
+   "maximum": "2023-02-26T04:40:00",
+   "peak_pfu": 58,
+   "region": "13229",
+   "location": "N26W43",
+   "flare": "M6/3N 02/25 1944"
+  },
+  {
+   "start": "2023-03-13T07:35:00",
+   "maximum": "2023-03-15T04:25:00",
+   "peak_pfu": 22,
+   "region": "Farsided",
+   "location": "N/A",
+   "flare": "farside event"
+  },
+  {
+   "start": "2023-04-23T18:15:00",
+   "maximum": "2023-04-23T18:20:00",
+   "peak_pfu": 26,
+   "region": "13283",
+   "location": "S22W14",
+   "flare": "M1.7 04/21 1812"
+  },
+  {
+   "start": "2023-05-08T12:40:00",
+   "maximum": "2023-05-09T01:50:00",
+   "peak_pfu": 38,
+   "region": "13296",
+   "location": "N16W13",
+   "flare": "M1.6 05/07 2323"
+  },
+  {
+   "start": "2023-05-09T23:35:00",
+   "maximum": "2023-05-10T12:50:00",
+   "peak_pfu": 83,
+   "region": "13296",
+   "location": "N13W31",
+   "flare": "M4/1B 09/1858"
+  },
+  {
+   "start": "2023-07-16T06:35:00",
+   "maximum": "2023-07-16T07:35:00",
+   "peak_pfu": 18,
+   "region": "N/A",
+   "location": "farside event",
+   "flare": "N/A"
+  },
+  {
+   "start": "2023-07-18T01:15:00",
+   "maximum": "2023-07-18T06:15:00",
+   "peak_pfu": 620,
+   "region": "13363",
+   "location": "S26W87",
+   "flare": "M5 07/18 0006"
+  },
+  {
+   "start": "2023-07-29T00:20:00",
+   "maximum": "2023-07-29T09:20:00",
+   "peak_pfu": 154,
+   "region": "13376",
+   "location": "N27W87",
+   "flare": "M4 07/28 1558"
+  },
+  {
+   "start": "2023-08-05T11:15:00",
+   "maximum": "2023-08-05T17:45:00",
+   "peak_pfu": 18,
+   "region": "13386",
+   "location": "N10W63",
+   "flare": "M1 08/05 0718"
+  },
+  {
+   "start": "2023-08-08T01:15:00",
+   "maximum": "2023-08-09T00:25:00",
+   "peak_pfu": 47,
+   "region": "13386",
+   "location": "Beyond west limb",
+   "flare": "X1 08/07 2046"
+  },
+  {
+   "start": "2023-09-01T04:30:00",
+   "maximum": "2023-09-01T06:10:00",
+   "peak_pfu": 25,
+   "region": "13413",
+   "location": "N09W75",
+   "flare": "M1 09/01 0351"
+  },
+  {
+   "start": "2023-12-15T23:45:00",
+   "maximum": "2023-12-16T00:15:00",
+   "peak_pfu": 13,
+   "region": "13514",
+   "location": "N05W76",
+   "flare": "N/A"
+  },
+  {
+   "start": "2024-01-03T20:05:00",
+   "maximum": "2024-01-04T08:35:00",
+   "peak_pfu": 20,
+   "region": "13536",
+   "location": "N04E73",
+   "flare": "X5/3B 12/31 2203"
+  },
+  {
+   "start": "2024-01-29T06:15:00",
+   "maximum": "2024-01-29T18:05:00",
+   "peak_pfu": 137,
+   "region": "13559",
+   "location": "N26E73",
+   "flare": "M6.7/Sf 01/29 0438"
+  },
+  {
+   "start": "2024-02-12T08:05:00",
+   "maximum": "2024-02-13T16:05:00",
+   "peak_pfu": 118,
+   "region": "13576",
+   "location": "S16W30",
+   "flare": "C9.6/Sf 02/12 0554"
+  },
+  {
+   "start": "2024-03-23T08:15:00",
+   "maximum": "2024-03-23T18:20:00",
+   "peak_pfu": 956,
+   "region": "13614",
+   "location": "N27E08",
+   "flare": "X1.1/2F 03/23 0133"
+  },
+  {
+   "start": "2024-05-10T13:35:00",
+   "maximum": "2024-05-10T17:45:00",
+   "peak_pfu": 208,
+   "region": "13664",
+   "location": "S17W36",
+   "flare": "X3.9 05/10 0654"
+  },
+  {
+   "start": "2024-05-11T02:10:00",
+   "maximum": "2024-05-11T09:10:00",
+   "peak_pfu": 116,
+   "region": "13664",
+   "location": "S17W44",
+   "flare": "X5.8 05/11 0123"
+  },
+  {
+   "start": "2024-06-08T02:55:00",
+   "maximum": "2024-06-08T08:00:00",
+   "peak_pfu": 1030,
+   "region": "13696",
+   "location": "S17W58",
+   "flare": "M9.7 06/08 0149"
+  },
+  {
+   "start": "2024-07-23T03:00:00",
+   "maximum": "2024-07-23T10:40:00",
+   "peak_pfu": 24,
+   "region": "N/A",
+   "location": "Farsided event",
+   "flare": "N/A"
+  },
+  {
+   "start": "2024-09-09T16:40:00",
+   "maximum": "2024-09-09T22:50:00",
+   "peak_pfu": 34,
+   "region": "13806",
+   "location": "S08W81",
+   "flare": "M1.0 09/09 0332"
+  },
+  {
+   "start": "2024-09-17T07:35:00",
+   "maximum": "2024-09-17T10:50:00",
+   "peak_pfu": 33,
+   "region": "13825",
+   "location": "S16E56",
+   "flare": "X4.5/2b 09/14 1529"
+  },
+  {
+   "start": "2024-10-09T05:05:00",
+   "maximum": "2024-10-10T15:15:00",
+   "peak_pfu": 1810,
+   "region": "13848",
+   "location": "N12W11",
+   "flare": "X1.8 10/09 0156"
+  },
+  {
+   "start": "2024-10-26T19:10:00",
+   "maximum": "2024-10-28T03:50:00",
+   "peak_pfu": 364,
+   "region": "13873",
+   "location": "S11E56",
+   "flare": "X1.8 10/26 0719"
+  },
+  {
+   "start": "2024-11-21T19:25:00",
+   "maximum": "2024-11-22T03:55:00",
+   "peak_pfu": 125,
+   "region": "N/A",
+   "location": "Beyond W Limb",
+   "flare": "N/A"
+  },
+  {
+   "start": "2025-01-04T22:35:00",
+   "maximum": "2025-01-25T00:55:00",
+   "peak_pfu": 20,
+   "region": "13939",
+   "location": "S17W61",
+   "flare": "C7.6 01/04 1915"
+  },
+  {
+   "start": "2025-02-25T00:20:00",
+   "maximum": "2025-02-25T02:40:00",
+   "peak_pfu": 37,
+   "region": "N/A",
+   "location": "Around SW Limb",
+   "flare": "M3.9 02/24 2302"
+  },
+  {
+   "start": "2025-03-31T11:05:00",
+   "maximum": "2025-04-01T04:25:00",
+   "peak_pfu": 147,
+   "region": "14046",
+   "location": "N05E85",
+   "flare": "X1.9 03/28 1521"
+  },
+  {
+   "start": "2025-05-31T17:10:00",
+   "maximum": "2025-06-01T09:15:00",
+   "peak_pfu": 666,
+   "region": "14100",
+   "location": "N08W00",
+   "flare": "M8.1 05/31 0005"
+  },
+  {
+   "start": "2025-08-25T13:55:00",
+   "maximum": "2025-08-27T07:40:00",
+   "peak_pfu": 13,
+   "region": "N/A",
+   "location": "farside halo",
+   "flare": "N/A"
+  },
+  {
+   "start": "2025-11-10T11:25:00",
+   "maximum": "2025-11-10T15:00:00",
+   "peak_pfu": 30,
+   "region": "14274",
+   "location": "N24W14",
+   "flare": "X1.2/2B 11/10 0919"
+  },
+  {
+   "start": "2025-11-11T09:45:00",
+   "maximum": "2025-11-12T02:15:00",
+   "peak_pfu": 1460,
+   "region": "14274",
+   "location": "N24W28",
+   "flare": "X5.1/3B 11/11 1004"
+  },
+  {
+   "start": "2025-11-14T09:20:00",
+   "maximum": "2025-11-14T09:50:00",
+   "peak_pfu": 16,
+   "region": "14274",
+   "location": "N22W61",
+   "flare": "X4.0/3B 11/14 0830"
+  },
+  {
+   "start": "2026-01-18T22:55:00",
+   "maximum": "2026-01-19T19:15:00",
+   "peak_pfu": 37000,
+   "region": "14341",
+   "location": "S11E24",
+   "flare": "X1.9/3B 01/18 1809"
+  },
+  {
+   "start": "2026-07-30T18:45:00",
+   "maximum": "2026-07-30T20:55:00",
+   "peak_pfu": 18,
+   "region": "14492",
+   "location": "N16W69",
+   "flare": "M1.9/SF 07/30 1700"
+  }
+ ]
+}

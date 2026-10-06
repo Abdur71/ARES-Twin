@@ -1,286 +1,144 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import {
-  Activity,
-  CheckCircle2,
-  AlertTriangle,
-  RefreshCw,
-  Server,
-  Layers,
-  ShieldCheck,
-  Compass,
-  Cpu,
-  Orbit,
-  ExternalLink,
-} from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Radio, ShieldCheck, Sun, Users } from "lucide-react";
+import { RadiationMeter } from "@/components/charts";
+import { ErrorBox, Loading, Panel, SimulatedNote, Stat, StatusPill } from "@/components/ui";
+import { useApi } from "@/lib/api";
+import { useMission } from "@/lib/mission";
+import { METRICS, SERIES } from "@/lib/theme";
 
-export default function HomePage() {
-  const [mounted, setMounted] = useState(false);
-  const [backendStatus, setBackendStatus] = useState("CHECKING");
-  const [healthData, setHealthData] = useState(null);
-  const [latency, setLatency] = useState(null);
-  const [lastChecked, setLastChecked] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const apiUrl =
-    process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
-
-  const checkBackendHealth = useCallback(async () => {
-    setBackendStatus("CHECKING");
-    setErrorMessage("");
-    const startTime = performance.now();
-
-    try {
-      const response = await fetch(`${apiUrl}/api/health`, {
-        cache: "no-store",
-        headers: {
-          Accept: "application/json",
-        },
-      });
-
-      const elapsed = Math.round(performance.now() - startTime);
-      setLatency(elapsed);
-
-      if (response.ok) {
-        const data = await response.json();
-        setHealthData(data);
-        if (data.status === "ok") {
-          setBackendStatus("CONNECTED");
-        } else {
-          setBackendStatus("DEGRADED");
-        }
-      } else {
-        setBackendStatus("DISCONNECTED");
-        setErrorMessage(`HTTP ${response.status}: ${response.statusText}`);
-      }
-    } catch (err) {
-      setBackendStatus("DISCONNECTED");
-      setErrorMessage(err.message || "Failed to reach backend endpoint");
-    } finally {
-      setLastChecked(new Date().toLocaleTimeString());
-    }
-  }, [apiUrl]);
-
-  useEffect(() => {
-    setMounted(true);
-    checkBackendHealth();
-    const interval = setInterval(checkBackendHealth, 15000);
-    return () => clearInterval(interval);
-  }, [checkBackendHealth]);
-
+function LossBar({ metric, loss }) {
+  const m = METRICS[metric];
+  const pct = loss * 100;
   return (
-    <main className="flex-1 flex flex-col justify-between p-6 sm:p-10 lg:p-12 max-w-7xl mx-auto w-full">
-      {/* Top Telemetry Bar */}
-      <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-cyan-900/30">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-lg bg-cyan-950/60 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-            <Orbit className="h-5 w-5 animate-spin-slow" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono tracking-widest text-cyan-400 uppercase">
-                ARES-TWIN-SIM // PHASE 1 FOUNDATION
-              </span>
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-cyan-400 animate-ping"></span>
-            </div>
-            <p className="text-xs text-slate-400">Deep-Space Mission Decision Support System</p>
-          </div>
-        </div>
+    <div>
+      <div className="flex justify-between text-[11px] text-slate-400">
+        <span>{m.short} loss</span>
+        <span className="font-mono tabular-nums text-slate-200">{pct.toFixed(1)}% <span className="text-slate-500">/ {m.limit}%</span></span>
+      </div>
+      <div className="mt-1 h-1.5 rounded-full bg-slate-800">
+        <div className="h-full rounded-full" style={{ width: `${Math.min(100, (pct / m.limit) * 100)}%`, background: SERIES.blue }} />
+      </div>
+    </div>
+  );
+}
 
-        <div className="flex items-center gap-3 font-mono text-xs text-slate-300">
-          <div className="px-3 py-1.5 rounded bg-slate-900/80 border border-slate-800 flex items-center gap-2">
-            <span className="text-slate-400">TARGET:</span>
-            <span className="text-cyan-300 font-medium">MARS TRANSIT (270D)</span>
-          </div>
-          <div className="px-3 py-1.5 rounded bg-slate-900/80 border border-slate-800 flex items-center gap-2">
-            <span className="text-slate-400">NODE:</span>
-            <span className="text-emerald-400 font-medium">SYS-ALPHA</span>
-          </div>
+function CrewCard({ card }) {
+  const { profile, arrival, radiation, alerts } = card;
+  const r = arrival.readiness;
+  const serious = alerts.filter((a) => a.level !== "info").length;
+  return (
+    <article className="technical-panel flex flex-col gap-4 rounded-xl p-4">
+      <header className="flex items-start justify-between gap-2">
+        <div>
+          <h3 className="font-semibold text-slate-100">{profile.name}</h3>
+          <p className="text-xs text-slate-400">{profile.role} · age {profile.age}</p>
         </div>
+        <StatusPill status={arrival.status} />
       </header>
-
-      {/* Main Core Verification Console */}
-      <div className="py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        {/* Left Side: Mission Branding & Identity */}
-        <div className="lg:col-span-7 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium tracking-wide bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
-            <Compass className="h-3.5 w-3.5" />
-            HUMAN MARS TRANSIT DIGITAL TWIN
-          </div>
-
-          <div className="space-y-2">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white font-sans">
-              ARES <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500">Twin</span>
-            </h1>
-            <p className="text-xl sm:text-2xl text-slate-300 font-light tracking-wide">
-              Astronaut Digital Twin Simulator
-            </p>
-          </div>
-
-          <p className="text-slate-400 text-sm sm:text-base leading-relaxed max-w-2xl">
-            A high-fidelity physiological degradation and readiness modeling platform.
-            Projecting bone mineral loss, muscle atrophy, cardiovascular decline, and deep-space
-            radiation accumulation for simulated human crews en route to Mars.
-          </p>
-
-          {/* Quick Specifications Matrix */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
-            <div className="p-3 rounded-lg bg-slate-900/40 border border-slate-800/80">
-              <span className="text-xs text-slate-400 font-mono block">SIM CREW</span>
-              <span className="text-sm font-semibold text-slate-200">4 Specialists</span>
-            </div>
-            <div className="p-3 rounded-lg bg-slate-900/40 border border-slate-800/80">
-              <span className="text-xs text-slate-400 font-mono block">TRANSIT DURATION</span>
-              <span className="text-sm font-semibold text-slate-200">270 Days</span>
-            </div>
-            <div className="p-3 rounded-lg bg-slate-900/40 border border-slate-800/80">
-              <span className="text-xs text-slate-400 font-mono block">NASA DONKI FEED</span>
-              <span className="text-sm font-semibold text-cyan-300">Phase 6 Ready</span>
-            </div>
-          </div>
-
-          {/* Scientific Disclaimer */}
-          <div className="p-4 rounded-lg bg-amber-950/20 border border-amber-500/20 text-xs text-amber-200/80 flex items-start gap-3">
-            <ShieldCheck className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
-            <p className="leading-relaxed">
-              <strong className="text-amber-300 font-medium">RESEARCH & SIMULATION PROTOTYPE:</strong>{" "}
-              This platform is not a certified medical diagnostic device. Astronaut records are synthetic,
-              and mathematical models decouple empirical measurements from mission assumptions.
-            </p>
-          </div>
-        </div>
-
-        {/* Right Side: Telemetry Link & Status Card */}
-        <div className="lg:col-span-5">
-          <div className="technical-panel rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl relative overflow-hidden">
-            {/* Ambient accent top bar */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-60"></div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Server className="h-5 w-5 text-cyan-400" />
-                <h2 className="text-sm font-semibold tracking-wide text-slate-200 uppercase font-mono">
-                  Telemetry Link Status
-                </h2>
-              </div>
-              <button
-                onClick={checkBackendHealth}
-                disabled={backendStatus === "CHECKING"}
-                className="p-1.5 rounded-md hover:bg-slate-800 text-slate-400 hover:text-cyan-300 transition-colors disabled:opacity-50"
-                title="Ping Backend API"
-                aria-label="Refresh Backend Status"
-              >
-                <RefreshCw
-                  className={`h-4 w-4 ${
-                    backendStatus === "CHECKING" ? "animate-spin text-cyan-400" : ""
-                  }`}
-                />
-              </button>
-            </div>
-
-            {/* Connection Display Box */}
-            <div
-              className={`p-6 rounded-xl border flex flex-col items-center justify-center gap-3 transition-all ${
-                backendStatus === "CONNECTED"
-                  ? "bg-emerald-950/20 border-emerald-500/30 text-emerald-400 glow-emerald"
-                  : backendStatus === "CHECKING"
-                  ? "bg-cyan-950/20 border-cyan-500/30 text-cyan-400 glow-cyan"
-                  : "bg-rose-950/20 border-rose-500/30 text-rose-400 glow-rose"
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                {backendStatus === "CONNECTED" && (
-                  <CheckCircle2 className="h-7 w-7 text-emerald-400 animate-pulse" />
-                )}
-                {backendStatus === "CHECKING" && (
-                  <Activity className="h-7 w-7 text-cyan-400 animate-spin" />
-                )}
-                {backendStatus === "DISCONNECTED" && (
-                  <AlertTriangle className="h-7 w-7 text-rose-400 animate-bounce" />
-                )}
-                <span className="text-2xl font-black font-mono tracking-wider">
-                  {backendStatus}
-                </span>
-              </div>
-
-              <div className="text-xs font-mono text-slate-300 text-center space-y-0.5">
-                <div>Backend Service: <span className="text-white font-medium">{healthData?.service || "ARES Twin Backend"}</span></div>
-                {latency !== null && (
-                  <div className="text-slate-400">Response Latency: <span className="text-cyan-300">{latency} ms</span></div>
-                )}
-              </div>
-            </div>
-
-            {/* API Diagnostics Details */}
-            <div className="space-y-3 pt-2 text-xs font-mono">
-              <div className="flex justify-between items-center py-1.5 border-b border-slate-800/80 text-slate-400">
-                <span>API Endpoint:</span>
-                <a
-                  href={`${apiUrl}/api/health`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1 hover:underline truncate max-w-[220px]"
-                >
-                  {apiUrl}/api/health
-                  <ExternalLink className="h-3 w-3" />
-                </a>
-              </div>
-              <div className="flex justify-between items-center py-1.5 border-b border-slate-800/80 text-slate-400">
-                <span>FastAPI Swagger Docs:</span>
-                <a
-                  href={`${apiUrl}/docs`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1 hover:underline"
-                >
-                  {apiUrl}/docs
-                  <ExternalLink className="h-3 w-3" />
-                </a>
-              </div>
-              <div className="flex justify-between items-center py-1.5 border-b border-slate-800/80 text-slate-400">
-                <span>Last Pinged:</span>
-                <span className="text-slate-200">{mounted && lastChecked ? lastChecked : "Awaiting ping..."}</span>
-              </div>
-              {errorMessage && (
-                <div className="p-2.5 rounded bg-rose-950/40 border border-rose-800/40 text-rose-300 text-[11px] leading-relaxed">
-                  Error: {errorMessage}. Ensure FastAPI is running on {apiUrl}.
-                </div>
-              )}
-            </div>
-
-            {/* Phase Status Readout */}
-            <div className="rounded-lg bg-slate-900/60 p-3.5 border border-slate-800/80 space-y-2">
-              <div className="flex items-center justify-between text-xs font-mono">
-                <span className="text-slate-400 flex items-center gap-1.5">
-                  <Layers className="h-3.5 w-3.5 text-cyan-400" /> Phase 1 Progress
-                </span>
-                <span className="text-emerald-400 font-semibold">FOUNDATION VERIFIED</span>
-              </div>
-              <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                <div className="bg-gradient-to-r from-cyan-500 to-emerald-400 h-full w-1/12 rounded-full"></div>
-              </div>
-              <div className="flex justify-between text-[11px] font-mono text-slate-500">
-                <span>Current: Project Foundation</span>
-                <span>Next: Phase 2 Database</span>
-              </div>
-            </div>
-          </div>
+      <div>
+        <div className="font-mono text-[11px] uppercase tracking-wider text-slate-400">Arrival readiness</div>
+        <div className="flex items-baseline gap-2">
+          <span className="text-4xl font-bold tabular-nums text-white">{r.p50.toFixed(0)}</span>
+          <span className="font-mono text-xs text-slate-400">P5–P95 {r.p5.toFixed(0)}–{r.p95.toFixed(0)}</span>
         </div>
       </div>
-
-      {/* Footer / System Meta */}
-      <footer className="pt-6 border-t border-cyan-900/30 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-400">
-        <div className="flex items-center gap-4">
-          <span>ARES-TWIN v0.1.0</span>
-          <span>•</span>
-          <span className="text-slate-400">STACK: Next.js + Tailwind + FastAPI</span>
+      <div className="space-y-2">
+        {["bone", "muscle", "cardio"].map((k) => <LossBar key={k} metric={k} loss={arrival.loss[k].p50} />)}
+      </div>
+      <div>
+        <div className="mb-1 flex justify-between text-[11px] text-slate-400">
+          <span>Career dose</span>
+          <span className="font-mono text-slate-200">{radiation.used_msv.toFixed(0)} → {radiation.arrival_msv.toFixed(0)} / 600 mSv</span>
         </div>
-        <div className="flex items-center gap-2">
-          <Cpu className="h-3.5 w-3.5 text-cyan-500" />
-          <span>ARES MISSION ARCHITECTURE // READY FOR PHASE 2</span>
-        </div>
+        <RadiationMeter budget={radiation} compact />
+      </div>
+      <footer className="mt-auto flex items-center justify-between border-t border-slate-800/80 pt-3 text-xs">
+        <span className={serious ? "text-amber-300" : "text-slate-400"}>{serious} alert{serious === 1 ? "" : "s"}</span>
+        <Link href={`/crew/${profile.id}`} className="inline-flex items-center gap-1 text-cyan-300 hover:text-cyan-200">
+          Open twin <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+        </Link>
       </footer>
-    </main>
+    </article>
+  );
+}
+
+export default function MissionDashboard() {
+  const { day, mission, error: missionError, reload: reloadMission } = useMission();
+  const crew = useApi(day == null ? null : `/crew?day=${day}`);
+  const sw = useApi("/spaceweather");
+  const cards = crew.data?.crew || [];
+  const green = cards.filter((c) => c.arrival.status === "GREEN").length;
+  const events = (sw.data?.events || []).filter((e) => e.s_level >= 1);
+  const upcoming = events.filter((e) => e.day >= (day ?? 0)).slice(0, 3);
+  const recent = events.filter((e) => e.day < (day ?? 0)).slice(-3).reverse();
+
+  return (
+    <div className="space-y-6">
+      <section className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Mission overview <span className="text-slate-500">· day {day ?? "…"}</span>
+          </h1>
+          <p className="max-w-2xl text-sm text-slate-400">
+            Each crew member&apos;s virtual body forecasts bone, muscle, aerobic fitness and radiation dose on Mars arrival
+            day — 500 Monte Carlo runs per astronaut, replaying the real solar weather of {mission?.mission_start ?? "2024"} onward.
+          </p>
+          <SimulatedNote />
+        </div>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:w-[560px]">
+          <Stat label="Crew GREEN" value={cards.length ? `${green} / ${cards.length}` : "—"} hint="at arrival (median)" />
+          <Stat label="Arrival" value={mission?.arrival_date ?? "—"} hint={`${270 - (day ?? 0)} days to go`} />
+          <Stat label="Comm delay" value={mission ? `${mission.comm_delay_min.toFixed(1)} min` : "—"} hint="one-way to Earth" />
+          <Stat label="Solar events" value={mission?.events_so_far ?? "—"} hint="≥ S1 so far" />
+        </div>
+      </section>
+
+      <ErrorBox error={missionError || crew.error || sw.error}
+        onRetry={() => { reloadMission(); crew.reload(); sw.reload(); }} />
+
+      <Panel title="Crew status" icon={Users} subtitle="Arrival-day forecast if current habits continue. Bars show median loss against the limit where that system's score reaches zero.">
+        {crew.loading && !cards.length ? <Loading /> : (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {cards.map((c) => <CrewCard key={c.profile.id} card={c} />)}
+          </div>
+        )}
+      </Panel>
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <Panel title="Space weather" icon={Sun} subtitle="Real NOAA solar proton events, de-duplicated against NASA DONKI."
+          actions={<Link href="/spaceweather" className="text-xs text-cyan-300 hover:text-cyan-200">Timeline →</Link>}>
+          {sw.loading && !sw.data ? <Loading label="Loading space weather…" /> : (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {[["Recent", recent], ["Upcoming", upcoming]].map(([label, list]) => (
+                <div key={label}>
+                  <h3 className="mb-2 font-mono text-[11px] uppercase tracking-wider text-slate-400">{label}</h3>
+                  {list.length ? (
+                    <ul className="space-y-1.5 text-xs">
+                      {list.map((e) => (
+                        <li key={e.id} className="flex justify-between gap-2 rounded border border-slate-800 bg-slate-900/40 px-2 py-1.5">
+                          <span className="text-slate-300">Day {e.day} · {e.date}</span>
+                          <span className="font-mono text-slate-200">{e.s_scale} · {e.peak_pfu} pfu</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : <p className="text-xs text-slate-500">None</p>}
+                </div>
+              ))}
+            </div>
+          )}
+        </Panel>
+        <Panel title="Why it matters" icon={ShieldCheck}>
+          <ul className="space-y-2 text-sm text-slate-300">
+            <li className="flex gap-2"><Radio className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400" aria-hidden />
+              Up to {mission ? Math.max(14, mission.comm_delay_min).toFixed(0) : "22"} minutes one way to Earth: decisions have to be made on board.</li>
+            <li>Bone loses 1–1.5% per month; muscle and aerobic fitness fall 10–15% even with exercise.</li>
+            <li>The twin answers three questions: <strong className="text-slate-100">forecast</strong>, <Link href="/whatif" className="text-cyan-300 underline-offset-2 hover:underline">what-if</Link>, and the <Link href="/optimize" className="text-cyan-300 underline-offset-2 hover:underline">smallest exercise plan</Link> that keeps readiness above the line.</li>
+          </ul>
+          <p className="mt-3 font-mono text-[11px] text-slate-500">Crew cards show medians; uncertainty bands are on each crew twin page.</p>
+        </Panel>
+      </div>
+    </div>
   );
 }
