@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@theme {
+  --animate-spin-slow: spin 8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow { animation: none; }
+}
+
 :root {
   --background: #040711;
   --foreground: #f1f5f9;
