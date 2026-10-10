@@ -15,7 +15,10 @@ MAX_RANGE_DAYS = 60  # the new DONKI-API rejects longer ranges with HTTP 400
 
 
 def url(kind: str, start: str, end: str) -> str:
-    return f"{settings.DONKI_API_BASE}/{kind}?startDate={start}&endDate={end}"
+    base = f"{settings.DONKI_API_BASE}/{kind}?startDate={start}&endDate={end}"
+    if settings.NASA_API_KEY and settings.NASA_API_KEY != "DEMO_KEY":
+        base += f"&api_key={settings.NASA_API_KEY}"
+    return base
 
 
 def chunks(start: date, end: date, max_days: int = MAX_RANGE_DAYS) -> list[tuple[str, str]]:
