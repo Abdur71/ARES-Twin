@@ -1,14 +1,49 @@
-"""Space weather, mission clock and model registry."""
 from datetime import date, timedelta
-
+import httpx
 from fastapi import APIRouter, Query
 
 from app.api.deps import mission_day
 from app.config.settings import settings
 from app.simulation import params as P
+from app.spaceweather import cache, donki
 from app.spaceweather.service import mission_spaceweather
 
 router = APIRouter(tags=["Mission"])
+
+
+@router.get("/donki/test")
+async def donki_test(
+    startDate: str = Query("2026-01-01", description="Start date (YYYY-MM-DD)"),
+    endDate: str = Query("2026-01-31", description="End date (YYYY-MM-DD)"),
+    kind: str = Query("SEP", description="SEP or FLR")
+):
+    """Directly test the NASA CCMC DONKI endpoint with the configured NASA_API_KEY."""
+    target_url = donki.url(kind, startDate, endDate)
+    cached_entry = cache.read("donki", f"{kind}_{startDate}_{endDate}")
+    
+    live_data = None
+    live_error = None
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            resp = await client.get(target_url)
+            if resp.status_code == 200:
+                live_data = resp.json()
+    except Exception as exc:
+        live_error = str(exc)
+        
+    records = live_data if live_data is not None else (cached_entry["data"] if cached_entry else [])
+    
+    return {
+        "status": "connected" if (live_data is not None or cached_entry) else "offline",
+        "api_key_configured": bool(settings.NASA_API_KEY and settings.NASA_API_KEY != "DEMO_KEY"),
+        "target_url": target_url,
+        "is_live": live_data is not None,
+        "live_error": live_error,
+        "source": "live_api" if live_data is not None else ("local_donki_cache" if cached_entry else "none"),
+        "record_count": len(records),
+        "sample_records": records[:3],
+        "all_records": records
+    }
 
 
 @router.get("/spaceweather")

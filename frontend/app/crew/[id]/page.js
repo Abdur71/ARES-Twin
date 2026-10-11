@@ -5,10 +5,13 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import { Activity, Bell, ClipboardList, Radiation, Stethoscope, Trash2 } from "lucide-react";
 import { DoseChart, ForecastChart, Gauge, RadiationMeter } from "@/components/charts";
-import { AlertsList, ErrorBox, Loading, Panel, SimulatedNote, StatusPill } from "@/components/ui";
+import { AlertsList, ErrorBox, Loading, Panel, SimulatedNote, StatusPill, Card, Metric } from "@/components/ui";
+import { AstronautViewer } from "@/components/Scene3D";
+import BodyTwin from "@/components/BodyTwin";
 import { api, useApi } from "@/lib/api";
 import { useMission } from "@/lib/mission";
 import { CREW_TABS, METRICS, SERIES } from "@/lib/theme";
+import { scoreOf, statusColor } from "@/lib/engine";
 
 const RATE_LABEL = {
   bone: { label: "Hip bone loss rate", fmt: (v) => `${(v * 100).toFixed(2)} %/mo` },
@@ -47,8 +50,8 @@ function MeasurementForm({ crewId, baseline, day, onSaved }) {
           {Object.entries(METRICS).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
         </select>
       </label>
-      <label className="flex flex-col gap-1 text-slate-400">Value ({m.unit})
-        <input type="number" step="any" required value={form.value} placeholder={`baseline ${baseline[m.baselineKey]}`}
+      <label className="flex flex-col gap-1 text-slate-400">Value ({m?.unit || "%"})
+        <input type="number" step="any" required value={form.value} placeholder={`baseline ${baseline?.[m?.baselineKey] || ""}`}
           onChange={(e) => setForm({ ...form, value: e.target.value })}
           className="rounded border border-slate-700 bg-slate-900 px-2 py-1.5 text-slate-100" />
       </label>
@@ -64,6 +67,7 @@ export default function CrewTwinPage() {
   const { id } = useParams();
   const { day } = useMission();
   const [gcr, setGcr] = useState("design_goal");
+  const [twinView, setTwinView] = useState("arrival"); // "today" | "arrival"
   const { data, error, loading, reload } = useApi(day == null ? null : `/crew/${id}?day=${day}&gcr_scenario=${gcr}`);
 
   const removeMeasurement = async (mid) => {
@@ -75,7 +79,7 @@ export default function CrewTwinPage() {
     <nav aria-label="Crew member" className="flex flex-wrap gap-1">
       {CREW_TABS.map((c) => (
         <Link key={c.id} href={`/crew/${c.id}`}
-          className={`rounded-md px-3 py-1.5 text-xs ${c.id === id ? "bg-slate-800 text-white ring-1 ring-slate-600" : "text-slate-400 hover:bg-slate-800/60 hover:text-slate-200"}`}>
+          className={`rounded-md px-3 py-1.5 text-xs transition-colors ${c.id === id ? "bg-cyan-500/20 text-cyan-200 ring-1 ring-cyan-500/40 font-semibold" : "text-slate-400 hover:bg-slate-800/60 hover:text-slate-200"}`}>
           {c.name}
         </Link>
       ))}
@@ -86,54 +90,108 @@ export default function CrewTwinPage() {
   if (!data) return <div className="space-y-4">{tabs}<Loading /></div>;
 
   const { profile, arrival, today, radiation, series, measurements, rates } = data;
+  const col = statusColor[arrival.status] || "#06b6d4";
   const lossPoints = (metric) => measurements.filter((m) => m.metric === metric).map((m) => ({ day: m.day, value: (1 - m.rel_value) * 100 }));
+
+  // Compute values for BodyTwin based on view toggle
+  const todayScores = scoreOf(today.loss.bone.p50, today.loss.muscle.p50, today.loss.cardio.p50);
+  const shownBody = twinView === "arrival"
+    ? {
+        bone: { score: arrival.subscores.bone, loss: arrival.loss.bone.p50 },
+        muscle: { score: arrival.subscores.muscle, loss: arrival.loss.muscle.p50 },
+        cardio: { score: arrival.subscores.cardio, loss: arrival.loss.cardio.p50 },
+      }
+    : {
+        bone: { score: todayScores.sb, loss: today.loss.bone.p50 },
+        muscle: { score: todayScores.sm, loss: today.loss.muscle.p50 },
+        cardio: { score: todayScores.sc, loss: today.loss.cardio.p50 },
+      };
 
   return (
     <div className={`space-y-6 ${loading ? "opacity-70 transition-opacity" : ""}`}>
       {tabs}
-      <section className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-white">{profile.name}</h1>
-          <p className="text-sm text-slate-400">{profile.role} · age {profile.age} · usual adherence {(profile.compliance * 100).toFixed(0)}% · sleeps {profile.sleep_mean_h} h · prior dose {profile.prior_dose_msv} mSv</p>
-          <SimulatedNote className="mt-1" />
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="text-right">
-            <div className="font-mono text-[11px] uppercase tracking-wider text-slate-400">Arrival readiness</div>
-            <div className="text-4xl font-bold tabular-nums text-white">{arrival.readiness.p50.toFixed(0)}</div>
-            <div className="font-mono text-[11px] text-slate-400">P5–P95 {arrival.readiness.p5.toFixed(0)}–{arrival.readiness.p95.toFixed(0)}</div>
+
+      {/* 3D Astronaut Hero Card */}
+      <section className="card overflow-hidden border border-cyan-500/20 bg-gradient-to-b from-[#0a101f] to-[#050814]">
+        <div className="grid items-center lg:grid-cols-[minmax(0,360px)_1fr]">
+          <div className="h-72 sm:h-96 lg:h-[400px] border-b lg:border-b-0 lg:border-r border-cyan-900/30">
+            <AstronautViewer tint={col} />
           </div>
-          <StatusPill status={arrival.status} size="lg" />
+          <div className="space-y-5 p-6 sm:p-8">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h1 className="text-3xl font-extrabold sm:text-4xl text-white">{profile.name}</h1>
+                <p className="mt-1 text-sm text-slate-400">
+                  {profile.role} · age {profile.age} · adherence {(profile.compliance * 100).toFixed(0)}% · sleeps {profile.sleep_mean_h} h · prior dose {profile.prior_dose_msv} mSv
+                </p>
+              </div>
+              <StatusPill status={arrival.status} size="lg" />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+              <Metric label="Readiness on arrival" value={arrival.readiness.p50.toFixed(0)} sub={`P5 ${arrival.readiness.p5.toFixed(0)} to P95 ${arrival.readiness.p95.toFixed(0)}`} tone={col} />
+              <Metric label="Readiness today" value={todayScores.readiness.toFixed(0)} sub={`Mission day ${day ?? 0}`} tone={statusColor[arrival.status]} />
+              <Metric label="Career dose arrival" value={`${radiation.arrival_msv.toFixed(0)}`} sub="mSv of 600" />
+              <Metric label="Career dose today" value={`${radiation.used_msv.toFixed(0)}`} sub={`mSv used (${(radiation.used_fraction * 100).toFixed(0)}%)`} />
+            </div>
+
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Link href={`/whatif?crew=${id}`} className="btn">Run a what-if</Link>
+              <Link href={`/optimize?crew=${id}`} className="btn btn-quiet">Find cheapest plan</Link>
+            </div>
+            <SimulatedNote />
+          </div>
         </div>
       </section>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <Panel title="System gauges" icon={Activity} subtitle="Arrival-day sub-scores (1 = no loss, 0 = limit reached)" className="lg:col-span-2">
-          <div className="grid grid-cols-3 gap-2">
-            {["bone", "muscle", "cardio"].map((k) => (
-              <Gauge key={k} label={METRICS[k].short} value={arrival.subscores[k]}
-                caption={`${(arrival.loss[k].p50 * 100).toFixed(1)}% loss`} />
-            ))}
+      {/* Body Twin & Alerts */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.3fr_1fr]">
+        <Panel
+          title="Body twin"
+          icon={Activity}
+          subtitle="Vector anatomical digital twin showing hip bone density, leg muscle volume and aerobic fitness."
+          actions={
+            <div className="pill flex p-1 text-xs font-semibold" role="group" aria-label="Twin timeframe">
+              {["today", "arrival"].map((v) => (
+                <button
+                  key={v}
+                  onClick={() => setTwinView(v)}
+                  className={`rounded-full px-3.5 py-1 transition-colors ${twinView === v ? "bg-cyan-500 text-slate-950 font-bold" : "text-slate-400 hover:text-slate-200"}`}
+                >
+                  {v === "today" ? `Today (Day ${day ?? 0})` : "On arrival"}
+                </button>
+              ))}
+            </div>
+          }
+        >
+          <div className="mt-2">
+            <BodyTwin {...shownBody} />
           </div>
-          <div className="mt-4 grid grid-cols-1 gap-2 text-xs sm:grid-cols-3">
-            {Object.entries(METRICS).map(([k, m]) => (
-              <div key={k} className="rounded-lg border border-slate-800 bg-slate-900/40 p-2.5">
-                <div className="text-slate-400">{m.label} today</div>
-                <div className="font-mono text-sm text-slate-100">
-                  {data.today_absolute[m.baselineKey]} <span className="text-slate-500">/ {profile.baseline[m.baselineKey]} {m.unit}</span>
-                </div>
-                <div className="font-mono text-[11px] text-slate-400">−{(today.loss[k].p50 * 100).toFixed(1)}% so far</div>
-              </div>
-            ))}
+          <div className="mt-4 grid grid-cols-3 gap-2 border-t border-slate-800/80 pt-4">
+            <Gauge label="Bone" value={shownBody.bone.score} caption={`${(shownBody.bone.loss * 100).toFixed(1)}% loss`} />
+            <Gauge label="Muscle" value={shownBody.muscle.score} caption={`${(shownBody.muscle.loss * 100).toFixed(1)}% loss`} />
+            <Gauge label="Cardio" value={shownBody.cardio.score} caption={`${(shownBody.cardio.loss * 100).toFixed(1)}% loss`} />
           </div>
         </Panel>
-        <Panel title="Alerts" icon={Bell}>
+
+        <Panel title="Alerts & Mission events" icon={Bell} subtitle="Personalised warnings and operational events.">
           <AlertsList alerts={data.alerts} />
+          <h3 className="mb-2 mt-6 font-mono text-[11px] uppercase tracking-wider text-slate-400">Recent disruptions</h3>
+          <ul className="max-h-52 space-y-1.5 overflow-auto text-xs">
+            {data.log_events.filter((e) => e.day < day).reverse().map((e) => (
+              <li key={e.day} className="flex gap-3 rounded border border-slate-800 bg-slate-900/40 px-2 py-1.5">
+                <span className="w-14 shrink-0 font-mono text-cyan-400">Day {e.day}</span>
+                <span className="text-slate-300">{e.label}</span>
+              </li>
+            ))}
+            {!data.log_events.some((e) => e.day < day) && <li className="text-slate-500">No disruptions logged yet.</li>}
+          </ul>
         </Panel>
       </div>
 
+      {/* Forecast to arrival */}
       <Panel title="Forecast to arrival" icon={Activity}
-        subtitle={`Median and P5–P95 band of 500 Monte Carlo runs. Days before ${day} use the logged history; after it, current habits continue.`}>
+        subtitle={`Median and P5–P95 band of 500 Monte Carlo runs. Days before ${day} use logged history; after it, current habits continue.`}>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <ForecastChart title="Readiness score (0–100)" band={series.readiness} currentDay={day} unit="" digits={0} yDomain={[0, 100]}
             refLines={[{ y: 70, label: "GREEN ≥ 70" }, { y: 50, label: "AMBER ≥ 50" }]} />
@@ -146,8 +204,9 @@ export default function CrewTwinPage() {
         </div>
       </Panel>
 
+      {/* Radiation budget */}
       <Panel title="Radiation budget" icon={Radiation}
-        subtitle="Shown separately from readiness: a long-term cancer risk, not fitness on landing day."
+        subtitle="Shown separately from readiness: long-term cumulative risk, not daily physical fitness."
         actions={
           <div className="flex rounded-md border border-slate-700 text-[11px]" role="group" aria-label="GCR dose rate scenario">
             {[["design_goal", "Design goal 1.3"], ["measured", "Measured 1.84"]].map(([k, l]) => (
@@ -166,52 +225,40 @@ export default function CrewTwinPage() {
         <div className="mt-5"><DoseChart dose={series.dose} currentDay={day} events={data.radiation_events.filter((e) => e.s_level >= 1)} /></div>
       </Panel>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <Panel title="Check-ups personalise the twin" icon={Stethoscope}
-          subtitle="Each measurement updates this astronaut's personal rates (closed-form Bayesian update); the forecast band narrows.">
-          <MeasurementForm crewId={id} baseline={profile.baseline} day={day} onSaved={reload} />
-          {measurements.length > 0 && (
-            <ul className="mt-3 space-y-1 text-xs">
-              {measurements.map((m) => (
-                <li key={m.id} className="flex items-center justify-between rounded border border-slate-800 bg-slate-900/40 px-2 py-1.5">
-                  <span className="text-slate-300">Day {m.day} · {METRICS[m.metric].label}: <span className="font-mono">{m.value} {m.unit}</span>
-                    <span className="text-slate-500"> ({((m.rel_value - 1) * 100).toFixed(1)}%)</span></span>
-                  <button onClick={() => removeMeasurement(m.id)} className="text-slate-500 hover:text-rose-300" aria-label="Delete measurement">
-                    <Trash2 className="h-3.5 w-3.5" />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-          <table className="mt-4 w-full text-left text-xs">
-            <thead className="font-mono text-[11px] text-slate-400">
-              <tr><th className="py-1 font-normal">Personal rate</th><th className="font-normal">Pre-flight estimate</th><th className="font-normal">Twin now</th></tr>
-            </thead>
-            <tbody className="font-mono text-slate-200">
-              {Object.entries(rates).map(([k, r]) => (
-                <tr key={k} className="border-t border-slate-800">
-                  <td className="py-1.5 font-sans text-slate-300">{RATE_LABEL[k].label}</td>
-                  <td>{RATE_LABEL[k].fmt(r.prior_mean)} ± {RATE_LABEL[k].fmt(r.prior_sd)}</td>
-                  <td style={{ color: r.posterior_sd < r.prior_sd - 1e-9 ? SERIES.blue : undefined }}>
-                    {RATE_LABEL[k].fmt(r.posterior_mean)} ± {RATE_LABEL[k].fmt(r.posterior_sd)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </Panel>
-        <Panel title="Mission log" icon={ClipboardList} subtitle="Disruptions in the generated daily logs up to today.">
-          <ul className="max-h-80 space-y-1 overflow-auto text-xs">
-            {data.log_events.filter((e) => e.day < day).reverse().map((e) => (
-              <li key={e.day} className="flex gap-3 border-b border-slate-800/70 py-1.5">
-                <span className="w-14 shrink-0 font-mono text-slate-500">Day {e.day}</span>
-                <span className="text-slate-300">{e.label}</span>
+      {/* Check-ups personalize the twin */}
+      <Panel title="Check-ups personalise the twin" icon={Stethoscope}
+        subtitle="Each measurement updates this astronaut's personal rates (closed-form Bayesian update); the forecast band narrows.">
+        <MeasurementForm crewId={id} baseline={profile.baseline} day={day} onSaved={reload} />
+        {measurements.length > 0 && (
+          <ul className="mt-3 space-y-1 text-xs">
+            {measurements.map((m) => (
+              <li key={m.id} className="flex items-center justify-between rounded border border-slate-800 bg-slate-900/40 px-2 py-1.5">
+                <span className="text-slate-300">Day {m.day} · {METRICS[m.metric]?.label || m.metric}: <span className="font-mono">{m.value} {m.unit}</span>
+                  <span className="text-slate-500"> ({((m.rel_value - 1) * 100).toFixed(1)}%)</span></span>
+                <button onClick={() => removeMeasurement(m.id)} className="text-slate-500 hover:text-rose-300" aria-label="Delete measurement">
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
               </li>
             ))}
-            {!data.log_events.some((e) => e.day < day) && <li className="text-slate-500">No disruptions yet.</li>}
           </ul>
-        </Panel>
-      </div>
+        )}
+        <table className="mt-4 w-full text-left text-xs">
+          <thead className="font-mono text-[11px] text-slate-400">
+            <tr><th className="py-1 font-normal">Personal rate</th><th className="font-normal">Pre-flight estimate</th><th className="font-normal">Twin now</th></tr>
+          </thead>
+          <tbody className="font-mono text-slate-200">
+            {Object.entries(rates).map(([k, r]) => (
+              <tr key={k} className="border-t border-slate-800">
+                <td className="py-1.5 font-sans text-slate-300">{RATE_LABEL[k]?.label || k}</td>
+                <td>{RATE_LABEL[k]?.fmt(r.prior_mean) || r.prior_mean} ± {RATE_LABEL[k]?.fmt(r.prior_sd) || r.prior_sd}</td>
+                <td style={{ color: r.posterior_sd < r.prior_sd - 1e-9 ? SERIES.blue : undefined }}>
+                  {RATE_LABEL[k]?.fmt(r.posterior_mean) || r.posterior_mean} ± {RATE_LABEL[k]?.fmt(r.posterior_sd) || r.posterior_sd}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Panel>
     </div>
   );
 }

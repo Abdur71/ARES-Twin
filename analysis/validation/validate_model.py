@@ -77,6 +77,8 @@ SENSITIVITY = [
 
 
 def main() -> None:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     lines = [f"# ARES Twin — validation report\n\nGenerated {date.today().isoformat()} by "
              "`analysis/validation/validate_model.py`.\n",
              "## 1. Reproducing published numbers\n",

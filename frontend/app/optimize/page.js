@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Check, Play, Target } from "lucide-react";
 import { ErrorBox, Loading, Panel, SimulatedNote, Stat, Toggle } from "@/components/ui";
 import { api } from "@/lib/api";
@@ -72,9 +73,11 @@ function Heatmap({ result }) {
   );
 }
 
-export default function OptimizePage() {
+function OptimizeContent() {
   const { day } = useMission();
-  const [crewId, setCrewId] = useState("rahman");
+  const searchParams = useSearchParams();
+  const queryCrew = searchParams.get("crew");
+  const [crewId, setCrewId] = useState(queryCrew && CREW_TABS.some(c => c.id === queryCrew) ? queryCrew : "rahman");
   const [goal, setGoal] = useState(75);
   const [prob, setProb] = useState(0.9);
   const [adherence, setAdherence] = useState(false);
@@ -153,5 +156,13 @@ export default function OptimizePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function OptimizePage() {
+  return (
+    <Suspense fallback={<Loading label="Loading optimizer…" />}>
+      <OptimizeContent />
+    </Suspense>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-
+import { useEffect, useRef, useState } from "react";
 import { AlertOctagon, AlertTriangle, CheckCircle2, Info, Loader2, XCircle } from "lucide-react";
 import { STATUS } from "@/lib/theme";
 
@@ -113,4 +113,32 @@ export function Toggle({ checked, onChange, label }) {
       {label}
     </label>
   );
+}
+
+export function Card({ children, className = "" }) {
+  return <section className={`card p-5 sm:p-6 ${className}`}>{children}</section>;
+}
+
+export function Metric({ label, value, sub, tone }) {
+  return (
+    <div className="min-w-0">
+      <div className="text-xs font-semibold text-slate-400">{label}</div>
+      <div className="num display mt-1 truncate text-2xl font-bold text-white sm:text-3xl" style={tone ? { color: tone } : undefined}>{value}</div>
+      {sub && <div className="mt-0.5 text-xs text-slate-400">{sub}</div>}
+    </div>
+  );
+}
+
+/** true while the element is on screen, used to pause WebGL loops off-screen */
+export function useInView() {
+  const ref = useRef(null);
+  const [vis, setVis] = useState(true);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([e]) => setVis(e.isIntersecting), { rootMargin: "120px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return [ref, vis];
 }

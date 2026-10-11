@@ -1,21 +1,26 @@
-import { statusColor, type Status } from "@/lib/engine";
+"use client";
 
-export interface BodyProps {
-  bone: { score: number; loss: number };
-  muscle: { score: number; loss: number };
-  cardio: { score: number; loss: number };
-}
-const tone = (s: number): string => statusColor[(s >= 0.7 ? "GREEN" : s >= 0.4 ? "AMBER" : "RED") as Status];
-const p = (x: number) => `${(x * 100).toFixed(1)}%`;
+import { statusColor } from "@/lib/engine";
+
+const tone = (s) => statusColor[s >= 0.7 ? "GREEN" : s >= 0.4 ? "AMBER" : "RED"];
+const p = (x) => `${(Math.abs(x) * 100).toFixed(1)}%`;
 
 /** Vector digital-twin: a body schematic whose regions take the colour of each sub-score. */
-export default function BodyTwin({ bone, muscle, cardio }: BodyProps) {
-  const cb = tone(bone.score), cm = tone(muscle.score), cc = tone(cardio.score);
+export default function BodyTwin({ bone = { score: 1, loss: 0 }, muscle = { score: 1, loss: 0 }, cardio = { score: 1, loss: 0 } }) {
+  const cb = tone(bone.score ?? 1);
+  const cm = tone(muscle.score ?? 1);
+  const cc = tone(cardio.score ?? 1);
+
   return (
-    <svg viewBox="-40 0 500 380" className="mx-auto w-full max-w-lg" role="img" aria-label="Body twin: hip bone, leg muscle and heart fitness status">
+    <svg viewBox="-40 0 500 380" className="mx-auto w-full max-w-lg select-none" role="img" aria-label="Body twin: hip bone, leg muscle and heart fitness status">
       <defs>
-        <linearGradient id="skin" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#2a2e3a" /><stop offset="1" stopColor="#1b1e26" /></linearGradient>
-        <filter id="soft"><feGaussianBlur stdDeviation="6" /></filter>
+        <linearGradient id="skin" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stopColor="#1e293b" />
+          <stop offset="1" stopColor="#0f172a" />
+        </linearGradient>
+        <filter id="soft">
+          <feGaussianBlur stdDeviation="6" />
+        </filter>
       </defs>
       <g transform="translate(210 14)">
         {/* body silhouette */}
@@ -38,7 +43,8 @@ export default function BodyTwin({ bone, muscle, cardio }: BodyProps) {
         {/* bone: pelvis / hip */}
         <g>
           <path d="M-34 150 Q0 188 34 150 L28 176 Q0 200 -28 176Z" fill={cb} />
-          <circle cx="-22" cy="178" r="9" fill={cb} /><circle cx="22" cy="178" r="9" fill={cb} />
+          <circle cx="-22" cy="178" r="9" fill={cb} />
+          <circle cx="22" cy="178" r="9" fill={cb} />
           <circle cx="-22" cy="178" r="14" fill="none" stroke={cb} strokeOpacity=".5" />
           <circle cx="22" cy="178" r="14" fill="none" stroke={cb} strokeOpacity=".5" />
         </g>
@@ -49,16 +55,19 @@ export default function BodyTwin({ bone, muscle, cardio }: BodyProps) {
           <path d="M0 9 C-14 -1 -10 -12 0 -5 C10 -12 14 -1 0 9Z" fill={cc} />
         </g>
         {/* callouts */}
-        <g fontSize="12" fontWeight="700" fill="#f4f5f7" fontFamily="var(--font-manrope)">
-          <path d="M26 98 H112 L132 78" fill="none" stroke={cc} strokeWidth="1.4" /><circle cx="26" cy="98" r="2.5" fill={cc} />
+        <g fontSize="12" fontWeight="700" fill="#f1f5f9" fontFamily="var(--font-sans)">
+          <path d="M26 98 H112 L132 78" fill="none" stroke={cc} strokeWidth="1.4" />
+          <circle cx="26" cy="98" r="2.5" fill={cc} />
           <text x="138" y="76">Heart fitness</text>
-          <text x="138" y="92" fill={cc} className="num">VO2 loss {p(cardio.loss)}</text>
-          <path d="M42 178 H112 L132 196" fill="none" stroke={cb} strokeWidth="1.4" /><circle cx="42" cy="178" r="2.5" fill={cb} />
+          <text x="138" y="92" fill={cc} className="num font-mono">VO2 loss {p(cardio.loss)}</text>
+          <path d="M42 178 H112 L132 196" fill="none" stroke={cb} strokeWidth="1.4" />
+          <circle cx="42" cy="178" r="2.5" fill={cb} />
           <text x="138" y="200">Hip bone</text>
-          <text x="138" y="216" fill={cb} className="num">Density loss {p(bone.loss)}</text>
-          <path d="M-38 232 H-112 L-132 250" fill="none" stroke={cm} strokeWidth="1.4" transform="translate(0 0)" /><circle cx="-38" cy="232" r="2.5" fill={cm} />
+          <text x="138" y="216" fill={cb} className="num font-mono">Density loss {p(bone.loss)}</text>
+          <path d="M-38 232 H-112 L-132 250" fill="none" stroke={cm} strokeWidth="1.4" />
+          <circle cx="-38" cy="232" r="2.5" fill={cm} />
           <text x="-138" y="254" textAnchor="end">Leg muscle</text>
-          <text x="-138" y="270" textAnchor="end" fill={cm} className="num">Volume loss {p(muscle.loss)}</text>
+          <text x="-138" y="270" textAnchor="end" fill={cm} className="num font-mono">Volume loss {p(muscle.loss)}</text>
         </g>
       </g>
     </svg>

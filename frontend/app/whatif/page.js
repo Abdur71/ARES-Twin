@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { ArrowRight, SlidersHorizontal, Sparkles } from "lucide-react";
 import { CompareChart } from "@/components/charts";
 import { ErrorBox, Loading, Panel, SimulatedNote, StatusPill, Toggle } from "@/components/ui";
@@ -26,9 +27,11 @@ function Slider({ label, value, min, max, step = 1, onChange, format = (v) => v 
   );
 }
 
-export default function WhatIfPage() {
+function WhatIfContent() {
   const { day } = useMission();
-  const [crewId, setCrewId] = useState("rahman");
+  const searchParams = useSearchParams();
+  const queryCrew = searchParams.get("crew");
+  const [crewId, setCrewId] = useState(queryCrew && CREW_TABS.some(c => c.id === queryCrew) ? queryCrew : "rahman");
   const [form, setForm] = useState(null);
   // start/day = null → follow the mission clock (today, and today + 30 for the storm)
   const [injuryState, setInjury] = useState({ on: false, start: null, days: 21 });
@@ -170,5 +173,13 @@ export default function WhatIfPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function WhatIfPage() {
+  return (
+    <Suspense fallback={<Loading label="Loading simulator…" />}>
+      <WhatIfContent />
+    </Suspense>
   );
 }
