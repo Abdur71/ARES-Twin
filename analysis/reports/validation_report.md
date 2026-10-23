@@ -1,6 +1,6 @@
 # ARES Twin — validation report
 
-Generated 2026-10-10 by `analysis/validation/validate_model.py`.
+Generated 2026-10-23 by `analysis/validation/validate_model.py`.
 
 ## 1. Reproducing published numbers
 

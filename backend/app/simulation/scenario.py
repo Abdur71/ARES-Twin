@@ -17,6 +17,7 @@ class Plan:
     adherence: float = 1.0  # share of the plan actually done
     injury_start: int | None = None  # mission day; no resistance exercise during the block
     injury_days: int = 0
+    hydration_factor: float = 1.0  # fluid intake relative to 2.5 L/day reference (influences kidney stone risk)
 
 
 @dataclass
@@ -25,6 +26,8 @@ class Radiation:
     spe_msv: np.ndarray  # (days,) unsheltered, distance-scaled
     sheltered: np.ndarray  # (days,) bool
     events: list = field(default_factory=list)
+    gravity_g: np.ndarray | None = None
+    spe_attenuation: np.ndarray | None = None
 
 
 def plan_arrays(plan: Plan, start: int, days: int):
@@ -47,15 +50,24 @@ def logs_to_arrays(logs: dict, upto: int):
     return c_res, c_cardio, sleep
 
 
-def build_inputs(logs: dict, current_day: int, plan: Plan, radiation: Radiation, days: int = P.MISSION_DAYS
-                 ) -> DailyInputs:
-    """History up to `current_day`, then `plan` until arrival."""
-    current_day = max(0, min(current_day, days))
+def build_inputs(logs: dict, current_day: int, plan: Plan, radiation: Radiation, days: int | None = None,
+                 gravity_g: np.ndarray | None = None, spe_attenuation: np.ndarray | None = None) -> DailyInputs:
+    """History up to `current_day`, then `plan` until arrival or end of phase."""
+    total_days = days if days is not None else radiation.gcr_msv.shape[-1]
+    current_day = max(0, min(current_day, total_days))
     past = logs_to_arrays(logs, current_day)
-    future = plan_arrays(plan, current_day, days)
+    future = plan_arrays(plan, current_day, total_days)
     c_res, c_cardio, sleep = (np.concatenate([p, f]) for p, f in zip(past, future))
-    return DailyInputs(c_res=c_res, c_cardio=c_cardio, sleep_h=sleep, gcr_msv=radiation.gcr_msv,
-                       spe_msv=radiation.spe_msv, sheltered=radiation.sheltered)
+    grav = gravity_g if gravity_g is not None else radiation.gravity_g
+    att = spe_attenuation if spe_attenuation is not None else radiation.spe_attenuation
+    return DailyInputs(
+        c_res=c_res, c_cardio=c_cardio, sleep_h=sleep,
+        gcr_msv=radiation.gcr_msv[:total_days],
+        spe_msv=radiation.spe_msv[:total_days],
+        sheltered=radiation.sheltered[:total_days],
+        gravity_g=grav[:total_days] if grav is not None else None,
+        spe_attenuation=att[:total_days] if att is not None else None,
+    )
 
 
 def habit_plan(profile: dict) -> Plan:

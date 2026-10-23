@@ -1,6 +1,7 @@
 """What-if simulator, countermeasure optimizer and hidden-truth twin experiment."""
 from typing import Literal
 
+import numpy as np
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field, model_validator
 from sqlalchemy.orm import Session
@@ -31,6 +32,7 @@ class WhatIfIn(BaseModel):
     adherence: float = Field(1.0, ge=0, le=1)
     injury_start: int | None = Field(None, ge=0, lt=P.MISSION_DAYS)
     injury_days: int = Field(0, ge=0, le=120)
+    hydration_factor: float = Field(1.0, ge=0.5, le=2.0, description="Daily hydration relative to baseline")
     storm: Storm | None = None
     shelter_overrides: dict[int, bool] = Field(default_factory=dict, description="event id → reached shelter")
     gcr_scenario: Literal["design_goal", "measured"] = P.DEFAULT_GCR_SCENARIO
@@ -50,7 +52,8 @@ async def whatif(body: WhatIfIn, db: Session = Depends(get_db)):
     sw = await mission_spaceweather()
     base = twin.simulate_member(member, sw, d)
     plan = Plan(resistance_days=body.resistance_days, cardio_min=body.cardio_min, sleep_h=body.sleep_h,
-                adherence=body.adherence, injury_start=body.injury_start, injury_days=body.injury_days)
+                adherence=body.adherence, injury_start=body.injury_start, injury_days=body.injury_days,
+                hydration_factor=body.hydration_factor)
     scen = twin.simulate_member(member, sw, d, plan=plan, gcr_scenario=body.gcr_scenario,
                                 shelter_overrides=body.shelter_overrides,
                                 extra_storms=[body.storm.model_dump()] if body.storm else None)
@@ -62,6 +65,66 @@ def whatif_defaults(crew_id: str, db: Session = Depends(get_db)):
     """Slider starting values = the astronaut's current habits."""
     plan = habit_plan(profile(member_or_404(crew_id, db)))
     return plan.__dict__
+
+
+@router.get("/simulation/phases")
+def mission_phases():
+    """Conjunction-class mission phases (Outbound transit, 500-day Mars surface stay, Return transit)."""
+    from app.simulation.phases import phases_manifest
+    return phases_manifest()
+
+
+@router.get("/simulation/conjunction/{crew_id}")
+async def conjunction_mission(
+    crew_id: str,
+    gcr_scenario: Literal["design_goal", "measured"] = P.DEFAULT_GCR_SCENARIO,
+    db: Session = Depends(get_db)
+):
+    """Simulate complete 1040-day conjunction-class mission across Outbound, 0.38g Surface Stay, and Return."""
+    member = member_or_404(crew_id, db)
+    return twin.simulate_conjunction_mission(member, gcr_scenario=gcr_scenario)
+
+
+@router.get("/simulation/clinical/{crew_id}")
+async def clinical_assessment(
+    crew_id: str,
+    day: int | None = None,
+    db: Session = Depends(get_db)
+):
+    """Detailed clinical spaceflight risk evaluation (Nephrolithiasis / Kidney Stones and SANS)."""
+    from app.simulation.clinical import kidney_stone_cumulative_probability, kidney_stone_relative_risk, sans_onsd_trajectory, urinary_calcium_excretion
+    member = member_or_404(crew_id, db)
+    d = mission_day(day)
+    sw = await mission_spaceweather()
+    t = twin.simulate_member(member, sw, d)
+    
+    bone_losses = 1.0 - t.result["bone"]
+    med_bone = float(np.median(bone_losses[:, d]))
+    
+    # Timeline trajectories
+    timeline_days = list(range(0, P.MISSION_DAYS + 1, 5))
+    med_bone_timeline = [float(np.median(bone_losses[:, day_idx])) for day_idx in timeline_days]
+    ca_timeline = [float(urinary_calcium_excretion(b)) for b in med_bone_timeline]
+    stone_rr_timeline = [float(kidney_stone_relative_risk(b)) for b in med_bone_timeline]
+    stone_cum_p = [float(p) for p in kidney_stone_cumulative_probability(med_bone_timeline)]
+    onsd_timeline = [float(sans_onsd_trajectory(day_idx)) for day_idx in timeline_days]
+    
+    arr = t.result["bone"].shape[-1] - 1
+    arrival_summary_data = twin.arrival_summary(t.result)
+    
+    return {
+        "crew_id": member.id,
+        "current_day": d,
+        "current": arrival_summary_data.get("clinical", {}),
+        "timeline": {
+            "days": timeline_days,
+            "urinary_calcium_mg_day": ca_timeline,
+            "kidney_stone_relative_risk": stone_rr_timeline,
+            "kidney_stone_cum_probability": stone_cum_p,
+            "sans_onsd_mm": onsd_timeline,
+        },
+        "sleep_metrics": arrival_summary_data.get("sleep", {})
+    }
 
 
 class OptimizeIn(BaseModel):

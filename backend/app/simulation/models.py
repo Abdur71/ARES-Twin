@@ -14,6 +14,19 @@ def compliance(done_min, prescribed_min):
     return np.minimum(1.0, np.asarray(done_min, dtype=float) / prescribed_min)
 
 
+def effective_gravity_unloading(gravity_g=None):
+    """Map ambient planetary gravity (in g) to physiological unloading factor (1.0 = full microgravity loss).
+    
+    0.0g (transit)      -> 1.0 unloading (full rate)
+    0.38g (Mars surface)-> 0.62 unloading (38% reduction in bone/muscle deconditioning)
+    1.0g (Earth)        -> 0.0 unloading (zero deconditioning)
+    """
+    if gravity_g is None:
+        return P.GRAVITY_TRANSIT
+    g_arr = np.asarray(gravity_g, dtype=float)
+    return np.clip(1.0 - g_arr, 0.0, 1.0)
+
+
 def bone_step(bmd, r_bone_month, c_res, gravity=None, k_bone=None):
     """BMD_{t+1} = BMD_t (1 − r/30 · [1 + k(1 − c)] · g). Defaults are read from params at call time."""
     gravity = P.GRAVITY_TRANSIT if gravity is None else gravity
@@ -25,14 +38,56 @@ def sleep_factor(sleep_h):
     return np.where(np.asarray(sleep_h) < P.SLEEP_THRESHOLD_H, P.SLEEP_PENALTY, 1.0)
 
 
-def muscle_daily_loss(c_res, sleep_h, mult=1.0):
-    """Fractional muscle loss for one day, before the personal multiplier is applied."""
-    return mult * (c_res * P.R_MUSCLE_EX * sleep_factor(sleep_h) + (1 - c_res) * P.R_MUSCLE_NONE)
+def sleep_debt_step(prior_debt, sleep_h):
+    """Cumulative sleep debt evolution with daily clearance: Debt_{t+1} = max(0, Debt_t * (1 - decay) + (8.0 - sleep_h))."""
+    prior = np.asarray(prior_debt, dtype=float)
+    deficit = np.maximum(0.0, P.SLEEP_OPTIMAL_H - np.asarray(sleep_h, dtype=float))
+    new_debt = prior * (1.0 - P.SLEEP_DEBT_DECAY) + deficit
+    return np.clip(new_debt, 0.0, P.SLEEP_DEBT_MAX)
 
 
-def muscle_step(muscle, c_res, sleep_h, mult=1.0):
-    """M_{t+1} = M_t (1 − [c · r_ex · σ + (1 − c) · r_none]) × personal sensitivity."""
-    return muscle * (1 - muscle_daily_loss(c_res, sleep_h, mult))
+def sleep_quality_score(sleep_h, debt=0.0):
+    """0-100 sleep recovery index considering acute sleep duration and cumulative sleep debt."""
+    h = np.asarray(sleep_h, dtype=float)
+    d = np.asarray(debt, dtype=float)
+    duration_penalty = 18.0 * np.maximum(0.0, P.SLEEP_OPTIMAL_H - h) ** 1.3
+    debt_penalty = 3.5 * np.minimum(10.0, d)
+    return np.clip(100.0 - duration_penalty - debt_penalty, 5.0, 100.0)
+
+
+def sleep_recovery_multiplier(sleep_h, debt=0.0):
+    """Continuous biological recovery factor: acute threshold penalty + chronic debt contribution."""
+    acute = sleep_factor(sleep_h)
+    d = np.asarray(debt, dtype=float)
+    chronic_catabolism = 0.08 * np.minimum(P.SLEEP_DEBT_MAX, d) / P.SLEEP_DEBT_IMPAIRMENT_THRESH
+    return acute + chronic_catabolism
+
+
+def muscle_daily_loss(c_res, sleep_h, mult=1.0, gravity=None, debt=None):
+    """Fractional muscle loss for one day, before the personal multiplier is applied.
+    
+    Takes into account resistance compliance, sleep architecture, and ambient gravity unloading.
+    """
+    g = P.GRAVITY_TRANSIT if gravity is None else gravity
+    s_factor = sleep_factor(sleep_h) if debt is None else sleep_recovery_multiplier(sleep_h, debt)
+    return mult * (c_res * P.R_MUSCLE_EX * s_factor + (1 - c_res) * P.R_MUSCLE_NONE) * g
+
+
+def muscle_step(muscle, c_res, sleep_h, mult=1.0, gravity=None, debt=None):
+    """M_{t+1} = M_t (1 − [c · r_ex · σ + (1 − c) · r_none] * g) × personal sensitivity."""
+    return muscle * (1 - muscle_daily_loss(c_res, sleep_h, mult, gravity, debt))
+
+
+def strength_step(strength, c_res, muscle_loss_daily, mult=1.0, gravity=None):
+    """S_{t+1} = S_t (1 − [neural_decay · (1 − 0.85 c) + 1.2 · muscle_loss_daily] * g) * mult.
+    
+    Models rapid neuromuscular motor unit recruitment loss + preferential Type II fiber atrophy.
+    """
+    g = P.GRAVITY_TRANSIT if gravity is None else gravity
+    neural_decay = P.R_STRENGTH_NEURAL * (1.0 - P.STRENGTH_EX_EFFECT * c_res) * g
+    # Muscle mass loss directly reduces cross-sectional force generation with 1.25x scaling
+    total_decline = (neural_decay + 1.25 * muscle_loss_daily) * mult
+    return np.clip(strength * (1.0 - total_decline), 0.15, 1.05)
 
 
 def cardio_step(vo2, c_cardio, mult=1.0, lam=None, floor=None):

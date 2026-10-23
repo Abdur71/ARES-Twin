@@ -158,7 +158,10 @@ Browser (Next.js)  ──REST/JSON──▶  FastAPI
 | POST | `/api/optimize` | Cheapest plan meeting a readiness goal |
 | POST | `/api/twin/experiment` | Hidden-truth experiment + calibration |
 | GET | `/api/spaceweather?refresh=` | Events, trajectory, dose map, source status |
-| GET | `/api/model` | Equations, parameter registry, limits, weights |
+| GET | `/api/model` | Equations, parameter registry, limits, weights, and multi-phase mission parameters |
+| GET | `/api/simulation/phases` | Conjunction mission phase breakdown (270d Outbound, 500d Surface 0.38g, 270d Return) |
+| GET | `/api/simulation/conjunction/{crew_id}` | Full 1040-day conjunction-class Mars mission simulation across all 3 phases |
+| GET | `/api/simulation/clinical/{crew_id}?day=` | Clinical spaceflight risks: Nephrolithiasis (hypercalciuria), SANS (ONSD expansion), and sleep debt |
 
 ---
 
@@ -370,9 +373,15 @@ All endpoints below were tested on **2026-10-06/07**. None require an API key.
 - [x] **Phase 9: Frontend Mission Dashboard** — crew cards, twin view, radiation meter, mission clock
 - [x] **Phase 10: What-if Simulator & Optimizer UI**
 - [x] **Phase 11: Scientific Analysis** — validation script + ±25% sensitivity report
-- [x] **Phase 12: Automated Test Suite** — 47 backend tests (offline, temporary DB)
+- [x] **Phase 12: Automated Test Suite** — 54 backend tests (offline, temporary DB)
+- [x] **Phase 13: Full Physiological & Multi-Phase Mission Engine** —
+  - **Mars Surface 0.38g Partial Gravity:** Musculoskeletal unloading mitigation sub-model ($g_{eff} = 0.62$).
+  - **Full Conjunction-Class Mission:** 1040-day simulation across 270d Outbound Transit, 500d Mars Surface Stay, and 270d Return Transit.
+  - **Neuromuscular Strength Model:** Distinct MVC force decline reflecting motor unit recruitment loss and fast-twitch myofibrillar atrophy.
+  - **Sleep Architecture Model:** Cumulative sleep debt tracking, non-linear biological recovery factor, and sleep quality scoring.
+  - **Clinical Spaceflight Risks:** Nephrolithiasis (hypercalciuria bone resorption tracking) and SANS (retrobulbar optic nerve sheath diameter expansion).
 
-**Next ideas:** NHANES-derived baseline draws in `analysis/`; GOES flux time series for event fluence instead of peak flux; Mars surface stay and return leg; strength and sleep sub-models; kidney-stone and SANS risks; live wearable data.
+**Next ideas:** NHANES-derived baseline draws in `analysis/`; GOES flux time series for event fluence instead of peak flux; live wearable data.
 
 ---
 

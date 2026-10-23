@@ -13,7 +13,7 @@ from app.simulation.scenario import Plan, Radiation, build_inputs, habit_plan
 from app.simulation.simulate import DailyInputs, arrival_summary, bands, draw_rates, run_mission
 from app.spaceweather.service import radiation_inputs, received_dose
 
-LOSS_KEYS = {"bone": "bone", "muscle": "muscle", "cardio": "vo2"}
+LOSS_KEYS = {"bone": "bone", "muscle": "muscle", "cardio": "vo2", "strength": "strength"}
 
 
 @dataclass
@@ -96,6 +96,20 @@ def alerts(t: Twin, arrival: dict, rad_budget: dict) -> list[dict]:
     for e in upcoming:
         out.append({"level": "info", "text": f"Solar particle event ({e['s_scale']}) on mission day {e['day']} "
                                              f"({'shelter' if e['sheltered'] else 'no shelter'})."})
+    
+    # Clinical and sleep risk alerts
+    if "clinical" in arrival:
+        c = arrival["clinical"]
+        if c.get("kidney_stone", {}).get("status") == "HIGH":
+            out.append({"level": "warning",
+                        "text": f"High risk of renal calculi ({c['kidney_stone']['relative_risk']}× baseline) from bone mineral hypercalciuria."})
+        if c.get("sans", {}).get("status") == "ELEVATED":
+            out.append({"level": "warning",
+                        "text": f"SANS optic nerve sheath dilation ({c['sans']['onsd_mm']} mm) from persistent microgravity cephalad fluid shift."})
+    if "sleep" in arrival and arrival["sleep"].get("status") == "IMPAIRED":
+        out.append({"level": "warning",
+                    "text": f"Chronic sleep debt ({arrival['sleep']['cumulative_debt_h']} h) impairing muscle synthesis and cognitive alertness."})
+
     return out
 
 
@@ -119,7 +133,7 @@ def detail(t: Twin, sw: dict, gcr_scenario: str = P.DEFAULT_GCR_SCENARIO) -> dic
         "leg_lean_kg": round(base["leg_lean_kg"] * float(np.median(t.result["muscle"][:, t.current_day])), 2),
         "vo2peak": round(base["vo2peak"] * float(np.median(t.result["vo2"][:, t.current_day])), 1),
     }
-    series = {k: _pct(bands(1 - t.result[v])) for k, v in LOSS_KEYS.items()}
+    series = {k: _pct(bands(1 - t.result[v])) for k, v in LOSS_KEYS.items() if v in t.result}
     series["readiness"] = {k: [round(x, 1) for x in v] for k, v in bands(t.result["readiness"]).items()}
     series["dose"] = [round(t.profile["prior_dose_msv"] + x, 1) for x in t.result["dose"]]
     timeline = [{"day": d, "label": e} for d, e in enumerate(t.logs["events"]) if e]
@@ -144,14 +158,15 @@ def compare(base: Twin, scen: Twin, base_gcr: str, scen_gcr: str) -> dict:
     """Before/after view for the what-if simulator."""
     a, b = arrival_summary(base.result), arrival_summary(scen.result)
     ra, rb = budget(base, base_gcr), budget(scen, scen_gcr)
-    names = {"bone": "Hip bone loss", "muscle": "Leg muscle loss", "cardio": "VO2peak loss"}
-    lines = [f"{names[k]} {a['loss'][k]['p50'] * 100:.1f}% → {b['loss'][k]['p50'] * 100:.1f}%" for k in names]
+    core_names = {"bone": "Hip bone loss", "muscle": "Leg muscle loss", "cardio": "VO2peak loss"}
+    lines = [f"{core_names[k]} {a['loss'][k]['p50'] * 100:.1f}% → {b['loss'][k]['p50'] * 100:.1f}%" for k in core_names]
     lines.append(f"Readiness {a['readiness']['p50']:.0f} → {b['readiness']['p50']:.0f} ({a['status']} → {b['status']})")
     lines.append(f"Career dose at arrival {ra['arrival_msv']:.0f} → {rb['arrival_msv']:.0f} mSv")
+    all_names = {"bone": "Hip bone loss", "muscle": "Leg muscle loss", "cardio": "VO2peak loss", "strength": "Strength loss"}
 
     def series(t):
         return {"readiness": bands(t.result["readiness"]),
-                **{k: _pct(bands(1 - t.result[v])) for k, v in LOSS_KEYS.items()},
+                **{k: _pct(bands(1 - t.result[v])) for k, v in LOSS_KEYS.items() if v in t.result},
                 "dose": [round(t.profile["prior_dose_msv"] + x, 1) for x in t.result["dose"]]}
 
     return {
@@ -160,11 +175,69 @@ def compare(base: Twin, scen: Twin, base_gcr: str, scen_gcr: str) -> dict:
                      "radiation_events": scen.radiation.events},
         "delta": {
             "readiness": b["readiness"]["p50"] - a["readiness"]["p50"],
-            **{k: (b["loss"][k]["p50"] - a["loss"][k]["p50"]) * 100 for k in names},
+            **{k: (b["loss"][k]["p50"] - a["loss"][k]["p50"]) * 100 for k in all_names if k in a["loss"]},
             "arrival_dose_msv": rb["arrival_msv"] - ra["arrival_msv"],
         },
         "summary": lines,
         "current_day": base.current_day,
+    }
+
+
+def simulate_conjunction_mission(member: CrewMember, gcr_scenario: str = P.DEFAULT_GCR_SCENARIO,
+                                  plan: Plan | None = None, runs: int = 150) -> dict:
+    """Simulate full 1040-day conjunction-class Mars mission (270d Outbound + 500d Surface + 270d Return)."""
+    from app.simulation.phases import generate_mission_environment, phases_manifest
+    
+    prof = profile(member)
+    logs = logs_dict(member)
+    env = generate_mission_environment("full", gcr_scenario)
+    total_days = env["days"]
+
+    plan = plan or habit_plan(prof)
+    rad = Radiation(
+        gcr_msv=env["gcr_msv"],
+        spe_msv=np.zeros(total_days),  # baseline quiet space weather
+        sheltered=np.zeros(total_days, dtype=bool),
+        gravity_g=env["gravity_g"],
+        spe_attenuation=env["spe_attenuation"]
+    )
+    
+    inputs = build_inputs(logs, current_day=P.MISSION_DAYS, plan=plan, radiation=rad, days=total_days,
+                          gravity_g=env["gravity_g"], spe_attenuation=env["spe_attenuation"])
+    priors = personal_priors(prof)
+    rng = np.random.default_rng(seed_for(prof["id"]))
+    rates = draw_rates(rng, runs, prof["r_bone_hip"], priors["muscle"][0], 1.0)
+    
+    result = run_mission(rates, inputs, record=True)
+    
+    # Milestone summaries
+    milestones = {
+        "mars_arrival": arrival_summary(result, day=P.MISSION_DAYS),
+        "surface_departure": arrival_summary(result, day=P.MISSION_DAYS + P.SURFACE_STAY_DAYS),
+        "earth_return": arrival_summary(result, day=total_days),
+    }
+
+    step = 5  # sample every 5 days for compact payload over 1040 days
+    time_series = {
+        "days": list(range(0, total_days + 1, step)),
+        "phase": [env["phase_labels"][min(d, total_days - 1)] for d in range(0, total_days + 1, step)],
+        "bone_loss_pct": bands(1 - result["bone"], step=step),
+        "muscle_loss_pct": bands(1 - result["muscle"], step=step),
+        "cardio_loss_pct": bands(1 - result["vo2"], step=step),
+        "strength_loss_pct": bands(1 - result["strength"], step=step),
+        "readiness": bands(result["readiness"], step=step),
+        "dose_msv": [round(prof["prior_dose_msv"] + float(x), 1) for x in result["dose"][::step]],
+        "gravity_g": [float(env["gravity_g"][min(d, total_days - 1)]) for d in range(0, total_days, step)] + [0.0],
+        "comm_delay_min": [float(env["comm_delay_min"][min(d, total_days - 1)]) for d in range(0, total_days, step)] + [0.0],
+    }
+
+    return {
+        "crew_id": prof["id"],
+        "total_days": total_days,
+        "gcr_scenario": gcr_scenario,
+        "milestones": milestones,
+        "series": time_series,
+        "manifest": phases_manifest(),
     }
 
 

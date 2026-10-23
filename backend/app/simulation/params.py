@@ -71,12 +71,65 @@ SHELTER_POLICY_MIN_SCALE = 2  # crew shelters for S2 and above unless a scenario
 # Conjunction-class reference mission for the end-of-mission budget line
 SURFACE_STAY_DAYS = 500
 RETURN_DAYS = 270
+TOTAL_CONJUNCTION_DAYS = MISSION_DAYS + SURFACE_STAY_DAYS + RETURN_DAYS  # 1040 days
+
+# ---------------------------------------------------------------------------
+# Gravity environments
+# ---------------------------------------------------------------------------
+GRAVITY_MARS = 0.38  # Martian surface gravity relative to Earth (g)
+GRAVITY_EARTH = 1.0  # Terrestrial 1g reference
+# Effective skeletal/muscular unloading factor on Mars: partial loading (0.38g)
+# provides ground reaction force and tonic stimulation, reducing microgravity loss by ~38%
+GRAVITY_UNLOADING_MARS = 1.0 - GRAVITY_MARS  # 0.62
+SURFACE_SPE_SHIELDING = 0.15  # Planetary body shadow (50%) + atmospheric CO2 column (~20 g/cm²)
+
+# ---------------------------------------------------------------------------
+# Neuromuscular Strength sub-model
+# ---------------------------------------------------------------------------
+# Spaceflight studies (Trappe et al. 2009, NASA NTRS): Strength (Maximal Voluntary Contraction)
+# declines faster than muscle cross-sectional area due to neural drive deterioration
+# and preferential fast-twitch (Type IIx/IIa) myofibrillar loss (~18–22% in 6 months with exercise).
+R_STRENGTH_NEURAL = 0.00045  # per day neural adaptation decline in microgravity
+STRENGTH_EX_EFFECT = 0.85    # resistance training preserves ~85% of motor unit recruitment
+LOSS_LIMIT_STRENGTH = 0.50   # 50% loss threshold
+
+# ---------------------------------------------------------------------------
+# Sleep Architecture & Recovery sub-model
+# ---------------------------------------------------------------------------
+SLEEP_OPTIMAL_H = 8.0        # Target daily sleep for full neuroendocrine/muscular recovery
+SLEEP_DEBT_DECAY = 0.15      # Fractional sleep debt clearance per day
+SLEEP_DEBT_MAX = 24.0        # Saturation cap on cumulative sleep debt (hours)
+SLEEP_DEBT_IMPAIRMENT_THRESH = 8.0  # Hours of cumulative debt triggering chronic impairment
+
+# ---------------------------------------------------------------------------
+# Clinical Risk: Kidney Stone Formation (Nephrolithiasis)
+# ---------------------------------------------------------------------------
+# Bone demineralization causes acute hypercalciuria (calcium released into bloodstream
+# excreted in urine). Combined with chronic spaceflight sub-hydration, supersaturation
+# of calcium oxalate and brushite creates elevated renal calculi risk (Whitson et al., Curhan et al.).
+CA_EXCRETION_BASE_MG = 180.0       # Normal 24h baseline urinary calcium excretion (mg/day)
+CA_EXCRETION_BONE_FACTOR = 160.0   # Additional urinary calcium excretion per unit bone loss rate
+STONE_BASELINE_INCIDENCE = 0.00012 # Terrestrial baseline daily stone incidence rate
+STONE_RISK_HIGH_THRESH = 3.0       # Relative risk threshold for high alert
+
+# ---------------------------------------------------------------------------
+# Clinical Risk: SANS (Spaceflight-Associated Neuro-ocular Syndrome)
+# ---------------------------------------------------------------------------
+# Microgravity cephalad fluid shift removes the hydrostatic downward gradient, causing
+# persistent internal jugular and cerebral venous engorgement, optic disc edema, and optic
+# nerve sheath enlargement (Mader et al. 2011, Stenger et al. 2017).
+ONSD_BASELINE_MM = 5.1      # Normal terrestrial optic nerve sheath diameter (mm)
+ONSD_MAX_DELTA_MM = 1.1     # Maximum sheath enlargement in microgravity (mm)
+SANS_TAU_DAYS = 45.0        # Time constant of optic nerve sheath remodeling (days)
+SANS_GRADE1_THRESH_MM = 5.8 # ONSD threshold for Frisen Grade 1 papilledema risk
+SANS_GRADE2_THRESH_MM = 6.0 # ONSD threshold for Frisen Grade 2+ papilledema risk
 
 # ---------------------------------------------------------------------------
 # Readiness score
 # ---------------------------------------------------------------------------
-LOSS_LIMITS = {"bone": 0.20, "muscle": 0.50, "cardio": 0.40}  # ASSUMPTION: score = 0 at these losses
-WEIGHTS = {"bone": 0.35, "muscle": 0.35, "cardio": 0.30}  # ASSUMPTION
+LOSS_LIMITS = {"bone": 0.20, "muscle": 0.50, "cardio": 0.40, "strength": LOSS_LIMIT_STRENGTH}
+WEIGHTS = {"bone": 0.35, "muscle": 0.35, "cardio": 0.30}  # Core 3-way baseline weights (backward-compatible)
+WEIGHTS_EXPANDED = {"bone": 0.25, "muscle": 0.25, "cardio": 0.25, "strength": 0.25}  # 4-way holistic
 GREEN_MIN = 70.0
 AMBER_MIN = 50.0
 SUBSCORE_CAP = 0.4  # any sub-score below this caps the status at AMBER
@@ -95,10 +148,11 @@ RATE_SIGMA_OTHER = 0.15  # "each other rate ±15 %"
 NOISE_BONE = 0.015  # DXA precision ≈ 1–2 %
 NOISE_MUSCLE = 0.03  # ASSUMPTION: MRI / ultrasound volume precision
 NOISE_VO2 = 0.04  # ASSUMPTION: cycle-ergometer VO2peak test repeatability
+NOISE_STRENGTH = 0.05  # Isometric dynamometry precision ≈ 5%
 
 
 def registry() -> list[dict]:
-    """Parameter table served by /api/model, mirroring the README."""
+    """Parameter table served by /api/model, mirroring the README and expanded models."""
     return [
         {"key": "r_bone_hip", "label": "Hip bone loss (full exercise)", "value": "1.0–1.5", "unit": "% / month",
          "type": "Measured", "source": "LeBlanc et al. 2000"},
@@ -128,4 +182,21 @@ def registry() -> list[dict]:
          "unit": "mGy-Eq", "type": "NASA standard", "source": "NASA-STD-3001 (verify current revision)"},
         {"key": "spe_dose_map", "label": "S-scale → SPE dose map", "value": "S1 0.5 … S5 200", "unit": "mSv",
          "type": "Assumption", "source": "ARES Twin (log-log interpolation on peak pfu)"},
+        {"key": "gravity_mars", "label": "Mars surface gravity", "value": GRAVITY_MARS, "unit": "g",
+         "type": "Physical constant", "source": "NASA Mars Fact Sheet"},
+        {"key": "gravity_unloading_mars", "label": "Mars partial skeletal/muscular unloading factor",
+         "value": GRAVITY_UNLOADING_MARS, "unit": "fraction", "type": "Biomechanical model",
+         "source": "1 - g_mars (reduced deconditioning under 0.38g partial weight-bearing)"},
+        {"key": "r_strength_neural", "label": "Neuromuscular activation decline rate",
+         "value": round(R_STRENGTH_NEURAL * 100, 4), "unit": "% / day", "type": "Measured/Calibrated",
+         "source": "Trappe et al. 2009; NASA NTRS (rapid neural motor unit loss)"},
+        {"key": "sleep_optimal_h", "label": "Optimal sleep duration for recovery", "value": SLEEP_OPTIMAL_H,
+         "unit": "h / day", "type": "NASA standard", "source": "NASA-STD-3001 Behavioural Health"},
+        {"key": "ca_excretion_base", "label": "Baseline 24h urinary calcium excretion", "value": CA_EXCRETION_BASE_MG,
+         "unit": "mg / day", "type": "Clinical reference", "source": "Whitson et al., NASA Johnson Space Center"},
+        {"key": "onsd_baseline", "label": "Baseline Optic Nerve Sheath Diameter (SANS)", "value": ONSD_BASELINE_MM,
+         "unit": "mm", "type": "Clinical reference", "source": "Mader et al. 2011; Stenger et al. 2017"},
+        {"key": "conjunction_mission_days", "label": "Full Conjunction-Class Mission Days",
+         "value": TOTAL_CONJUNCTION_DAYS, "unit": "days", "type": "Mission Architecture",
+         "source": "NASA DRA 5.0 (270d outbound + 500d surface + 270d return)"},
     ]
