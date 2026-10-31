@@ -111,6 +111,10 @@ CA_EXCRETION_BASE_MG = 180.0       # Normal 24h baseline urinary calcium excreti
 CA_EXCRETION_BONE_FACTOR = 160.0   # Additional urinary calcium excretion per unit bone loss rate
 STONE_BASELINE_INCIDENCE = 0.00012 # Terrestrial baseline daily stone incidence rate
 STONE_RISK_HIGH_THRESH = 3.0       # Relative risk threshold for high alert
+URINE_VOL_BASE_L = 2.0             # Normal daily urine volume (L/day)
+CA_OXALATE_BASE_SS = 1.25          # Terrestrial baseline calcium oxalate relative supersaturation
+BRUSHITE_BASE_SS = 1.05            # Terrestrial baseline brushite relative supersaturation
+K_CITRATE_SS_REDUCTION = 0.38      # Relative supersaturation reduction with daily potassium citrate (30 mEq/d)
 
 # ---------------------------------------------------------------------------
 # Clinical Risk: SANS (Spaceflight-Associated Neuro-ocular Syndrome)
@@ -118,11 +122,27 @@ STONE_RISK_HIGH_THRESH = 3.0       # Relative risk threshold for high alert
 # Microgravity cephalad fluid shift removes the hydrostatic downward gradient, causing
 # persistent internal jugular and cerebral venous engorgement, optic disc edema, and optic
 # nerve sheath enlargement (Mader et al. 2011, Stenger et al. 2017).
-ONSD_BASELINE_MM = 5.1      # Normal terrestrial optic nerve sheath diameter (mm)
-ONSD_MAX_DELTA_MM = 1.1     # Maximum sheath enlargement in microgravity (mm)
-SANS_TAU_DAYS = 45.0        # Time constant of optic nerve sheath remodeling (days)
-SANS_GRADE1_THRESH_MM = 5.8 # ONSD threshold for Frisen Grade 1 papilledema risk
-SANS_GRADE2_THRESH_MM = 6.0 # ONSD threshold for Frisen Grade 2+ papilledema risk
+ONSD_BASELINE_MM = 5.1             # Normal terrestrial optic nerve sheath diameter (mm)
+ONSD_MAX_DELTA_MM = 1.1            # Maximum sheath enlargement in microgravity (mm)
+SANS_TAU_DAYS = 45.0               # Time constant of optic nerve sheath remodeling (days)
+SANS_GRADE1_THRESH_MM = 5.8        # ONSD threshold for Frisen Grade 1 papilledema risk
+SANS_GRADE2_THRESH_MM = 6.0        # ONSD threshold for Frisen Grade 2 papilledema risk
+SANS_GRADE3_THRESH_MM = 6.35       # ONSD threshold for Frisen Grade 3+ severe disc edema
+MAX_DIOPTER_SHIFT = 1.25           # Maximum hyperopic diopter shift from posterior globe flattening (D)
+LBNP_DAILY_EFFICIENCY = 0.55       # Reduction fraction in cephalad fluid engorgement with 2h daily LBNP (-25 to -35 mmHg)
+
+# ---------------------------------------------------------------------------
+# Clinical Risk: Cardiovascular Orthostatic Intolerance (Mars Landing / Presyncope)
+# ---------------------------------------------------------------------------
+# Microgravity cardiovascular deconditioning causes cephalad fluid redistribution,
+# hypovolemia (10-15% plasma volume loss), down-regulated baroreflex sensitivity,
+# and stroke volume decline, causing postural hypotension and presyncope on Mars landing (Buckey et al., Waters et al.).
+ORTHO_PLASMA_LOSS_MAX = 0.14       # Maximum plasma volume deficit in microgravity (~14%)
+ORTHO_TAU_DAYS = 14.0              # Time constant of cardiovascular hypovolemic adaptation (days)
+ORTHO_BASE_PRESYNCOPE_PROB = 0.48  # Baseline probability of presyncope on Mars landing without countermeasure
+ORTHO_FLUID_SALT_REDUCTION = 0.55  # Risk reduction fraction from pre-landing fluid loading (1L + 8g salt)
+ORTHO_GARMENT_REDUCTION = 0.65     # Risk reduction fraction from lower body antigravity compression garments
+ORTHO_COMBINED_REDUCTION = 0.85    # Combined risk reduction from fluid loading + compression garments
 
 # ---------------------------------------------------------------------------
 # Readiness score
@@ -196,6 +216,10 @@ def registry() -> list[dict]:
          "unit": "mg / day", "type": "Clinical reference", "source": "Whitson et al., NASA Johnson Space Center"},
         {"key": "onsd_baseline", "label": "Baseline Optic Nerve Sheath Diameter (SANS)", "value": ONSD_BASELINE_MM,
          "unit": "mm", "type": "Clinical reference", "source": "Mader et al. 2011; Stenger et al. 2017"},
+        {"key": "ca_oxalate_ss_base", "label": "Baseline Calcium Oxalate Supersaturation", "value": CA_OXALATE_BASE_SS,
+         "unit": "index", "type": "Clinical reference", "source": "Curhan et al., Whitson et al. (NASA HRP)"},
+        {"key": "ortho_presyncope_base", "label": "Mars Landing Uncountermeasured Presyncope Risk", "value": round(ORTHO_BASE_PRESYNCOPE_PROB * 100, 1),
+         "unit": "%", "type": "Clinical model", "source": "Buckey et al., Waters et al. (NASA HRP Cardiovascular Intolerance)"},
         {"key": "conjunction_mission_days", "label": "Full Conjunction-Class Mission Days",
          "value": TOTAL_CONJUNCTION_DAYS, "unit": "days", "type": "Mission Architecture",
          "source": "NASA DRA 5.0 (270d outbound + 500d surface + 270d return)"},

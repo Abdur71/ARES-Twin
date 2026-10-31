@@ -109,3 +109,53 @@ def model():
             "readiness": "100 × (0.35 S_bone + 0.35 S_muscle + 0.30 S_cardio)",
         },
     }
+
+
+@router.get("/spaceweather/live")
+async def spaceweather_live(
+    window_days: int = Query(1, ge=1, le=7, description="Proton flux monitoring window (1, 3, or 7 days)"),
+    refresh: bool = Query(False, description="Bypass cache and query live SWPC streaming feed")
+):
+    """Real-time NOAA SWPC primary GOES integral proton flux feed (>=10, >=50, >=100 MeV), S-scale & alerts."""
+    from app.spaceweather.swpc_live import fetch_swpc_live_feed
+    valid_window = 7 if window_days >= 7 else (3 if window_days >= 3 else 1)
+    return await fetch_swpc_live_feed(window_days=valid_window, refresh=refresh)
+
+
+@router.get("/spaceweather/mars-scoreboard")
+async def spaceweather_mars_scoreboard(
+    flare_lon: float = Query(65.0, ge=-180.0, le=180.0, description="Solar flare longitude relative to Earth meridian"),
+    earth_pfu: float = Query(120.0, ge=1.0, le=1_000_000.0, description="Earth peak >10 MeV proton flux (pfu)")
+):
+    """CCMC Mars SEP Scoreboard: Parker spiral magnetic footpoint connectivity, Earth vs Mars proton intensity."""
+    from app.spaceweather.mars_sep import fetch_mars_sep_scoreboard
+    return await fetch_mars_sep_scoreboard(flare_lon=flare_lon, earth_pfu=earth_pfu)
+
+
+@router.get("/spaceweather/fluence")
+def spaceweather_fluence(
+    storm: str = Query("may_2024", description="Historical storm key (may_2024, halloween_2003, feb_1956, nominal_s2)")
+):
+    """NOAA NCEI GOES SGPS multi-energy proton fluence, spectral fitting (gamma, E0), and depth-dose curves."""
+    from app.spaceweather.sgps_fluence import HISTORICAL_STORMS, analyze_fluence_event
+    return {
+        "available_storms": list(HISTORICAL_STORMS.keys()),
+        "analysis": analyze_fluence_event(historical_storm_key=storm)
+    }
+
+
+class FluenceAnalyzeIn(PydanticBaseModel := __import__("pydantic").BaseModel):
+    time_series_flux_10mev: list[float] | None = None
+    time_step_hours: float = 1.0
+    storm_key: str | None = None
+
+
+@router.post("/spaceweather/fluence/analyze")
+def spaceweather_fluence_analyze(body: FluenceAnalyzeIn):
+    """Compute integrated event fluence (F = int J dt) and organ-specific doses (Skin, Lens, BFO) for custom flux."""
+    from app.spaceweather.sgps_fluence import analyze_fluence_event
+    return analyze_fluence_event(
+        time_series_flux_10mev=body.time_series_flux_10mev,
+        time_step_hours=body.time_step_hours,
+        historical_storm_key=body.storm_key
+    )

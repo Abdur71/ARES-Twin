@@ -12,6 +12,7 @@ from app.simulation.readiness import radiation_budget
 from app.simulation.scenario import Plan, Radiation, build_inputs, habit_plan
 from app.simulation.simulate import DailyInputs, arrival_summary, bands, draw_rates, run_mission
 from app.spaceweather.service import radiation_inputs, received_dose
+from app.telemetry.service import telemetry_manager
 
 LOSS_KEYS = {"bone": "bone", "muscle": "muscle", "cardio": "vo2", "strength": "strength"}
 
@@ -47,6 +48,15 @@ def simulate_member(member: CrewMember, sw: dict, current_day: int, plan: Plan |
     plan = plan or habit_plan(prof)
     rad = radiation_inputs(sw, gcr_scenario, shelter_overrides, extra_storms)
     inputs = build_inputs(logs, current_day, plan, rad)
+    
+    # Live wearable sensor synchronization: if astronaut is streaming live smartwatch/sensor data,
+    # override today's input metrics with real-time measured values.
+    live_sync = telemetry_manager.get_sync_compliance(prof["id"])
+    if live_sync and current_day < len(inputs.c_cardio):
+        inputs.c_cardio[current_day] = live_sync["c_cardio"]
+        inputs.c_res[current_day] = live_sync["c_res"]
+        inputs.sleep_h[current_day] = live_sync["sleep_h"]
+        
     priors = personal_priors(prof)
     post = twin_update.posterior(priors, measurements, inputs)
     rng = np.random.default_rng(seed_for(prof["id"]))
@@ -97,6 +107,10 @@ def alerts(t: Twin, arrival: dict, rad_budget: dict) -> list[dict]:
         out.append({"level": "info", "text": f"Solar particle event ({e['s_scale']}) on mission day {e['day']} "
                                              f"({'shelter' if e['sheltered'] else 'no shelter'})."})
     
+    # Live sensor sync alert
+    if telemetry_manager.get_sync_compliance(t.profile["id"]):
+        out.append({"level": "info", "text": "Live wearable sensor telemetry active — today's digital twin synchronized with smartwatch stream."})
+
     # Clinical and sleep risk alerts
     if "clinical" in arrival:
         c = arrival["clinical"]
@@ -106,6 +120,9 @@ def alerts(t: Twin, arrival: dict, rad_budget: dict) -> list[dict]:
         if c.get("sans", {}).get("status") == "ELEVATED":
             out.append({"level": "warning",
                         "text": f"SANS optic nerve sheath dilation ({c['sans']['onsd_mm']} mm) from persistent microgravity cephalad fluid shift."})
+        if c.get("orthostatic_intolerance", {}).get("status") == "HIGH":
+            out.append({"level": "warning",
+                        "text": f"High orthostatic presyncope risk on Mars arrival ({c['orthostatic_intolerance']['presyncope_probability_unmitigated']:.0%}) — pre-landing fluid loading and compression garment required."})
     if "sleep" in arrival and arrival["sleep"].get("status") == "IMPAIRED":
         out.append({"level": "warning",
                     "text": f"Chronic sleep debt ({arrival['sleep']['cumulative_debt_h']} h) impairing muscle synthesis and cognitive alertness."})
@@ -122,7 +139,8 @@ def summary(t: Twin, gcr_scenario: str = P.DEFAULT_GCR_SCENARIO) -> dict:
     today = arrival_summary(t.result, day=t.current_day)
     rb = budget(t, gcr_scenario)
     return {"profile": t.profile, "arrival": arrival, "today": today, "radiation": rb,
-            "alerts": alerts(t, arrival, rb)}
+            "alerts": alerts(t, arrival, rb),
+            "live_telemetry_active": telemetry_manager.get_sync_compliance(t.profile["id"]) is not None}
 
 
 def detail(t: Twin, sw: dict, gcr_scenario: str = P.DEFAULT_GCR_SCENARIO) -> dict:

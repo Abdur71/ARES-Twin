@@ -1,0 +1,76 @@
+{
+ "fetched_at": "2026-10-30T12:26:05.940239+00:00",
+ "source": "https://sep.ccmc.gsfc.nasa.gov/mars_intensity",
+ "data": {
+  "service": "CCMC Mars SEP Scoreboard",
+  "url": "https://sep.ccmc.gsfc.nasa.gov/mars_intensity",
+  "updated_at": "2026-10-30T12:26:05.939693+00:00",
+  "ensemble_models": [
+   {
+    "model": "M-NUMERICS",
+    "institution": "University of Turku / CCMC",
+    "description": "Physics-based 3D coronal and interplanetary magnetohydrodynamic shock propagation model.",
+    "energy_channels": [
+     ">10 MeV",
+     ">30 MeV",
+     ">50 MeV",
+     ">100 MeV"
+    ],
+    "accuracy_p50_percent": 84.5
+   },
+   {
+    "model": "SPE Threat Model",
+    "institution": "NASA Johnson Space Center SRAG",
+    "description": "Operational solar proton event threshold forecasting for human spaceflight missions.",
+    "energy_channels": [
+     ">10 MeV",
+     ">100 MeV"
+    ],
+    "accuracy_p50_percent": 88.0
+   },
+   {
+    "model": "MSL/RAD Ground Truth",
+    "institution": "Southwest Research Institute (SwRI) / NASA MSL Curiosity",
+    "description": "Empirical radiation dosimeter on the Martian surface inside Gale Crater.",
+    "energy_channels": [
+     "Absorbed dose rate",
+     "Dose equivalent rate",
+     "Neutron & charged particle flux"
+    ],
+    "accuracy_p50_percent": 98.2
+   },
+   {
+    "model": "SPARX",
+    "institution": "University of Central Lancashire",
+    "description": "Solar Particle Radiation Explorer test bed predicting time-dependent flux profiles at Mars.",
+    "energy_channels": [
+     ">10 MeV",
+     ">60 MeV"
+    ],
+    "accuracy_p50_percent": 81.3
+   }
+  ],
+  "current_projection": {
+   "earth_peak_pfu": 120.0,
+   "earth_connection_quality": 0.985,
+   "mars_connection_quality": 0.041,
+   "mars_peak_pfu": 1.98,
+   "mars_s_scale": "below S1",
+   "mars_s_level": 0,
+   "orbit_dose_msv": 0.0,
+   "surface_dose_msv": 0.0,
+   "geometry": {
+    "r_mars_au": 1.524,
+    "earth_footpoint_deg": 58.3,
+    "mars_footpoint_deg": 89.0,
+    "mars_earth_separation_deg": 72.0,
+    "flare_solar_lon_deg": 65.0
+   }
+  },
+  "surface_protective_shielding": {
+   "planetary_shadow_fraction": 0.5,
+   "atmospheric_co2_column_g_cm2": 20.0,
+   "surface_attenuation_factor": 0.15
+  }
+ }
+}

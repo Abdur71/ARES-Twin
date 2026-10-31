@@ -15,10 +15,6 @@ from app.simulation import clinical, models, params as P, phases
 from app.simulation.simulate import DailyInputs, Rates, arrival_summary, run_mission
 
 
-@pytest.fixture
-def client():
-    return TestClient(app)
-
 
 def test_mars_partial_gravity_mitigates_bone_and_muscle_loss():
     """Martian gravity (0.38g) provides partial musculoskeletal loading, reducing deconditioning."""

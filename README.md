@@ -162,6 +162,14 @@ Browser (Next.js)  ──REST/JSON──▶  FastAPI
 | GET | `/api/simulation/phases` | Conjunction mission phase breakdown (270d Outbound, 500d Surface 0.38g, 270d Return) |
 | GET | `/api/simulation/conjunction/{crew_id}` | Full 1040-day conjunction-class Mars mission simulation across all 3 phases |
 | GET | `/api/simulation/clinical/{crew_id}?day=` | Clinical spaceflight risks: Nephrolithiasis (hypercalciuria), SANS (ONSD expansion), and sleep debt |
+| GET | `/api/spaceweather/live?window_days=` | Real-time NOAA SWPC primary GOES integral proton flux feed, S-scale & live shelter alert |
+| GET | `/api/spaceweather/mars-scoreboard` | CCMC Mars SEP Scoreboard: Parker spiral magnetic footpoint connectivity & Mars radiation |
+| GET/POST | `/api/spaceweather/fluence` | NOAA NCEI GOES SGPS multi-energy proton fluence, spectral fitting (gamma, E0), depth-dose curves |
+| GET | `/api/pipelines/radlab/studies` | NASA OSDR RadLab flight dosimeter repository (MSL/RAD Cruise, Gale Surface, ISS DOSIS-3D) |
+| GET | `/api/pipelines/radlab/benchmark` | Empirical benchmark comparison between simulation GCR/SPE rates and flight ground truth |
+| GET | `/api/pipelines/nhanes/distributions` | CDC NHANES adult reference distributions for hip BMD, DXA leg lean mass, and VO2peak |
+| GET | `/api/pipelines/nhanes/sample` | Probabilistically draw an astronaut candidate baseline from CDC NHANES multi-variable distributions |
+| GET | `/api/pipelines/nhanes/cohort` | Generate a full synthetic 4-person virtual crew drawn statistically from NHANES population data |
 
 ---
 
@@ -316,11 +324,13 @@ All endpoints below were tested on **2026-10-06/07**. None require an API key.
 | **NASA CCMC DONKI** | Solar particle events (SEP) and flares (FLR) — event records, instruments, links | `https://ccmc.gsfc.nasa.gov/DONKI-API/get/SEP?startDate=2024-01-01&endDate=2024-02-29` (also `/FLR`, `/CME`, `/GST`) | JSON |
 | **NOAA SWPC solar proton event list** (NCEI copy) | Peak >10 MeV flux (pfu) for every event 1976 → 2025 — storm size | `https://www.ngdc.noaa.gov/stp/space-weather/interplanetary-data/solar-proton-events/SEP%20page%20code.html` | HTML table (parsed, cached) |
 | **JPL Horizons** | Earth's heliocentric position per day → spacecraft distance from Sun and comm delay | `https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND='399'&EPHEM_TYPE='VECTORS'&CENTER='500@10'&…` | JSON |
-| NOAA NCEI GOES-16/18 SGPS *(future)* | Historical proton flux time series | `https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/data/sgps-l2-avg5m/` | netCDF |
-| NOAA SWPC real-time *(future live mode)* | Live proton flux | `https://services.swpc.noaa.gov/json/goes/primary/integral-protons-1-day.json` | JSON |
-| NASA OSDR RadLab *(optional)* | ISS dosimeter data for calibration | `https://visualization.osdr.nasa.gov/radlab/` | JSON / CSV |
-| CCMC Mars SEP Scoreboard *(bonus)* | Model SEP forecasts at Mars | `https://sep.ccmc.gsfc.nasa.gov/mars_intensity` | Web app |
-| CDC NHANES | Human DXA and fitness data for baseline ranges | `https://wwwn.cdc.gov/nchs/nhanes/` | XPT files |
+| **NOAA NCEI GOES-16/18 SGPS** | Multi-energy proton fluence, spectral fitting (gamma, E0), depth-dose curves | `https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/data/sgps-l2-avg5m/` | JSON / NetCDF pipeline |
+| **NOAA SWPC Real-Time Feed** | Live streaming integral proton flux (>=10, >=50, >=100 MeV), S-scale & alerts | `https://services.swpc.noaa.gov/json/goes/primary/integral-protons-1-day.json` | JSON |
+| **NASA OSDR RadLab** | Empirical spaceflight dosimeter benchmarks (MSL/RAD Cruise, Gale Crater, ISS DOSIS-3D) | `https://visualization.osdr.nasa.gov/radlab/` | JSON / CSV pipeline |
+| **CCMC Mars SEP Scoreboard** | Parker spiral magnetic footpoint connectivity, Earth vs Mars particle propagation | `https://sep.ccmc.gsfc.nasa.gov/mars_intensity` | JSON / Ensemble models |
+| **CDC NHANES** | Demographic multi-variable sampling for baseline adult DXA & VO2peak fitness | `https://wwwn.cdc.gov/nchs/nhanes/` | Statistical distribution pipeline |
+| **Wearable Biometrics & Telemetry** | High-frequency sensor ingestion (HR, HRV, SpO2, TRIMP) & live 1Hz WebSocket | `/api/telemetry/ingest`, `/api/telemetry/ws/{crew_id}` | JSON / WebSocket Stream |
+| **Clinical Risk & Countermeasures** | Paired countermeasure evaluations (K-Citrate, LBNP suits, pre-landing fluid loading) | `/api/simulation/clinical/countermeasures` | JSON Simulation |
 
 > ⚠️ **DONKI moved on 2026-09-30.** The old `https://api.nasa.gov/DONKI/...` and `https://kauai.ccmc.gsfc.nasa.gov/DONKI/WS/get/...` URLs now redirect to a notice page. The new `https://ccmc.gsfc.nasa.gov/DONKI-API/get/...` needs no key, and **rejects date ranges longer than 60 days** (HTTP 400) — ARES Twin splits windows into ≤60-day chunks.
 >
@@ -373,15 +383,27 @@ All endpoints below were tested on **2026-10-06/07**. None require an API key.
 - [x] **Phase 9: Frontend Mission Dashboard** — crew cards, twin view, radiation meter, mission clock
 - [x] **Phase 10: What-if Simulator & Optimizer UI**
 - [x] **Phase 11: Scientific Analysis** — validation script + ±25% sensitivity report
-- [x] **Phase 12: Automated Test Suite** — 54 backend tests (offline, temporary DB)
+- [x] **Phase 12: Automated Test Suite** — 77 backend tests (offline, temporary DB, 100% pass)
 - [x] **Phase 13: Full Physiological & Multi-Phase Mission Engine** —
   - **Mars Surface 0.38g Partial Gravity:** Musculoskeletal unloading mitigation sub-model ($g_{eff} = 0.62$).
   - **Full Conjunction-Class Mission:** 1040-day simulation across 270d Outbound Transit, 500d Mars Surface Stay, and 270d Return Transit.
   - **Neuromuscular Strength Model:** Distinct MVC force decline reflecting motor unit recruitment loss and fast-twitch myofibrillar atrophy.
   - **Sleep Architecture Model:** Cumulative sleep debt tracking, non-linear biological recovery factor, and sleep quality scoring.
   - **Clinical Spaceflight Risks:** Nephrolithiasis (hypercalciuria bone resorption tracking) and SANS (retrobulbar optic nerve sheath diameter expansion).
+- [x] **Phase 14: Full External APIs & Data Pipelines** —
+  - **NOAA SWPC Real-Time Feed:** Live streaming GOES integral proton flux (>=10, >=50, >=100 MeV), S-scale classification, instantaneous dose rates, and automated storm shelter alerts.
+  - **CCMC Mars SEP Scoreboard:** Interplanetary Archimedean Parker spiral magnetic connectivity model, projecting solar flare/CME intensity from solar longitudes onto Mars coordinates with atmospheric shielding.
+  - **NOAA NCEI GOES-16/18 SGPS Fluence Pipeline:** Multi-energy spectral fitting ($\gamma, E_0$), integrated event fluence calculation ($F = \int J \, dt$), depth-dose curves (1–40 $\text{g/cm}^2$ Al), and organ doses (Skin, Lens, Bone Marrow).
+  - **NASA OSDR RadLab Benchmark Pipeline:** Flight dosimeter repository (MSL/RAD Cruise 1.84 mSv/d, Gale Crater Surface 0.64 mSv/d, ISS DOSIS-3D) comparing and calibrating simulation predictions against empirical flight ground truth.
+  - **CDC NHANES Virtual Population Pipeline:** Multi-variable demographic sampling from CDC NHANES datasets (DXA Total Hip BMD, Appendicular Lean Mass, cardiorespiratory $\text{VO}_2\text{peak}$) for generating statistically grounded astronaut candidate cohorts.
+- [x] **Phase 15: Clinical Risk Modeling & Real-Time Wearable Telemetry Integration** —
+  - **Nephrolithiasis Biochemical Supersaturation:** Dynamic 24-hr urinary calcium output, Calcium Oxalate ($SS_{CaOx}$) and Brushite ($SS_{Brushite}$) saturation indices, dehydration penalties, and Potassium Citrate countermeasure modeling.
+  - **SANS Intracranial Dynamics & LBNP Mitigation:** Retrobulbar Optic Nerve Sheath Diameter (ONSD), Modified Frisen Papilledema Grade (0–3+), Intracranial Pressure (ICP) estimation, posterior globe flattening hyperopic diopter shift, and Lower Body Negative Pressure (LBNP 25–35 mmHg) mitigation.
+  - **Cardiovascular Orthostatic Intolerance (Mars Landing / Presyncope):** Microgravity plasma volume contraction ($\sim 14\%$), baroreflex sensitivity degradation, stand test $\Delta \text{SBP}$ drop and $\Delta \text{HR}$ rise, and pre-landing fluid loading + antigravity compression suit countermeasures.
+  - **Real-Time Wearable Sensor Pipeline (`/api/telemetry`):** High-frequency biometric ingestion (HR, HRV RMSSD/SDNN, $SpO_2$, skin temp, active wattage, cadence), circular buffer memory store, acute clinical life-safety alarms (hypoxia, tachycardia, overstrain), and Banister Training Impulse (TRIMP) strain calculation.
+  - **Live WebSocket Telemetry Streaming (`/api/telemetry/ws/{crew_id}`):** Real-time 1Hz sensor broadcasting to web dashboards and dynamic Digital Twin state synchronization.
 
-**Next ideas:** NHANES-derived baseline draws in `analysis/`; GOES flux time series for event fluence instead of peak flux; live wearable data.
+**Next ideas:** Dynamic n-body ephemeris optimization for alternate Mars orbital windows; generative mission voice AI copilot.
 
 ---
 

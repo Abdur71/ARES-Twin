@@ -4,7 +4,15 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config.settings import settings
-from app.api import crew_router, health_router, mission_router, simulation_router
+from app.api import (
+    crew_router,
+    health_router,
+    mission_router,
+    orbit_router,
+    pipelines_router,
+    simulation_router,
+    telemetry_router,
+)
 from app.db.database import SessionLocal
 from app.db.repository import init_db
 
@@ -44,6 +52,9 @@ app.include_router(health_router, prefix="/api")
 app.include_router(mission_router, prefix="/api")
 app.include_router(crew_router, prefix="/api")
 app.include_router(simulation_router, prefix="/api")
+app.include_router(pipelines_router, prefix="/api")
+app.include_router(telemetry_router, prefix="/api")
+app.include_router(orbit_router, prefix="/api")
 
 
 @app.get("/", tags=["Root"])

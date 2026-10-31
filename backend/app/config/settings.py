@@ -42,6 +42,10 @@ class Settings(BaseSettings):
         "https://www.ngdc.noaa.gov/stp/space-weather/interplanetary-data/solar-proton-events/SEP%20page%20code.html"
     )
     HORIZONS_API_URL: str = "https://ssd.jpl.nasa.gov/api/horizons.api"
+    NOAA_SWPC_LIVE_URL: str = "https://services.swpc.noaa.gov/json/goes/primary/integral-protons-1-day.json"
+    MARS_SEP_SCOREBOARD_URL: str = "https://sep.ccmc.gsfc.nasa.gov/mars_intensity"
+    NASA_OSDR_API_URL: str = "https://osdr.nasa.gov/geode-py/ws/repo"
+    CDC_NHANES_BASE_URL: str = "https://wwwn.cdc.gov/nchs/nhanes"
     SPACEWEATHER_OFFLINE: bool = False  # True → use cached JSON only, never call external APIs
     HTTP_TIMEOUT_S: float = 25.0
 
