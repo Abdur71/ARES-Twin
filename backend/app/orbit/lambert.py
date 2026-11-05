@@ -109,7 +109,7 @@ def solve_lambert(
 
         f_val = tof_est - tof_days
 
-        if abs(f_val) < tol:
+        if abs(f_val) < 1e-4:
             converged = True
             break
 
@@ -131,7 +131,8 @@ def solve_lambert(
             f_prime = 1e-14
 
         dz = f_val / f_prime
-        z -= dz
+        dz = max(-5.0, min(5.0, dz))
+        z = max(-35.0, min(35.0, z - dz))
 
     # Lagrange coefficients
     f = 1.0 - y / r1_mag

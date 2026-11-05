@@ -182,8 +182,8 @@ def solar_conjunction_and_comm(spacecraft_pos_au: np.ndarray, earth_pos_au: np.n
     elongation_deg = math.degrees(math.acos(cos_theta))
 
     # Radio communication blackout occurs when elongation < 2.5 degrees and spacecraft is farther than Sun
-    is_behind_sun = np.linalg.norm(sc) > np.linalg.norm(earth)
-    blackout_active = (elongation_deg < 2.5) and is_behind_sun
+    is_behind_sun = bool(np.linalg.norm(sc) > np.linalg.norm(earth))
+    blackout_active = bool((elongation_deg < 2.5) and is_behind_sun)
 
     return {
         "earth_distance_au": round(d_au, 4),
