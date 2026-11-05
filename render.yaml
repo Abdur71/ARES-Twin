@@ -1,4 +1,7 @@
 services:
+  # =========================================================================
+  # 1. Backend Web Service (FastAPI / Python 3.12)
+  # =========================================================================
   - type: web
     name: ares-twin-backend
     env: python
@@ -17,4 +20,21 @@ services:
       - key: ENVIRONMENT
         value: production
       - key: CORS_ORIGINS
-        value: "http://localhost:3000,https://*.vercel.app"
+        value: "http://localhost:3000,https://*.onrender.com,https://*.vercel.app"
+
+  # =========================================================================
+  # 2. Frontend Web Service (Next.js / Node.js)
+  # =========================================================================
+  - type: web
+    name: ares-twin-frontend
+    env: node
+    plan: free
+    region: oregon
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npx next start -p $PORT
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
