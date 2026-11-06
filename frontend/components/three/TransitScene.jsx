@@ -27,9 +27,9 @@ function LabelSprite({ text, position, offset = 0.3, accent = false }) {
     () =>
       createLabelTexture(
         text,
-        accent ? "#ff4a2b" : "rgba(10, 14, 22, 0.85)",
+        accent ? "#d93a1c" : "rgba(20, 22, 28, 0.85)",
         "#ffffff",
-        accent ? "transparent" : "rgba(255, 255, 255, 0.25)"
+        accent ? "transparent" : "rgba(255, 255, 255, 0.08)"
       ),
     [text, accent]
   );
@@ -58,7 +58,7 @@ function Planet({ kind, radius, position, atmosphere, spin = 0.25 }) {
       </mesh>
       <mesh scale={1.14}>
         <sphereGeometry args={[radius, 32, 32]} />
-        <meshBasicMaterial color={atmosphere} transparent opacity={0.16} side={THREE.BackSide} depthWrite={false} blending={THREE.AdditiveBlending} />
+        <meshBasicMaterial color={atmosphere} transparent opacity={0.14} side={THREE.BackSide} depthWrite={false} blending={THREE.AdditiveBlending} />
       </mesh>
     </group>
   );
@@ -77,7 +77,7 @@ function Sun() {
           <meshBasicMaterial color="#ff7a30" transparent opacity={0.16 / (i + 1)} depthWrite={false} blending={THREE.AdditiveBlending} />
         </mesh>
       ))}
-      <pointLight intensity={32} decay={1.5} color="#ffe0bd" />
+      <pointLight intensity={32} decay={1.5} color="#eceef2" />
     </group>
   );
 }
@@ -111,12 +111,12 @@ function Craft({ day }) {
       {[-1, 1].map((s) => (
         <mesh key={s} position={[s * 0.07, 0, -0.01]}>
           <boxGeometry args={[0.1, 0.004, 0.06]} />
-          <meshStandardMaterial color="#28408a" metalness={0.8} roughness={0.25} emissive="#162a66" emissiveIntensity={0.5} />
+          <meshStandardMaterial color="#6f8cff" metalness={0.8} roughness={0.25} emissive="#6f8cff" emissiveIntensity={0.5} />
         </mesh>
       ))}
       <mesh position={[0, 0, -0.07]}>
         <sphereGeometry args={[0.012, 12, 12]} />
-        <meshBasicMaterial color="#ffb08a" />
+        <meshBasicMaterial color="#ff4a2b" />
       </mesh>
       <mesh ref={ring} rotation={[Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.07, 0.078, 40]} />
@@ -151,10 +151,10 @@ function World({ day }) {
       <Line points={rings[1]} color="#ffffff" opacity={0.16} transparent lineWidth={1} />
       <Line points={planned} color="#8c919e" opacity={0.6} transparent lineWidth={1.2} dashed dashSize={0.1} gapSize={0.08} />
       {flown && <Line points={flown} color="#ff4a2b" lineWidth={3} />}
-      <Line points={[e, s]} color="#ff7a55" opacity={0.75} transparent lineWidth={1.4} dashed dashSize={0.06} gapSize={0.06} />
+      <Line points={[e, s]} color="#ff4a2b" opacity={0.75} transparent lineWidth={1.4} dashed dashSize={0.06} gapSize={0.06} />
       <Planet kind="earth" radius={0.17} position={e} atmosphere="#5aa8ff" />
       <LabelSprite text="Earth" position={e} offset={0.32} />
-      <Planet kind="mars" radius={0.13} position={m} atmosphere="#ff8a50" spin={0.18} />
+      <Planet kind="mars" radius={0.13} position={m} atmosphere="#ff7a45" spin={0.18} />
       <LabelSprite text="Mars" position={m} offset={0.28} />
       <Craft day={day} />
       <Stars radius={55} depth={28} count={2200} factor={3.4} saturation={0} fade speed={0.4} />

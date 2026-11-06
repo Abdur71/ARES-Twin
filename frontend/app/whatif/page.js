@@ -19,10 +19,10 @@ const STORM_SCALES = [
 
 function Slider({ label, value, min, max, step = 1, onChange, format = (v) => v }) {
   return (
-    <label className="block text-xs text-slate-300">
-      <span className="flex justify-between"><span>{label}</span><span className="font-mono text-cyan-300">{format(value)}</span></span>
+    <label className="block text-xs text-muted">
+      <span className="flex justify-between"><span>{label}</span><span className="font-mono text-accent">{format(value)}</span></span>
       <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))}
-        className="mt-1 w-full accent-cyan-500" />
+        className="mt-1 w-full accent-accent" />
     </label>
   );
 }
@@ -79,7 +79,7 @@ function WhatIfContent() {
     <div className="space-y-6">
       <section>
         <h1 className="text-3xl font-bold tracking-tight text-white">What-if simulator</h1>
-        <p className="mt-1 max-w-2xl text-sm text-slate-400">
+        <p className="mt-1 max-w-2xl text-sm text-muted">
           Change behaviour from mission day {day ?? "…"} onward and re-run the remaining mission. The blue line is
           &ldquo;nothing changes&rdquo;; orange is your scenario. Both use the same Monte Carlo draws.
         </p>
@@ -88,9 +88,9 @@ function WhatIfContent() {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         <Panel title="Scenario" icon={SlidersHorizontal} className="lg:col-span-4">
-          <label className="mb-4 block text-xs text-slate-400">Crew member
+          <label className="mb-4 block text-xs text-muted">Crew member
             <select value={crewId} onChange={(e) => { setForm(null); setCrewId(e.target.value); }}
-              className="mt-1 w-full rounded border border-slate-700 bg-slate-900 px-2 py-1.5 text-slate-100">
+              className="mt-1 w-full rounded border border-line bg-surface px-2 py-1.5 text-ink">
               {CREW_TABS.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </label>
@@ -101,7 +101,7 @@ function WhatIfContent() {
               <Slider label="Sleep hours / night" value={form.sleep_h} min={4} max={9} step={0.25} onChange={set("sleep_h")} format={(v) => `${v} h`} />
               <Slider label="Adherence to the plan" value={form.adherence} min={0} max={1} step={0.05} onChange={set("adherence")} format={(v) => `${Math.round(v * 100)}%`} />
 
-              <div className="space-y-2 rounded-lg border border-slate-800 p-3">
+              <div className="space-y-2 rounded-lg border border-line p-3">
                 <Toggle checked={injury.on} onChange={(on) => setInjury({ ...injury, on })} label="Injury: no resistance exercise" />
                 {injury.on && (
                   <>
@@ -111,14 +111,14 @@ function WhatIfContent() {
                 )}
               </div>
 
-              <div className="space-y-2 rounded-lg border border-slate-800 p-3">
+              <div className="space-y-2 rounded-lg border border-line p-3">
                 <Toggle checked={storm.on} onChange={(on) => setStorm({ ...storm, on })} label="Add a solar particle event" />
                 {storm.on && (
                   <>
                     <Slider label="Mission day" value={storm.day} min={day ?? 0} max={269} onChange={(v) => setStorm({ ...storm, day: v })} />
-                    <label className="block text-xs text-slate-400">Size (NOAA S-scale)
+                    <label className="block text-xs text-muted">Size (NOAA S-scale)
                       <select value={storm.pfu} onChange={(e) => setStorm({ ...storm, pfu: Number(e.target.value) })}
-                        className="mt-1 w-full rounded border border-slate-700 bg-slate-900 px-2 py-1.5 text-slate-100">
+                        className="mt-1 w-full rounded border border-line bg-surface px-2 py-1.5 text-ink">
                         {STORM_SCALES.map((s) => <option key={s.pfu} value={s.pfu}>{s.label}</option>)}
                       </select>
                     </label>
@@ -127,9 +127,9 @@ function WhatIfContent() {
                 )}
               </div>
 
-              <label className="block text-xs text-slate-400">Cosmic-ray dose rate
+              <label className="block text-xs text-muted">Cosmic-ray dose rate
                 <select value={gcr} onChange={(e) => setGcr(e.target.value)}
-                  className="mt-1 w-full rounded border border-slate-700 bg-slate-900 px-2 py-1.5 text-slate-100">
+                  className="mt-1 w-full rounded border border-line bg-surface px-2 py-1.5 text-ink">
                   <option value="design_goal">NASA design goal · 1.3 mSv/day</option>
                   <option value="measured">Measured MSL/RAD · 1.84 mSv/day</option>
                 </select>
@@ -145,14 +145,14 @@ function WhatIfContent() {
               <Panel title="Before → after" icon={Sparkles} className={busy ? "opacity-70" : ""}>
                 <div className="mb-3 flex flex-wrap items-center gap-3">
                   <StatusPill status={a.arrival.status} size="lg" />
-                  <ArrowRight className="h-4 w-4 text-slate-500" aria-hidden />
+                  <ArrowRight className="h-4 w-4 text-muted" aria-hidden />
                   <StatusPill status={b.arrival.status} size="lg" />
-                  <span className="font-mono text-sm text-slate-300">
+                  <span className="font-mono text-sm text-muted">
                     readiness {a.arrival.readiness.p50.toFixed(0)} → <span className="text-white">{b.arrival.readiness.p50.toFixed(0)}</span>
-                    <span className={result.delta.readiness < 0 ? " text-rose-300" : " text-emerald-300"}> ({result.delta.readiness >= 0 ? "+" : ""}{result.delta.readiness.toFixed(1)})</span>
+                    <span className={result.delta.readiness < 0 ? " text-stop" : " text-go"}> ({result.delta.readiness >= 0 ? "+" : ""}{result.delta.readiness.toFixed(1)})</span>
                   </span>
                 </div>
-                <ul className="space-y-1 text-sm text-slate-300">
+                <ul className="space-y-1 text-sm text-muted">
                   {result.summary.map((s) => <li key={s} className="font-mono text-xs">{s}</li>)}
                 </ul>
               </Panel>

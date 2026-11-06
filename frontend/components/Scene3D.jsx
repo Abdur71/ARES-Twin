@@ -3,9 +3,9 @@
 import dynamic from "next/dynamic";
 
 const Fallback = ({ label }) => (
-  <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-slate-400" role="status">
+  <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-muted" role="status">
     <div className="flex items-center gap-2">
-      <div className="h-3 w-3 animate-spin rounded-full border-2 border-cyan-400 border-t-transparent" />
+      <div className="h-3 w-3 animate-spin rounded-full border-2 border-accent border-t-transparent" />
       <span>{label}</span>
     </div>
   </div>

@@ -23,11 +23,11 @@ export function Panel({ title, subtitle, icon: Icon, actions, children, classNam
       {(title || actions) && (
         <header className="mb-3 flex flex-wrap items-start justify-between gap-2">
           <div className="min-w-0">
-            <h2 className="flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-widest text-slate-300">
-              {Icon && <Icon className="h-4 w-4 shrink-0 text-cyan-400" aria-hidden />}
+            <h2 className="flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-widest text-muted">
+              {Icon && <Icon className="h-4 w-4 shrink-0 text-accent" aria-hidden />}
               {title}
             </h2>
-            {subtitle && <p className="mt-1 text-xs text-slate-400">{subtitle}</p>}
+            {subtitle && <p className="mt-1 text-xs text-muted">{subtitle}</p>}
           </div>
           {actions}
         </header>
@@ -39,17 +39,17 @@ export function Panel({ title, subtitle, icon: Icon, actions, children, classNam
 
 export function Stat({ label, value, hint, className = "" }) {
   return (
-    <div className={`rounded-lg border border-slate-800/80 bg-slate-900/40 p-3 ${className}`}>
-      <div className="font-mono text-[11px] uppercase tracking-wider text-slate-400">{label}</div>
-      <div className="mt-0.5 text-lg font-semibold text-slate-100 tabular-nums">{value}</div>
-      {hint && <div className="text-[11px] text-slate-400">{hint}</div>}
+    <div className={`rounded-lg border border-line bg-surface/40 p-3 ${className}`}>
+      <div className="font-mono text-[11px] uppercase tracking-wider text-muted">{label}</div>
+      <div className="mt-0.5 text-lg font-semibold text-ink tabular-nums">{value}</div>
+      {hint && <div className="text-[11px] text-muted">{hint}</div>}
     </div>
   );
 }
 
 export function Loading({ label = "Running simulation…" }) {
   return (
-    <div className="flex items-center gap-2 py-10 justify-center font-mono text-xs text-cyan-300">
+    <div className="flex items-center gap-2 py-10 justify-center font-mono text-xs text-accent">
       <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> {label}
     </div>
   );
@@ -58,16 +58,16 @@ export function Loading({ label = "Running simulation…" }) {
 export function ErrorBox({ error, onRetry }) {
   if (!error) return null;
   return (
-    <div role="alert" className="rounded-lg border border-rose-800/50 bg-rose-950/40 p-3 text-xs text-rose-200">
+    <div role="alert" className="rounded-lg border border-stop/50 bg-stop/12 p-3 text-xs text-stop">
       <div className="flex items-start gap-2">
-        <AlertOctagon className="h-4 w-4 shrink-0 text-rose-400" aria-hidden />
+        <AlertOctagon className="h-4 w-4 shrink-0 text-stop" aria-hidden />
         <div className="flex-1">
           <p className="font-semibold">Could not reach the ARES Twin backend.</p>
-          <p className="mt-1 text-rose-300/80">{error.message}</p>
-          <p className="mt-1 text-rose-300/80">Start it with: <code>uvicorn app.main:app --reload --port 8000</code></p>
+          <p className="mt-1 text-stop/80">{error.message}</p>
+          <p className="mt-1 text-stop/80">Start it with: <code>uvicorn app.main:app --reload --port 8000</code></p>
         </div>
         {onRetry && (
-          <button onClick={onRetry} className="rounded border border-rose-700 px-2 py-1 hover:bg-rose-900/50">Retry</button>
+          <button onClick={onRetry} className="rounded border border-stop px-2 py-1 hover:bg-stop/12">Retry</button>
         )}
       </div>
     </div>
@@ -75,13 +75,13 @@ export function ErrorBox({ error, onRetry }) {
 }
 
 const ALERT_STYLE = {
-  critical: { icon: XCircle, cls: "border-rose-700/50 bg-rose-950/30 text-rose-200", label: "Critical" },
-  warning: { icon: AlertTriangle, cls: "border-amber-700/40 bg-amber-950/20 text-amber-100", label: "Warning" },
-  info: { icon: Info, cls: "border-sky-800/40 bg-sky-950/20 text-sky-100", label: "Info" },
+  critical: { icon: XCircle, cls: "border-stop/50 bg-stop/12 text-stop", label: "Critical" },
+  warning: { icon: AlertTriangle, cls: "border-warn/40 bg-warn/12 text-warn", label: "Warning" },
+  info: { icon: Info, cls: "border-secondary/40 bg-secondary/12 text-secondary", label: "Info" },
 };
 
 export function AlertsList({ alerts, empty = "No active alerts." }) {
-  if (!alerts?.length) return <p className="text-xs text-slate-400">{empty}</p>;
+  if (!alerts?.length) return <p className="text-xs text-muted">{empty}</p>;
   return (
     <ul className="space-y-2">
       {alerts.map((a, i) => {
@@ -100,7 +100,7 @@ export function AlertsList({ alerts, empty = "No active alerts." }) {
 
 export function SimulatedNote({ className = "" }) {
   return (
-    <p className={`font-mono text-[11px] text-amber-300/80 ${className}`}>
+    <p className={`font-mono text-[11px] text-warn/80 ${className}`}>
       SIMULATED ASTRONAUT · real NASA/NOAA space weather · not a medical device
     </p>
   );
@@ -108,8 +108,8 @@ export function SimulatedNote({ className = "" }) {
 
 export function Toggle({ checked, onChange, label }) {
   return (
-    <label className="inline-flex cursor-pointer items-center gap-2 text-xs text-slate-300">
-      <input type="checkbox" className="h-3.5 w-3.5 accent-cyan-500" checked={checked} onChange={(e) => onChange(e.target.checked)} />
+    <label className="inline-flex cursor-pointer items-center gap-2 text-xs text-muted">
+      <input type="checkbox" className="h-3.5 w-3.5 accent-accent" checked={checked} onChange={(e) => onChange(e.target.checked)} />
       {label}
     </label>
   );
@@ -122,9 +122,9 @@ export function Card({ children, className = "" }) {
 export function Metric({ label, value, sub, tone }) {
   return (
     <div className="min-w-0">
-      <div className="text-xs font-semibold text-slate-400">{label}</div>
-      <div className="num display mt-1 truncate text-2xl font-bold text-white sm:text-3xl" style={tone ? { color: tone } : undefined}>{value}</div>
-      {sub && <div className="mt-0.5 text-xs text-slate-400">{sub}</div>}
+      <div className="text-xs font-semibold text-muted">{label}</div>
+      <div className="num display mt-1 truncate text-2xl font-bold text-white sm:text-2xl" style={tone ? { color: tone } : undefined}>{value}</div>
+      {sub && <div className="mt-0.5 text-xs text-muted">{sub}</div>}
     </div>
   );
 }

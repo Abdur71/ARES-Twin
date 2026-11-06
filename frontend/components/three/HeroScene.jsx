@@ -18,7 +18,7 @@ export function Astronaut({ tint = "#ff4a2b" }) {
       </mesh>
       <mesh position={[0, -0.47, 0]}>
         <sphereGeometry args={[0.12, 20, 20]} />
-        <meshStandardMaterial color="#d3d7de" roughness={0.6} />
+        <meshStandardMaterial color="#eceef2" roughness={0.6} />
       </mesh>
     </group>
   );
@@ -31,7 +31,7 @@ export function Astronaut({ tint = "#ff4a2b" }) {
       </mesh>
       <mesh position={[0, -0.58, 0.05]}>
         <boxGeometry args={[0.24, 0.16, 0.34]} />
-        <meshStandardMaterial color="#c3c8d0" roughness={0.6} />
+        <meshStandardMaterial color="#eceef2" roughness={0.6} />
       </mesh>
     </group>
   );
@@ -42,7 +42,7 @@ export function Astronaut({ tint = "#ff4a2b" }) {
         <meshStandardMaterial {...SUIT} />
       </RoundedBox>
       <RoundedBox args={[0.54, 0.7, 0.26]} radius={0.1} smoothness={4} position={[0, 0.02, -0.32]}>
-        <meshStandardMaterial color="#cfd3da" roughness={0.55} />
+        <meshStandardMaterial color="#eceef2" roughness={0.55} />
       </RoundedBox>
       <mesh position={[0, 0.06, 0.205]}>
         <boxGeometry args={[0.3, 0.18, 0.02]} />
@@ -58,11 +58,11 @@ export function Astronaut({ tint = "#ff4a2b" }) {
       </mesh>
       <mesh position={[0, 0.66, 0.15]} scale={[0.82, 0.66, 0.62]}>
         <sphereGeometry args={[0.32, 48, 48]} />
-        <meshPhysicalMaterial color="#10162b" metalness={1} roughness={0.06} clearcoat={1} envMapIntensity={1.6} />
+        <meshPhysicalMaterial color="#1b1e26" metalness={1} roughness={0.06} clearcoat={1} envMapIntensity={1.6} />
       </mesh>
       <mesh position={[0, 0.4, 0.04]}>
         <torusGeometry args={[0.2, 0.05, 16, 40]} />
-        <meshStandardMaterial color="#b8bdc7" />
+        <meshStandardMaterial color="#8c919e" />
       </mesh>
       {arm(1, 1.2)}
       {arm(-1, 0.7)}
@@ -75,7 +75,7 @@ export function Astronaut({ tint = "#ff4a2b" }) {
 function Studio({ tint }) {
   return (
     <Environment resolution={256}>
-      <Lightformer form="rect" intensity={3.2} color="#fff1e6" position={[3, 3, 4]} scale={[5, 3, 1]} />
+      <Lightformer form="rect" intensity={3.2} color="#eceef2" position={[3, 3, 4]} scale={[5, 3, 1]} />
       <Lightformer form="rect" intensity={2} color={tint} position={[-4, 0, -2]} scale={[4, 6, 1]} />
       <Lightformer form="ring" intensity={1.5} color="#6f8cff" position={[0, -4, 3]} scale={4} />
     </Environment>
@@ -126,8 +126,8 @@ export default function HeroScene() {
         <Suspense fallback={null}>
           <Rig base={5.4} />
           <ambientLight intensity={0.25} />
-          <directionalLight position={[3, 2, 4]} intensity={2.2} color="#fff0e0" />
-          <directionalLight position={[-4, 1, -2]} intensity={1.2} color="#ff5a3a" />
+          <directionalLight position={[3, 2, 4]} intensity={2.2} color="#eceef2" />
+          <directionalLight position={[-4, 1, -2]} intensity={1.2} color="#ff4a2b" />
           <Studio tint="#ff4a2b" />
           <MarsBackdrop />
           <Float speed={1.3} rotationIntensity={0.55} floatIntensity={1.1} floatingRange={[-0.12, 0.12]}>
@@ -142,7 +142,7 @@ export default function HeroScene() {
 }
 
 /** Draggable astronaut for crew pages; the rim light takes the readiness status colour. */
-export function AstronautViewer({ tint = "#06b6d4" }) {
+export function AstronautViewer({ tint = "#ff4a2b" }) {
   const [ref, visible] = useInView();
   const controls = useRef(null);
   useEffect(() => {
@@ -154,7 +154,7 @@ export function AstronautViewer({ tint = "#06b6d4" }) {
       <Canvas frameloop={visible ? "always" : "never"} dpr={[1, 1.75]} camera={{ fov: 36, position: [0, 0.3, 5.6] }} gl={{ antialias: true, alpha: true }} performance={{ min: 0.5 }}>
         <Suspense fallback={null}>
           <ambientLight intensity={0.3} />
-          <directionalLight position={[3, 2, 4]} intensity={2} color="#fff0e0" />
+          <directionalLight position={[3, 2, 4]} intensity={2} color="#eceef2" />
           <pointLight position={[-3, 0.5, -2]} intensity={40} color={tint} />
           <Studio tint={tint} />
           <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.7} floatingRange={[-0.08, 0.08]}>

@@ -1,25 +1,25 @@
-// Chart tokens for the dark mission-control surface (#0b1222).
+// Chart tokens for the dark mission-control surface (#14161c).
 // Series slots validated with the dataviz palette checker (CVD ΔE ≥ 9.4, contrast ≥ 3:1).
 export const SERIES = {
-  blue: "#3987e5",
-  orange: "#d95926",
-  aqua: "#199e70",
+  blue: "#6f8cff",
+  orange: "#ff4a2b",
+  aqua: "#35d6a0",
 };
 
 export const CHART = {
-  surface: "#0b1222",
-  grid: "#1c2638",
-  axis: "#334155",
-  tick: "#8b95a7",
-  ink: "#e2e8f0",
-  inkSecondary: "#b6bfcc",
+  surface: "#14161c",
+  grid: "rgba(255, 255, 255, 0.08)",
+  axis: "rgba(255, 255, 255, 0.08)",
+  tick: "#8c919e",
+  ink: "#f4f5f7",
+  inkSecondary: "#8c919e",
 };
 
 // Status colours are reserved for state and always ship with an icon + label.
 export const STATUS = {
-  GREEN: { color: "#0ca30c", text: "text-emerald-300", bg: "bg-emerald-950/40", border: "border-emerald-500/40" },
-  AMBER: { color: "#fab219", text: "text-amber-300", bg: "bg-amber-950/40", border: "border-amber-500/40" },
-  RED: { color: "#d03b3b", text: "text-rose-300", bg: "bg-rose-950/40", border: "border-rose-500/40" },
+  GREEN: { color: "#35d6a0", text: "text-go", bg: "bg-go/12", border: "border-go/40" },
+  AMBER: { color: "#ffb23e", text: "text-warn", bg: "bg-warn/12", border: "border-warn/40" },
+  RED: { color: "#ff4d4f", text: "text-stop", bg: "bg-stop/12", border: "border-stop/40" },
 };
 
 export const METRICS = {

@@ -15,8 +15,8 @@ export default function BodyTwin({ bone = { score: 1, loss: 0 }, muscle = { scor
     <svg viewBox="-40 0 500 380" className="mx-auto w-full max-w-lg select-none" role="img" aria-label="Body twin: hip bone, leg muscle and heart fitness status">
       <defs>
         <linearGradient id="skin" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0" stopColor="#1e293b" />
-          <stop offset="1" stopColor="#0f172a" />
+          <stop offset="0" stopColor="#1b1e26" />
+          <stop offset="1" stopColor="#0b0c10" />
         </linearGradient>
         <filter id="soft">
           <feGaussianBlur stdDeviation="6" />
@@ -24,7 +24,7 @@ export default function BodyTwin({ bone = { score: 1, loss: 0 }, muscle = { scor
       </defs>
       <g transform="translate(210 14)">
         {/* body silhouette */}
-        <g fill="url(#skin)" stroke="rgba(255,255,255,.14)" strokeWidth="1.2">
+        <g fill="url(#skin)" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="1.2">
           <circle cx="0" cy="26" r="24" />
           <rect x="-12" y="46" width="24" height="16" rx="6" />
           <path d="M-46 66 Q-46 58 -34 58 H34 Q46 58 46 66 V150 Q46 168 30 170 H-30 Q-46 168 -46 150Z" />
@@ -55,7 +55,7 @@ export default function BodyTwin({ bone = { score: 1, loss: 0 }, muscle = { scor
           <path d="M0 9 C-14 -1 -10 -12 0 -5 C10 -12 14 -1 0 9Z" fill={cc} />
         </g>
         {/* callouts */}
-        <g fontSize="12" fontWeight="700" fill="#f1f5f9" fontFamily="var(--font-sans)">
+        <g fontSize="12" fontWeight="700" fill="#f4f5f7" fontFamily="var(--font-sans)">
           <path d="M26 98 H112 L132 78" fill="none" stroke={cc} strokeWidth="1.4" />
           <circle cx="26" cy="98" r="2.5" fill={cc} />
           <text x="138" y="76">Heart fitness</text>

@@ -41,10 +41,10 @@ export function planetTexture(kind, W = 512, H = 256) {
       if (kind === "mars") {
         c = mix([105, 40, 20], [222, 128, 70], n * 1.4 - 0.15);
         const maria = fbm(x * 1.4 + 9, y * 1.4, z * 1.4, 21, 4);
-        c = mix(c, [64, 28, 20], (maria - 0.52) * 4);
+        c = mix(c, [105, 40, 20], (maria - 0.52) * 4);
         const dust = fbm(x * 9, y * 9, z * 9, 40, 3);
-        c = mix(c, [236, 160, 100], (dust - 0.6) * 1.5);
-        c = mix(c, [245, 238, 232], (Math.abs(lat) - 1.38) * 14);
+        c = mix(c, [222, 128, 70], (dust - 0.6) * 1.5);
+        c = mix(c, [236, 238, 242], (Math.abs(lat) - 1.38) * 14);
       } else {
         const land = n > 0.53;
         if (land) {
@@ -70,9 +70,9 @@ export function planetTexture(kind, W = 512, H = 256) {
 /** Generates clean canvas sprite texture for 3D billboard labels (replaces DOM Drei Html) */
 export function createLabelTexture(
   text,
-  bgColor = "rgba(10, 14, 22, 0.85)",
+  bgColor = "rgba(20, 22, 28, 0.85)",
   textColor = "#ffffff",
-  borderColor = "rgba(255, 255, 255, 0.25)"
+  borderColor = "rgba(255, 255, 255, 0.08)"
 ) {
   if (typeof document === "undefined") return null;
   const cv = document.createElement("canvas");
