@@ -10,7 +10,7 @@ class HealthResponse(BaseModel):
     service: str
 
 
-@router.get("/health", response_model=HealthResponse)
+@router.api_route("/health", methods=["GET", "HEAD"], response_model=HealthResponse)
 def get_health() -> HealthResponse:
     """Return system operational status and service identifier."""
     return HealthResponse(

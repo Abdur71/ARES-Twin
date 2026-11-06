@@ -12,6 +12,12 @@ def test_health_check_status_code():
     assert response.status_code == 200
 
 
+def test_health_check_head_method():
+    """Verify that /api/health responds with HTTP 200 to HEAD requests (for uptime monitors)."""
+    response = client.head("/api/health")
+    assert response.status_code == 200
+
+
 def test_health_check_payload():
     """Verify that /api/health returns the exact specification contract."""
     response = client.get("/api/health")

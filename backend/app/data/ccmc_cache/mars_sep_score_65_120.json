@@ -1,10 +1,10 @@
 {
- "fetched_at": "2026-11-05T06:50:59.993933+00:00",
+ "fetched_at": "2026-11-06T05:25:20.826355+00:00",
  "source": "https://sep.ccmc.gsfc.nasa.gov/mars_intensity",
  "data": {
   "service": "CCMC Mars SEP Scoreboard",
   "url": "https://sep.ccmc.gsfc.nasa.gov/mars_intensity",
-  "updated_at": "2026-11-05T06:50:59.993933+00:00",
+  "updated_at": "2026-11-06T05:25:20.826237+00:00",
   "ensemble_models": [
    {
     "model": "M-NUMERICS",
